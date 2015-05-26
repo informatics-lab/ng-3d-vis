@@ -5,7 +5,7 @@ angular.module('ngWebglDemo')
       controller: shapeController,
       controllerAs: 'vm',
       link: function postLink(scope, element, attrs) {
-        var geometry  = new THREE.SphereGeometry( 150, 10, 10 );
+        var geometry  = new THREE.SphereGeometry( 150, 200, 200 );
 
         var lambert = new THREE.MeshLambertMaterial({ 
           color: 0xffff00, 
@@ -63,7 +63,7 @@ angular.module('ngWebglDemo')
       controller: shapeController,
       controllerAs: 'vm',
       link: function postLink(scope, element, attrs) {
-        var geometry  = new THREE.TorusGeometry( 70, 30, 16, 100 );
+        var geometry  = new THREE.TorusGeometry( 70, 30, 160, 200 );
 
         var lambert = new THREE.MeshLambertMaterial({ 
           color: 0x006600, 
