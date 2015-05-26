@@ -6,7 +6,7 @@ angular.module('ngWebglDemo', [])
 
     $scope.canvasWidth = 400;
     $scope.canvasHeight = 400;
-    $scope.dofillcontainer = true;
+    $scope.dofillcontainer = false;
     $scope.scale = 1;
     $scope.materialType = 'lambert';
 

@@ -56,15 +56,22 @@
 
       <div class="twelve columns add-bottom">
         
-        <div 
+        <!--<div 
           id="webglContainer" 
           ng-webgl
           width="canvasWidth"
           height="canvasHeight"
           fillcontainer="dofillcontainer"
-          scale="scale"
-          material-type="materialType"
-        ></div>
+        ></div>-->
+        <ng-webgl
+          id="webglContainer"
+          width="canvasWidth"
+          height="canvasHeight"
+          fillcontainer="dofillcontainer"
+          gl-sphere
+          gl-box
+          gl-circle
+        ></ng-webgl>
 
       </div>
 
@@ -98,11 +105,13 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="libs/angular.min.js"></script>
-    <script src="libs/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
 
     <!-- scripts/scripts.js -->
       <script src="app.js"></script>
       <script src="ngWebgl.js"></script>
+      <script src="glShape.js"></script>
+      <script src="glSceneService.js"></script>
     <!-- endbuild -->
 
 </body>
