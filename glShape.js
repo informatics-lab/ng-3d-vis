@@ -50,19 +50,20 @@ angular.module('ngWebglDemo')
         var box = new THREE.Mesh( geometry, lambert );
         box.position.x = 250;
         box.rotation.x = 0.5;
+        box.rotation.y = -0.2;
         scope.vm.addSomething(box);
       }
     };
   });
 
   angular.module('ngWebglDemo')
-  .directive('glCircle', function() {
+  .directive('glTorus', function() {
     return {
       restrict: 'A',
       controller: shapeController,
       controllerAs: 'vm',
       link: function postLink(scope, element, attrs) {
-        var geometry  = new THREE.CircleGeometry( 30, 20 );
+        var geometry  = new THREE.TorusGeometry( 70, 30, 16, 100 );
 
         var lambert = new THREE.MeshLambertMaterial({ 
           color: 0x006600, 
@@ -71,9 +72,11 @@ angular.module('ngWebglDemo')
         });
 
         // Build and add the icosahedron to the scene
-        var circle = new THREE.Mesh( geometry, lambert );
-        circle.position.y = 250;
-        scope.vm.addSomething(circle);
+        var torus = new THREE.Mesh( geometry, lambert );
+        torus.position.x = -200;
+        torus.position.y = 200;
+        torus.rotation.x = 20;
+        scope.vm.addSomething(torus);
       }
     };
   });
