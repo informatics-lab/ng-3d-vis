@@ -13,4 +13,9 @@ angular.module('ngWebglDemo')
 			this.scene.add(thing);
 		}
 		this.addSomething = addSomething;
+
+		function removeSomething(thing) {
+			this.scene.remove(thing);
+		}
+		this.removeSomething = removeSomething;
 	});

@@ -143,11 +143,14 @@ function webglPostLink(scope, element, attrs) {
     scope.animate();
 };
 
-function webglController(glSceneService) {
+function webglController($scope, glSceneService) {
   var vm = this;
 
   vm.sceneService = glSceneService;
   vm.addSomething = function (thing) {
     vm.sceneService.addSomething(thing);
+  }
+  vm.removeSomething = function (thing) {
+    vm.sceneService.removeSomething(thing);
   }
 }
