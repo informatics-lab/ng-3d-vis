@@ -1,10 +1,9 @@
 angular.module('ngWebglDemo')
   .directive('glSphere', function() {
     return {
-      restrict: 'A',
-      controller: shapeController,
-      controllerAs: 'vm',
-      link: function postLink(scope, element, attrs) {
+      restrict: 'E',
+      require: "^ngWebgl",
+      link: function postLink(scope, element, attrs, parentCtrl) {
         var geometry  = new THREE.SphereGeometry( 150, 200, 200 );
 
         var lambert = new THREE.MeshLambertMaterial({ 
@@ -17,27 +16,17 @@ angular.module('ngWebglDemo')
         var sphere = new THREE.Mesh( geometry, lambert );
         sphere.position.x = 0;
         sphere.rotation.x = 0;
-        scope.vm.addSomething(sphere);
+        parentCtrl.addSomething(sphere);
       }
     };
   });
 
-function shapeController(glSceneService) {
-  var vm = this;
-
-  vm.sceneService = glSceneService;
-  vm.addSomething = function (thing) {
-    vm.sceneService.addSomething(thing);
-  }
-}
-
 angular.module('ngWebglDemo')
   .directive('glBox', function() {
     return {
-      restrict: 'A',
-      controller: shapeController,
-      controllerAs: 'vm',
-      link: function postLink(scope, element, attrs) {
+      restrict: 'E',
+      require: "^ngWebgl",
+      link: function postLink(scope, element, attrs, parentCtrl) {
         var geometry  = new THREE.BoxGeometry( 100, 100, 100 );
 
         var lambert = new THREE.MeshLambertMaterial({ 
@@ -51,7 +40,7 @@ angular.module('ngWebglDemo')
         box.position.x = 250;
         box.rotation.x = 0.5;
         box.rotation.y = -0.2;
-        scope.vm.addSomething(box);
+        parentCtrl.addSomething(box);
       }
     };
   });
@@ -59,10 +48,9 @@ angular.module('ngWebglDemo')
   angular.module('ngWebglDemo')
   .directive('glTorus', function() {
     return {
-      restrict: 'A',
-      controller: shapeController,
-      controllerAs: 'vm',
-      link: function postLink(scope, element, attrs) {
+      restrict: 'E',
+      require: "^ngWebgl",
+      link: function postLink(scope, element, attrs, parentCtrl) {
         var geometry  = new THREE.TorusGeometry( 70, 30, 160, 200 );
 
         var lambert = new THREE.MeshLambertMaterial({ 
@@ -76,7 +64,7 @@ angular.module('ngWebglDemo')
         torus.position.x = -200;
         torus.position.y = 200;
         torus.rotation.x = 20;
-        scope.vm.addSomething(torus);
+        parentCtrl.addSomething(torus);
       }
     };
   });
