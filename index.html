@@ -44,13 +44,6 @@
 
       <div class="twelve columns add-bottom">
         
-        <!--<div 
-          id="webglContainer" 
-          ng-webgl
-          width="canvasWidth"
-          height="canvasHeight"
-          fillcontainer="dofillcontainer"
-        ></div>-->
         <ng-webgl
           id="webglContainer"
           width="canvasWidth"
@@ -97,45 +90,47 @@
           ng-model="sphereService.rotz" class="add-bottom" />
       </div>
 
-<!--       <div class="four columns add-bottom">
-
-        <label for="scale">Scale Object</label>
-        <input type="range" name="scale" min="0.1" max="1.2" step="0.1" ng-model="scale" class="add-bottom">
-
-        <label for="canvasWidth">Canvas Width</label>
-        <input type="text" id="canvasWidth" ng-model="canvasWidth" ng-disabled="dofillcontainer">
-
-        <label for="canvasHeight">Canvas Height</label>
-        <input type="text" id="canvasHeight" ng-model="canvasHeight" ng-disabled="dofillcontainer">
-
-        <label for="materialsList">Material Type</label>
-          <select id="materialsList" ng-model="materialType">
-            <option value="lambert">Lambert</option>
-            <option value="phong">Phong</option>
-            <option value="wireframe">Wire Frame</option>
-          </select>
-
-        <label for="dofillcontainer">
-          <input type="checkbox" id="dofillcontainer" ng-model="dofillcontainer"/>
-          <span>Responsive Canvas</span>
-        </label>
-
-      </div> -->
-
-    </div><!-- END CONTAINER -->
+    </div>
 
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="libs/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
+    <!--<script src="libs/three.js"></script>-->
 
     <!-- scripts/scripts.js -->
       <script src="app.js"></script>
-      <script src="ngWebgl.js"></script>
-      <script src="glSphereModelService.js"></script>
-      <script src="glShape.js"></script>
-      <script src="glSceneService.js"></script>
+      <script src="components/ngWebgl.js"></script>
+      <script src="components/scene_objects/sphere/glSphereModelService.js"></script>
+      <script src="components/scene_objects/sphere/glSphere.js"></script>
+      <script src="components/scene_objects/box/glBox.js"></script>
+      <script src="components/scene_objects/torus/glTorus.js"></script>
+      <script src="components/glSceneService.js"></script>
     <!-- endbuild -->
+
+    <!-- first pass shaders -->
+
+      <script id="vertexShaderBackFace" type="x-shader/x-vertex">
+          varying vec3 worldSpaceCoords;
+
+          vec3 toLocal(vec3 p) {
+            return p + vec3(0.5);
+        }
+
+          void main(){
+              //Set the world space coordinates of the back faces vertices as output.
+              worldSpaceCoords = toLocal(position); //move it from [-0.5;0.5] to [0,1]
+              gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+          }
+      </script>
+
+      <script id="fragmentShaderBackFace" type="x-shader/x-fragment">
+          varying vec3 worldSpaceCoords;
+          void main(){
+              //The fragment's world space coordinates as fragment output.
+              gl_FragColor = vec4( worldSpaceCoords.x , worldSpaceCoords.y, worldSpaceCoords.z, 1 );
+          }
+      </script>
 
 </body>
 </html>

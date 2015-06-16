@@ -127,6 +127,8 @@ function webglPostLink(scope, element, attrs) {
 
       renderer.render( scene, camera );
 
+      scope.vm.broadcastRender();
+
     };
 
     // -----------------------------------
@@ -143,7 +145,7 @@ function webglPostLink(scope, element, attrs) {
     scope.animate();
 };
 
-function webglController($scope, glSceneService) {
+function webglController($scope, $rootScope, glSceneService) {
   var vm = this;
 
   vm.sceneService = glSceneService;
@@ -152,5 +154,8 @@ function webglController($scope, glSceneService) {
   }
   vm.removeSomething = function (thing) {
     vm.sceneService.removeSomething(thing);
+  }
+  vm.broadcastRender = function() {
+    $rootScope.$broadcast('render');
   }
 }
