@@ -42,18 +42,23 @@ function webglPostLink(scope, element, attrs) {
       // Camera
       camera = new THREE.PerspectiveCamera( 20, contW / contH, 1, 10000 );
       camera.position.z = 1800;
+      scope.vm.camera = camera;
 
       // Scene
-      // scene = new THREE.Scene();
-      // scope.scene = scene;
-      // scope.vm.sceneService.setScene(scene);
       scene = scope.vm.sceneService.scene;
+      scope.vm.scene = scene;
 
       // Lighting
       light = new THREE.DirectionalLight( 0xffffff );
       light.position.set( 0, 0, 1 );
-      //scene.add( light );
       scope.vm.sceneService.addSomething(light);
+
+      var lightColor = 0xFFFFFF;
+      var dirLightIntensity = 3;
+      var dirLight = new THREE.DirectionalLight(lightColor, dirLightIntensity);
+      dirLight.position.set(0.0, 20.0, 0.0);
+      scope.vm.dirLight = dirLight;
+      //scope.vm.sceneService.addSomething(dirLight);
 
       // Shadow
       var canvas = document.createElement( 'canvas' );
@@ -61,8 +66,9 @@ function webglPostLink(scope, element, attrs) {
       canvas.height = 128;
 
       renderer = new THREE.WebGLRenderer( { antialias: true } );
-      renderer.setClearColor( 0xffffff );
+      renderer.setClearColor( 0xeeeeff );
       renderer.setSize( contW, contH );
+      scope.vm.renderer = renderer;
 
       // element is provided by the angular directive
       element[0].appendChild( renderer.domElement );
@@ -147,8 +153,13 @@ function webglPostLink(scope, element, attrs) {
 
 function webglController($scope, $rootScope, glSceneService) {
   var vm = this;
+  vm.dirLight = null;
+  //vm.ambientLight = null;
+  vm.renderer = null;
+  vm.camera = null;
 
   vm.sceneService = glSceneService;
+
   vm.addSomething = function (thing) {
     vm.sceneService.addSomething(thing);
   }

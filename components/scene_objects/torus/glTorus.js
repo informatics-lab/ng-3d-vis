@@ -23,23 +23,6 @@ angular.module('ngWebglDemo')
           parentCtrl.addSomething(torus);
         }
 
-        function undraw() {
-          parentCtrl.removeSomething(scope.torus);
-        }
-
-        function changeColour() {
-          colour = (colour == 0x006600 ? 0x660000 : 0x006600);
-        }
-
-        scope.$on('render', function() {
-          // torus changes colour and is redrawn on every 
-          // render call - slows things down a lot
-
-          // changeColour();
-          // undraw();
-          // draw();
-        })
-
         var colour = 0x006600;
         draw();
       }

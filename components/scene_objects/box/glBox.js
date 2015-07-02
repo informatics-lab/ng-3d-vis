@@ -5,6 +5,7 @@ angular.module('ngWebglDemo')
       require: "^ngWebgl",
       controller: boxController,
       controllerAs: 'vm',
+      scope: {},
       link: function postLink(scope, element, attrs, parentCtrl) {
         function drawBox() {
             var geometry  = new THREE.BoxGeometry( 100, 100, 100 );
@@ -23,7 +24,7 @@ angular.module('ngWebglDemo')
         }
         
         scope.vm.shaderService.loadShaders();
-        scope.$on('shadersLoaded', function(){
+        scope.$on('boxShadersLoaded', function(){
           scope.vm.setShaders();
           drawBox();
         })

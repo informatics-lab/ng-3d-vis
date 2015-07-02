@@ -35,7 +35,7 @@ angular.module('ngWebglDemo')
 
     function conditionalBroadcast() {
       if (vm.vertexLoaded && vm.fragmentLoaded) {
-        $rootScope.$broadcast('shadersLoaded');
+        $rootScope.$broadcast('boxShadersLoaded');
         vm.vertexLoaded = false;
         vm.fragmentLoaded = false;
       }
