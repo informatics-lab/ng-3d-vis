@@ -1,0 +1,258 @@
+varying vec3 worldSpaceCoords;
+varying vec4 projectedCoords;
+
+uniform sampler2D backFaceTexture, dataTexture;//i.e. tex and cubeTex
+uniform vec3 lightPosition;
+uniform vec3 lightColor;
+uniform float lightIntensity;
+uniform float steps;
+uniform float shadeSteps;
+uniform float alphaCorrection;
+uniform float ambience;
+
+uniform vec3 dataShape;
+uniform vec2 texShape;
+
+struct Light {
+    vec3 position;
+    vec3 color;
+    float intensity;
+};
+
+Light light = Light(lightPosition,
+                    lightColor,
+                    lightIntensity);
+
+const int MAX_STEPS = 64;
+const int MAX_SHADE_STEPS = 16;
+
+vec3 toLocal(vec3 p) {
+    // changes from clip coords (-0.5 -> 0.5) to local coords(0->1)
+    return p + vec3(0.5);
+}
+
+vec3 getDatumColor(float datum) {
+    vec3 color = vec3(1, 1, 1);
+    if (datum == 9999.9999){ // for debugging
+        color = vec3(1, 0, 0);
+    }
+    return color;
+}
+
+float getDatumAlpha(float datum) {
+    return datum * alphaCorrection;
+}
+
+float safeFloor(float val) {
+    return floor(val + 0.01);
+}
+
+float getDatum(sampler2D tex, vec3 pos, vec3 dataShape, vec2 nTiles, float tilesPerLayer, vec2 tileDim, float thisTileN){
+    float zTile = safeFloor(thisTileN/tilesPerLayer);
+    float yTile = floor((thisTileN - (zTile * tilesPerLayer)) / nTiles.x);
+    float xTile = mod((thisTileN - (zTile * tilesPerLayer)), nTiles.x);
+    
+    vec2 thisPoint = vec2(xTile+pos.x, yTile+pos.z) * tileDim;
+
+    vec4 datumRGB = texture2D(tex, thisPoint);
+    float datum;
+    if (zTile == 0.0){
+        datum = datumRGB.r;
+    }else if (zTile == 1.0){
+        datum = datumRGB.g;
+    }
+    else if (zTile == 2.0){
+        datum = datumRGB.b;
+    }
+    
+    return datum;
+}
+
+float sampleAs3DTexture(sampler2D tex, vec3 pos, vec3 dataShape, vec2 texShape) {
+    /* 
+    A function to reference a 2D RGBA texture which contains tiles 3D array data.
+
+    Tiling goes column, row, channel
+
+    Args:
+        * tex: texture of tiled data
+        * pos: position of the datum
+        * dataShape: the x,y,z shape of the data which has been tiled
+        * texShape: the x,y dims of the tiles texture
+    */
+    if(any(greaterThan(pos, vec3(1.0))) || any(lessThan(pos, vec3(0.0))))
+        return 0.0;
+    
+    vec2 fracNTiles = texShape.xy / dataShape.xy;
+    vec2 nTiles = vec2(floor(fracNTiles.x), floor(fracNTiles.y));
+    float tilesPerLayer = nTiles.x * nTiles.y;
+    vec2 tileDim = vec2(1.0, 1.0) / fracNTiles;
+    float thisTileN = floor((dataShape.z-1.0) * pos.y);
+    float thisTileNp1 = min(thisTileN+1.0, dataShape.z);
+
+    float datumN = getDatum(tex, pos, dataShape, nTiles, tilesPerLayer, tileDim, thisTileN);
+    float datumNp1 = getDatum(tex, pos, dataShape, nTiles, tilesPerLayer, tileDim, thisTileNp1);
+
+    float zDiff = mod((dataShape.z-1.0) * pos.y, 1.0);
+
+    float d = ((1.0 - zDiff) * datumN) + (zDiff * datumNp1);
+
+    return d;
+}
+
+vec4 getDataRGBAfromDatum(float datum){
+    vec3 color = getDatumColor(datum);
+    float alpha = getDatumAlpha(datum);
+
+    return vec4(color.xyz, alpha);
+}
+
+vec4 getLightPathRGBAfromDatum(float datum){
+    return vec4(datum);
+}
+
+vec4 getDataRGBA(sampler2D tex, vec3 currentPosition, vec3 dataShape, vec2 texShape) {
+    float datum = sampleAs3DTexture(tex, currentPosition, dataShape, texShape);
+    vec4 dataRGBA = getDataRGBAfromDatum(datum);
+    return dataRGBA;
+}
+
+vec4 castShadows(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
+    /* Calculates the total RGBA values of a given path through a texture */
+    //The direction from the front position to back position.
+    vec3 dir = endPos - startPos;
+
+    float rayLength = length(dir);
+
+    //Calculate how long to increment in each step.
+    float delta = 1.0 / steps;
+    //The increment in each direction for each step.
+    vec3 deltaDirection = normalize(dir) * delta;
+    float deltaDirectionLength = length(deltaDirection);
+    vec3 currentPosition = startPos;
+    //The color accumulator.
+    vec3 accumulatedColor = vec3(0.0);
+
+    //The alpha value accumulated so far.
+    float accumulatedAlpha = 0.0;
+
+    //How long has the ray travelled so far.
+    float accumulatedLength = 0.0;
+
+    //vec4 dataSample;
+    vec4 dataSample;
+    float alphaSample;
+    //Perform the ray marching iterations
+    for(int i = 0; i < MAX_SHADE_STEPS; i++){
+        //Get the voxel intensity value from the 3D texture.    
+        dataSample = getDataRGBA(tex, currentPosition, dataShape, texShape);
+        //Perform the composition.
+        accumulatedColor += (1.0 - accumulatedAlpha) * dataSample.xyz * dataSample.a;
+        //accumulatedColor += dataSample;
+        //Store the alpha accumulated so far.
+        accumulatedAlpha += (1.0 - accumulatedAlpha) * dataSample.a;
+        //accumulatedAlpha += dataSample.a;
+    
+        //Advance the ray.
+        currentPosition += deltaDirection;
+        accumulatedLength += deltaDirectionLength;
+                  
+        //If the length traversed is more than the ray length, or if the alpha accumulated reaches 1.0 then exit.
+        if(accumulatedLength >= rayLength || accumulatedAlpha >= 1.0 - ambience ){
+            break;
+        }
+    }
+    if (accumulatedAlpha >= 1.0) {
+        accumulatedAlpha = 1.0;
+    }
+    return vec4(accumulatedColor.r, accumulatedColor.g, accumulatedColor.b, accumulatedAlpha);
+}
+
+vec4 getLightPathRGBA(vec3 currentPosition, vec3 lightPosition, float steps, sampler2D tex) {
+    vec4 lightPathRGBA = castShadows(currentPosition, lightPosition, steps, tex);
+    return lightPathRGBA;
+}
+
+vec4 getPathRGBA(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
+    /* Calculates the total RGBA values of a given path through a texture */
+
+    //The direction from the front position to back position.
+    vec3 dir = endPos - startPos;
+
+    float rayLength = length(dir);
+
+    //Calculate how long to increment in each step.
+    float delta = 1.0 / steps;
+
+    //The increment in each direction for each step.
+    vec3 deltaDirection = normalize(dir) * delta;
+    float deltaDirectionLength = length(deltaDirection);
+
+    vec3 currentPosition = startPos;
+
+    //The color accumulator.
+    vec3 accumulatedColor = vec3(0.0);
+
+    //The alpha value accumulated so far.
+    float accumulatedAlpha = 0.0;
+
+    //How long has the ray travelled so far.
+    float accumulatedLength = 0.0;
+
+    //vec4 dataSample;
+    vec4 dataRGBA;
+    vec4 lightPathRGBA;
+    vec4 lightRayRGBA;
+    vec3 apparentRGB;
+
+    //Perform the ray marching iterations
+    for(int i = 0; i < MAX_STEPS; i++){
+        //Get the voxel intensity value from the 3D texture.
+        dataRGBA = getDataRGBA(tex, currentPosition, dataShape, texShape);
+        //lightPathRGBA = getLightPathRGBA(lightTexture, currentPosition, dataShape, texShape);
+        lightPathRGBA = getLightPathRGBA(currentPosition, light.position, shadeSteps, tex);
+
+
+        lightRayRGBA = (vec4(1.0) - lightPathRGBA);// * vec4(1.0, 1.0, 1.0, 3.0);
+
+        apparentRGB = (1.0 - accumulatedAlpha) * dataRGBA.rgb * lightRayRGBA.rgb * dataRGBA.a * lightRayRGBA.a * 1.5;
+
+        //Perform the composition.
+        accumulatedColor += apparentRGB;
+        //Store the alpha accumulated so far.
+        accumulatedAlpha += pow((1.0 - accumulatedAlpha), 0.5) * dataRGBA.a;
+        //accumulatedAlpha += dataRGBA.a;
+
+        //Adva      nce the ray.
+        currentPosition += deltaDirection;
+        accumulatedLength += deltaDirectionLength;
+                  
+        //If the length traversed is more than the ray length, or if the alpha accumulated reaches 1.0 then exit.
+        if(accumulatedLength >= rayLength || accumulatedAlpha >= 1.0 ){
+            break;
+        }
+    }
+    if (accumulatedAlpha < 1.0) {
+        accumulatedColor *= (1.0 / accumulatedAlpha);
+    }
+
+    return vec4(accumulatedColor.xyz, accumulatedAlpha);
+}
+
+
+// max 2d size is 4096 x 4096
+
+void main( void ) {
+    //Transform the coordinates it from [-1;1] to [0;1]
+    vec2 backFaceTexCoord = vec2(((projectedCoords.x / projectedCoords.w) + 1.0 ) / 2.0,
+                    ((projectedCoords.y / projectedCoords.w) + 1.0 ) / 2.0 );
+
+    //The back position is the world space position stored in the texture.
+    vec3 backPos = texture2D(backFaceTexture, backFaceTexCoord).xyz;
+
+    //The front position is the world space position of the second render pass.
+    vec3 frontPos = worldSpaceCoords;
+
+    // cast ray from front position in direction of back position
+    gl_FragColor = getPathRGBA(frontPos, backPos, steps, dataTexture);
+}

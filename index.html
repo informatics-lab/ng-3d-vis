@@ -44,13 +44,6 @@
 
       <div class="twelve columns add-bottom">
         
-        <!--<div 
-          id="webglContainer" 
-          ng-webgl
-          width="canvasWidth"
-          height="canvasHeight"
-          fillcontainer="dofillcontainer"
-        ></div>-->
         <ng-webgl
           id="webglContainer"
           width="canvasWidth"
@@ -65,9 +58,15 @@
           />
           <gl-box/>
           <gl-torus/>
+          <gl-skybox/>
         </ng-webgl>
 
       </div>
+
+      <gl-video
+        url="'http://ec2-52-16-246-202.eu-west-1.compute.amazonaws.com:9000/molab-3dwx-ds/media/55896829e4b0b14cba17273c'"
+        shrink-factor="1">
+      </gl-video>
 
       <div>
         <label for="scale">Scale</label>
@@ -83,7 +82,7 @@
         <label for="posx">Position</label>
         <input type="range" name="posx" min="10" max="200" step="10"
           ng-model="sphereService.posx" class="add-bottom" />
-        <input type="range" name="posy" min="10" max="200" step="10"
+        <input type="range" name="posy" min="-200" max="200" step="10"
           ng-model="sphereService.posy" class="add-bottom" />
         <input type="range" name="posz" min="10" max="200" step="10"
           ng-model="sphereService.posz" class="add-bottom" />
@@ -97,44 +96,28 @@
           ng-model="sphereService.rotz" class="add-bottom" />
       </div>
 
-<!--       <div class="four columns add-bottom">
-
-        <label for="scale">Scale Object</label>
-        <input type="range" name="scale" min="0.1" max="1.2" step="0.1" ng-model="scale" class="add-bottom">
-
-        <label for="canvasWidth">Canvas Width</label>
-        <input type="text" id="canvasWidth" ng-model="canvasWidth" ng-disabled="dofillcontainer">
-
-        <label for="canvasHeight">Canvas Height</label>
-        <input type="text" id="canvasHeight" ng-model="canvasHeight" ng-disabled="dofillcontainer">
-
-        <label for="materialsList">Material Type</label>
-          <select id="materialsList" ng-model="materialType">
-            <option value="lambert">Lambert</option>
-            <option value="phong">Phong</option>
-            <option value="wireframe">Wire Frame</option>
-          </select>
-
-        <label for="dofillcontainer">
-          <input type="checkbox" id="dofillcontainer" ng-model="dofillcontainer"/>
-          <span>Responsive Canvas</span>
-        </label>
-
-      </div> -->
-
-    </div><!-- END CONTAINER -->
+    </div>
 
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="libs/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
+    <!--<script src="libs/three.js"></script>-->
 
     <!-- scripts/scripts.js -->
       <script src="app.js"></script>
-      <script src="ngWebgl.js"></script>
-      <script src="glSphereModelService.js"></script>
-      <script src="glShape.js"></script>
-      <script src="glSceneService.js"></script>
+      <script src="components/ngWebgl.js"></script>
+      <script src="components/scene_objects/sphere/glSphereModelService.js"></script>
+      <script src="components/scene_objects/sphere/glSphere.js"></script>
+      <script src="components/scene_objects/box/glBoxShaderRequestService.js"></script>
+      <script src="components/scene_objects/box/glBox.js"></script>
+      <script src="components/scene_objects/torus/glTorus.js"></script>
+      <script src="components/scene_objects/skybox/video/glVideoDataModelService.js"></script>
+      <script src="components/scene_objects/skybox/video/glVideo.js"></script>
+      <script src="components/scene_objects/skybox/glShaderRequestService.js"></script>
+      <script src="components/scene_objects/skybox/glSkybox.js"></script>
+      <script src="components/scene_objects/skybox/glSkyboxParameterService.js"></script>
+      <script src="components/glSceneService.js"></script>
     <!-- endbuild -->
 
 </body>
