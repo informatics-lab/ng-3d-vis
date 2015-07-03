@@ -50,14 +50,6 @@
           height="canvasHeight"
           fillcontainer="dofillcontainer"
         >
-          <gl-sphere
-            radius="sphereService.radius"
-            res="[sphereService.resx, sphereService.resy]"
-            pos="[sphereService.posx, sphereService.posy, sphereService.posz]"
-            rot="[sphereService.rotx, sphereService.roty, sphereService.rotz]"
-          />
-          <gl-box/>
-          <gl-torus/>
           <gl-skybox/>
         </ng-webgl>
 
@@ -68,34 +60,6 @@
         shrink-factor="1">
       </gl-video>
 
-      <div>
-        <label for="scale">Scale</label>
-        <input type="range" name="scale" min="10" max="200" step="10"
-          ng-model="sphereService.radius" class="add-bottom" />
-
-        <label for="resx">Resolution</label>
-        <input type="range" name="resx" min="10" max="200" step="10"
-          ng-model="sphereService.resx" class="add-bottom" />
-        <input type="range" name="resy" min="10" max="200" step="10"
-          ng-model="sphereService.resy" class="add-bottom" />
-
-        <label for="posx">Position</label>
-        <input type="range" name="posx" min="10" max="200" step="10"
-          ng-model="sphereService.posx" class="add-bottom" />
-        <input type="range" name="posy" min="-200" max="200" step="10"
-          ng-model="sphereService.posy" class="add-bottom" />
-        <input type="range" name="posz" min="10" max="200" step="10"
-          ng-model="sphereService.posz" class="add-bottom" />
-
-          <label for="rotx">Rotation</label>
-        <input type="range" name="rotx" min="10" max="200" step="10"
-          ng-model="sphereService.rotx" class="add-bottom" />
-        <input type="range" name="roty" min="10" max="200" step="10"
-          ng-model="sphereService.roty" class="add-bottom" />
-        <input type="range" name="rotz" min="10" max="200" step="10"
-          ng-model="sphereService.rotz" class="add-bottom" />
-      </div>
-
     </div>
 
 
@@ -105,13 +69,9 @@
     <!--<script src="libs/three.js"></script>-->
 
     <!-- scripts/scripts.js -->
+      <script src="bower_components/threejs-controls/src/OrbitControls.js"></script>
       <script src="app.js"></script>
       <script src="components/ngWebgl.js"></script>
-      <script src="components/scene_objects/sphere/glSphereModelService.js"></script>
-      <script src="components/scene_objects/sphere/glSphere.js"></script>
-      <script src="components/scene_objects/box/glBoxShaderRequestService.js"></script>
-      <script src="components/scene_objects/box/glBox.js"></script>
-      <script src="components/scene_objects/torus/glTorus.js"></script>
       <script src="components/scene_objects/skybox/video/glVideoDataModelService.js"></script>
       <script src="components/scene_objects/skybox/video/glVideo.js"></script>
       <script src="components/scene_objects/skybox/glShaderRequestService.js"></script>

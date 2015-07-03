@@ -25,6 +25,7 @@ function webglPreLink(scope, element, attrs) {
 }
 
 function webglPostLink(scope, element, attrs) {
+    var params = scope.vm.paramService;
 
     var camera, scene, renderer,
       shadowMesh, icosahedron, light,
@@ -35,13 +36,19 @@ function webglPostLink(scope, element, attrs) {
       windowHalfX = contW / 2,
       windowHalfY = contH / 2,
       materials = {};
+    scope.then = Date.now();
 
 
     scope.init = function () {
+      var dims = scope.vm.videoService.videoDims;
 
       // Camera
-      camera = new THREE.PerspectiveCamera( 20, contW / contH, 1, 10000 );
-      camera.position.z = 1800;
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+      camera.rotation.order = "YXZ";
+      camera.position.set(dims.datashape.x * params.CAMERA_STANDOFF,
+                          dims.datashape.z * params.CAMERA_STANDOFF * params.Z_SCALING * 1.1, // 1.1 fac to get rid of 
+                          dims.datashape.y * params.CAMERA_STANDOFF * 1.05); // geometrically perfect camera perspective
+      camera.lookAt(new THREE.Vector3(0, 0, 0));
       scope.vm.camera = camera;
 
       // Scene
@@ -49,16 +56,13 @@ function webglPostLink(scope, element, attrs) {
       scope.vm.scene = scene;
 
       // Lighting
-      light = new THREE.DirectionalLight( 0xffffff );
-      light.position.set( 0, 0, 1 );
-      scope.vm.sceneService.addSomething(light);
 
       var lightColor = 0xFFFFFF;
       var dirLightIntensity = 3;
       var dirLight = new THREE.DirectionalLight(lightColor, dirLightIntensity);
       dirLight.position.set(0.0, 20.0, 0.0);
       scope.vm.dirLight = dirLight;
-      //scope.vm.sceneService.addSomething(dirLight);
+      scope.vm.sceneService.addSomething(dirLight);
 
       // Shadow
       var canvas = document.createElement( 'canvas' );
@@ -73,7 +77,10 @@ function webglPostLink(scope, element, attrs) {
       // element is provided by the angular directive
       element[0].appendChild( renderer.domElement );
 
-      document.addEventListener( 'mousemove', scope.onDocumentMouseMove, false );
+      //document.addEventListener( 'mousemove', scope.onDocumentMouseMove, false );
+      // trackball controls
+      scope.vm.controls = new THREE.OrbitControls(camera) 
+      scope.vm.controls.zoomSpeed *= 1.0;
 
       window.addEventListener( 'resize', scope.onWindowResize, false );
 
@@ -85,13 +92,6 @@ function webglPostLink(scope, element, attrs) {
     scope.onWindowResize = function () {
 
       scope.resizeCanvas();
-
-    };
-
-    scope.onDocumentMouseMove = function ( event ) {
-
-      mouseX = ( event.clientX - windowHalfX );
-      mouseY = ( event.clientY - windowHalfY );
 
     };
 
@@ -120,16 +120,20 @@ function webglPostLink(scope, element, attrs) {
 
       requestAnimationFrame( scope.animate );
 
-      scope.render();
+      var now = Date.now();
+      var delta = now - scope.then;
+      if (delta > params.interval) {
+          scope.vm.controls.update(delta);
+          // update time stuffs
+          scope.then = now - (delta % params.interval);
+           
+          //update();
+          scope.render();
+      }
 
     };
 
     scope.render = function () {
-
-      camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-      // camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
-
-      camera.lookAt( scene.position );
 
       renderer.render( scene, camera );
 
@@ -146,12 +150,14 @@ function webglPostLink(scope, element, attrs) {
     
     });
 
-    // Begin
-    scope.init();
-    scope.animate();
+    scope.$on('videoLoaded', function() {
+      // Begin
+      scope.init();
+      scope.animate();
+    })
 };
 
-function webglController($scope, $rootScope, glSceneService) {
+function webglController($scope, $rootScope, glSceneService, glSkyboxParameterService, glVideoDataModelService) {
   var vm = this;
   vm.dirLight = null;
   //vm.ambientLight = null;
@@ -159,6 +165,8 @@ function webglController($scope, $rootScope, glSceneService) {
   vm.camera = null;
 
   vm.sceneService = glSceneService;
+  vm.paramService = glSkyboxParameterService;
+  vm.videoService = glVideoDataModelService;
 
   vm.addSomething = function (thing) {
     vm.sceneService.addSomething(thing);

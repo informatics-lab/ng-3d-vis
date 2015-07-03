@@ -2,14 +2,12 @@
 
 angular.module('ngWebglDemo', [])
 
-  .controller('AppCtrl', ['$scope', 'glSphereModelService', function ($scope, glSphereModelService) {
+  .controller('AppCtrl', ['$scope', function ($scope) {
 
-    $scope.canvasWidth = 400;
-    $scope.canvasHeight = 400;
+    $scope.canvasWidth = 1000;
+    $scope.canvasHeight = 600;
     $scope.dofillcontainer = false;
     $scope.scale = 1;
     $scope.materialType = 'lambert';
-
-    $scope.sphereService = glSphereModelService;
 
   }]);
