@@ -42,6 +42,12 @@ function postLink(scope, element, attrs, parentCtrl) {
 
       setDataTexType(params.mipMapTex); // set mip mapping on or off
 
+      /*************** add aquarium outline **/
+      var boxOutlineMesh = new THREE.Mesh( boxGeometry );
+      var boxOutLine = new THREE.BoxHelper( boxOutlineMesh );
+      boxOutLine.material.color.set( "#000033" );
+      parentCtrl.addSomething( boxOutLine );
+
       /*** first pass ***/
       var materialbackFace = new THREE.ShaderMaterial( {
           vertexShader: shaders.vertex_shader_back_face,
@@ -116,11 +122,7 @@ function postLink(scope, element, attrs, parentCtrl) {
 
       parentCtrl.addSomething(meshResampledRayMarch);
 
-      /*************** add aquarium outline **/
-      var boxOutlineMesh = new THREE.Mesh( boxGeometry );
-      var boxOutLine = new THREE.BoxHelper( boxOutlineMesh );
-      boxOutLine.material.color.set( "#000033" );
-      parentCtrl.addSomething( boxOutLine );
+      
       scope.vm.ready = true;
   }
 

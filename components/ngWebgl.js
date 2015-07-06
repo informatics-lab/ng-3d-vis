@@ -27,15 +27,11 @@ function webglPreLink(scope, element, attrs) {
 function webglPostLink(scope, element, attrs) {
     var params = scope.vm.paramService;
 
-    var camera, scene, renderer,
-      shadowMesh, icosahedron, light,
-      mouseX = 0, mouseY = 0,
-      contW = (scope.fillcontainer) ? 
-        element[0].clientWidth : scope.width,
-      contH = scope.height, 
-      windowHalfX = contW / 2,
-      windowHalfY = contH / 2,
-      materials = {};
+    var contW = (scope.fillcontainer) ? 
+        element[0].clientWidth : scope.width;
+    var contH = scope.height; 
+    var windowHalfX = contW / 2;
+    var windowHalfY = contH / 2;
     scope.then = Date.now();
 
 
@@ -43,7 +39,7 @@ function webglPostLink(scope, element, attrs) {
       var dims = scope.vm.videoService.videoDims;
 
       // Camera
-      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 10000);
+      var camera = new THREE.PerspectiveCamera(45, contW/contH, 0.01, 10000);
       camera.rotation.order = "YXZ";
       camera.position.set(dims.datashape.x * params.CAMERA_STANDOFF,
                           dims.datashape.z * params.CAMERA_STANDOFF * params.Z_SCALING * 1.1, // 1.1 fac to get rid of 
@@ -52,7 +48,7 @@ function webglPostLink(scope, element, attrs) {
       scope.vm.camera = camera;
 
       // Scene
-      scene = scope.vm.sceneService.scene;
+      var scene = scope.vm.sceneService.scene;
       scope.vm.scene = scene;
 
       // Lighting
@@ -69,7 +65,7 @@ function webglPostLink(scope, element, attrs) {
       canvas.width = 128;
       canvas.height = 128;
 
-      renderer = new THREE.WebGLRenderer( { antialias: true } );
+      var renderer = new THREE.WebGLRenderer( { antialias: true } );
       renderer.setClearColor( 0xeeeeff );
       renderer.setSize( contW, contH );
       scope.vm.renderer = renderer;
@@ -77,10 +73,11 @@ function webglPostLink(scope, element, attrs) {
       // element is provided by the angular directive
       element[0].appendChild( renderer.domElement );
 
-      //document.addEventListener( 'mousemove', scope.onDocumentMouseMove, false );
       // trackball controls
       scope.vm.controls = new THREE.OrbitControls(camera) 
       scope.vm.controls.zoomSpeed *= 1.0;
+      // scope.vm.controls.damping = 0.5;
+      //scope.vm.controls.addEventListener( 'change', scope.render );
 
       window.addEventListener( 'resize', scope.onWindowResize, false );
 
@@ -107,27 +104,29 @@ function webglPostLink(scope, element, attrs) {
       windowHalfX = contW / 2;
       windowHalfY = contH / 2;
 
-      camera.aspect = contW / contH;
-      camera.updateProjectionMatrix();
+      scope.vm.camera.aspect = contW / contH;
+      scope.vm.camera.updateProjectionMatrix();
 
-      renderer.setSize( contW, contH );
+      scope.vm.renderer.setSize( contW, contH );
 
     };
     // -----------------------------------
     // Draw and Animate
     // -----------------------------------
     scope.animate = function () {
+      scope.vm.broadcastRender();
 
       requestAnimationFrame( scope.animate );
 
       var now = Date.now();
       var delta = now - scope.then;
       if (delta > params.interval) {
-          scope.vm.controls.update(delta);
+          
           // update time stuffs
           scope.then = now - (delta % params.interval);
            
           //update();
+          // scope.vm.controls.update();
           scope.render();
       }
 
@@ -135,9 +134,9 @@ function webglPostLink(scope, element, attrs) {
 
     scope.render = function () {
 
-      renderer.render( scene, camera );
+      scope.vm.renderer.render( scope.vm.scene, scope.vm.camera );
 
-      scope.vm.broadcastRender();
+      //scope.vm.broadcastRender();
 
     };
 
