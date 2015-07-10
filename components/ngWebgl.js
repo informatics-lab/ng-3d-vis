@@ -38,14 +38,9 @@ function webglPostLink(scope, element, attrs) {
     scope.init = function () {
       var dims = scope.vm.videoService.videoDims;
 
-      // Camera
-      var camera = new THREE.PerspectiveCamera(45, contW/contH, 0.01, 10000);
-      camera.rotation.order = "YXZ";
-      camera.position.set(dims.datashape.x * params.CAMERA_STANDOFF,
-                          dims.datashape.z * params.CAMERA_STANDOFF * params.Z_SCALING * 1.1, // 1.1 fac to get rid of 
-                          dims.datashape.y * params.CAMERA_STANDOFF * 1.05); // geometrically perfect camera perspective
-      camera.lookAt(new THREE.Vector3(0, 0, 0));
-      scope.vm.camera = camera;
+      scope.vm.cameraService.setupCamera(
+        contW/contH, params.CAMERA_STANDOFF, params.Z_SCALING, dims.datashape
+      );
 
       // Scene
       var scene = scope.vm.sceneService.scene;
@@ -66,7 +61,7 @@ function webglPostLink(scope, element, attrs) {
       canvas.height = 128;
 
       var renderer = new THREE.WebGLRenderer( { antialias: true } );
-      renderer.setClearColor( 0xeeeeff );
+      renderer.setClearColor( "rgb(135, 206, 250)", 1 );
       renderer.setSize( contW, contH );
       scope.vm.renderer = renderer;
 
@@ -74,7 +69,7 @@ function webglPostLink(scope, element, attrs) {
       element[0].appendChild( renderer.domElement );
 
       // trackball controls
-      scope.vm.controls = new THREE.OrbitControls(camera) 
+      scope.vm.controls = new THREE.OrbitControls(scope.vm.cameraService.camera) 
       scope.vm.controls.zoomSpeed *= 1.0;
       // scope.vm.controls.damping = 0.5;
       //scope.vm.controls.addEventListener( 'change', scope.render );
@@ -104,10 +99,14 @@ function webglPostLink(scope, element, attrs) {
       windowHalfX = contW / 2;
       windowHalfY = contH / 2;
 
-      scope.vm.camera.aspect = contW / contH;
-      scope.vm.camera.updateProjectionMatrix();
+      if (scope.vm.cameraService.camera) {
+        scope.vm.cameraService.camera.aspect = contW / contH;
+        scope.vm.cameraService.camera.updateProjectionMatrix();
+      }
 
-      scope.vm.renderer.setSize( contW, contH );
+      if (scope.vm.renderer) {
+        scope.vm.renderer.setSize( contW, contH );
+      }
 
     };
     // -----------------------------------
@@ -134,7 +133,7 @@ function webglPostLink(scope, element, attrs) {
 
     scope.render = function () {
 
-      scope.vm.renderer.render( scope.vm.scene, scope.vm.camera );
+      scope.vm.renderer.render( scope.vm.scene, scope.vm.cameraService.camera );
 
       //scope.vm.broadcastRender();
 
@@ -156,16 +155,16 @@ function webglPostLink(scope, element, attrs) {
     })
 };
 
-function webglController($scope, $rootScope, glSceneService, glSkyboxParameterService, glVideoDataModelService) {
+function webglController($scope, $rootScope, glSceneService, glSkyboxParameterService, glVideoDataModelService, glCameraModelService) {
   var vm = this;
   vm.dirLight = null;
   //vm.ambientLight = null;
   vm.renderer = null;
-  vm.camera = null;
 
   vm.sceneService = glSceneService;
   vm.paramService = glSkyboxParameterService;
   vm.videoService = glVideoDataModelService;
+  vm.cameraService = glCameraModelService;
 
   vm.addSomething = function (thing) {
     vm.sceneService.addSomething(thing);

@@ -33,14 +33,6 @@
     <!-- application content -->
     <div class="container" ng-controller="AppCtrl">
       
-      <!-- HEADER -->
-      <div class="sixteen columns add-bottom">
-        <div class="navbar">
-          <h1>AngularJS WebGL Directive</h1>
-        </div>
-        <hr />
-      </div>
-      <!-- END HEADER -->
 
       <div class="twelve columns add-bottom">
         
@@ -50,8 +42,8 @@
           height="canvasHeight"
           fillcontainer="dofillcontainer"
         >
-          <gl-skybox/>
-          <gl-torus/>
+          <gl-macro></gl-macro>
+          <gl-skybox></gl-skybox>
         </ng-webgl>
 
       </div>
@@ -73,6 +65,8 @@
       <script src="bower_components/threejs-controls/src/OrbitControls.js"></script>
       <script src="app.js"></script>
       <script src="components/ngWebgl.js"></script>
+      <script src="components/camera/glCameraModelService.js"></script>
+      <script src="components/camera/glMacro.js"></script>
       <script src="components/scene_objects/skybox/video/glVideoDataModelService.js"></script>
       <script src="components/scene_objects/skybox/video/glVideo.js"></script>
       <script src="components/scene_objects/torus/glTorus.js"></script>

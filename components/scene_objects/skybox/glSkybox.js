@@ -152,8 +152,8 @@ function postLink(scope, element, attrs, parentCtrl) {
   scope.$on('render', function() {
     if (scope.vm.ready) {
       //scope.vm.dataTexture.needsUpdate = true;
-      parentCtrl.renderer.render( scope.vm.sceneBackFace, parentCtrl.camera, scope.vm.backFaceTexture, true);
-      parentCtrl.renderer.render( scope.vm.sceneRayMarch, parentCtrl.camera, scope.vm.rayMarchTexture, true );
+      parentCtrl.renderer.render( scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
+      parentCtrl.renderer.render( scope.vm.sceneRayMarch, parentCtrl.cameraService.camera, scope.vm.rayMarchTexture, true );
     }
   })
   scope.$on('videoUpdate', function() {
