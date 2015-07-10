@@ -6,8 +6,7 @@ angular.module('ngWebglDemo')
       restrict: 'E',
       scope: { 
         'width': '=',
-        'height': '=',
-        'fillcontainer': '='
+        'height': '='
       },
       controller: webglController,
       controllerAs: 'vm',
@@ -27,8 +26,7 @@ function webglPreLink(scope, element, attrs) {
 function webglPostLink(scope, element, attrs) {
     var params = scope.vm.paramService;
 
-    var contW = (scope.fillcontainer) ? 
-        element[0].clientWidth : scope.width;
+    var contW = scope.width;
     var contH = scope.height; 
     var windowHalfX = contW / 2;
     var windowHalfY = contH / 2;
@@ -92,8 +90,7 @@ function webglPostLink(scope, element, attrs) {
     // -----------------------------------
     scope.resizeCanvas = function () {
 
-      contW = (scope.fillcontainer) ? 
-        element[0].clientWidth : scope.width;
+      contW = scope.width;
       contH = scope.height;
 
       windowHalfX = contW / 2;
@@ -142,7 +139,7 @@ function webglPostLink(scope, element, attrs) {
     // -----------------------------------
     // Watches
     // -----------------------------------
-    scope.$watch('fillcontainer + width + height', function () {
+    scope.$watch('width + height', function () {
 
       scope.resizeCanvas();
     
