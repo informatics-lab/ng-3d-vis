@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngWebglDemo', [])
+angular.module('ngWebglDemo', ["informatics-badge-directive"])
 
   .controller('AppCtrl', ['$scope', function ($scope) {
 

@@ -15,5 +15,6 @@
   ],
   "dependencies": {
     "threejs-controls": "git://github.com/lememora/threejs-controls.git",
+    "informatics-badge-directive": "git://github.com/met-office-lab/informatics-badge-directive.git"
   }
 }
