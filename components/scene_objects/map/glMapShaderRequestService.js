@@ -1,12 +1,12 @@
 'use strict';
-'use strict';
 
 angular.module('ngWebglDemo')
-  .service('glShaderRequestService', function($rootScope) {
+  .service('glMapShaderRequestService', function($rootScope) {
     var vm = this;
     vm.shaders_to_load = {};
     vm.loaded = {};
     vm.shaders = {};
+    vm.msg = 'shadersLoaded';
 
     vm.setShaders = function(shader_list) {
       for (var i=0; i<Object.keys(shader_list).length; i++) {
@@ -15,6 +15,10 @@ angular.module('ngWebglDemo')
         vm.shaders[shader_name] = null;
       }
       vm.shaders_to_load = shader_list;
+    }
+
+    vm.setMessage = function(msg) {
+      vm.msg = msg;
     }
 
     function onShaderLoad(shader_name, rq) {
@@ -50,7 +54,7 @@ angular.module('ngWebglDemo')
         }
       }
       if (allLoaded) {
-        $rootScope.$broadcast('shadersLoaded');
+        $rootScope.$broadcast(vm.msg);
         vm.shaders_to_load = [];
         vm.loaded = {};
         vm.shaders = {};

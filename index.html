@@ -31,7 +31,7 @@
 
     <!-- application content -->
     <div class="container" ng-controller="AppCtrl">
-      
+
       <div class='btn btn-primary' title="Toggle camera macro playback" href="#" style="height: 50px; width: 50px; position: absolute; top:20px; left: 20px; color: white; font-size: 14pt; " ng-click="toggleMacro()">
         <i class="fa fa-video-camera fa-3x"></i>
       </div>
@@ -48,6 +48,7 @@
         >
           <gl-macro></gl-macro>
           <gl-skybox></gl-skybox>
+          <gl-map></gl-map>
         </ng-webgl>
 
       </div>
@@ -78,6 +79,8 @@
       <script src="components/scene_objects/skybox/glShaderRequestService.js"></script>
       <script src="components/scene_objects/skybox/glSkybox.js"></script>
       <script src="components/scene_objects/skybox/glSkyboxParameterService.js"></script>
+      <script src="components/scene_objects/map/glMapShaderRequestService.js"></script>
+      <script src="components/scene_objects/map/glMap.js"></script>
       <script src="components/glSceneService.js"></script>
     <!-- endbuild -->
 
