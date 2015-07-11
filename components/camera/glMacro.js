@@ -7,7 +7,6 @@ angular.module('ngWebglDemo')
       controllerAs: 'vm',
       link: function (scope, element, attrs, parentCtrl) {
         scope.vm.loadDefaultMacro();
-        scope.vm.play_macro = true;
       }
     };
   });
@@ -63,5 +62,9 @@ function macroController($scope, glCameraModelService) {
 
         vm.macro_frame < (vm.cameraMacro.length-1) ? vm.macro_frame++ : vm.macro_frame=0;
     }
+  })
+
+  $scope.$on('toggleMacro', function() {
+    vm.toggleMacro();
   })
 }

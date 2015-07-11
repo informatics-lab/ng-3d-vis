@@ -9,4 +9,8 @@ angular.module('ngWebglDemo', ["informatics-badge-directive"])
     $scope.scale = 1;
     $scope.materialType = 'lambert';
 
+    $scope.toggleMacro = function() {
+    	$scope.$broadcast('toggleMacro');
+    }
+
   }]);
