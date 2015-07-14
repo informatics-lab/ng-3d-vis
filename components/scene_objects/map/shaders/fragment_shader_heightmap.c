@@ -76,7 +76,7 @@ void main() {
   vec4 totalLight             = vec4( uAmbientLightColor * uAmbientColor , 1.0 ); // orig
   totalLight                 += vec4( uPointLightColor, 1.0 ) * ( pointDiffuse + pointSpecular );
   // with texture
-  gl_FragColor = vec4( diffuseTex.xyz + totalLight.xyz, 1.0 );
+  gl_FragColor = vec4( diffuseTex.xyz + (totalLight.xyz/2.0), 1.0 );
   // without texture
   // gl_FragColor = vec4( totalLight.xyz, 1.0 );
 }

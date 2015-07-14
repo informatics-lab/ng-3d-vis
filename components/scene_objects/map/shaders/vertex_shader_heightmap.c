@@ -30,8 +30,7 @@ void main() {
   vPointLightVector   = normalize( lPosition.xyz - mvPosition.xyz );
   #ifdef VERTEX_TEXTURES
       vec3 dv                 = texture2D( tDisplacement, vUv ).xyz;
-      // minus otherwise displacement moves in negative direction
-      float df                = -(uDisplacementScale * dv.x + uDisplacementBias);
+      float df                = uDisplacementScale * dv.x + uDisplacementBias;
       vec4 displacedPosition  = vec4( vNormal.xyz * df * uDisplacementPostScale/100.0, 0.0 ) + mvPosition;
       gl_Position             = projectionMatrix * displacedPosition;
   #else

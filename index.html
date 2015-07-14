@@ -1,9 +1,13 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
@@ -11,82 +15,85 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/base.css">
-        <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- endbuild -->
 
-        <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
 
 </head>
-  <body ng-app="ngWebglDemo">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+<body ng-app="ngWebglDemo">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
 
-    <!--[if lt IE 9]>
-      <script src="bower_components/es5-shim/es5-shim.js"></script>
-      <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
 
-    <!-- application content -->
-    <div class="container" ng-controller="AppCtrl">
+<!-- application content -->
+<div class="container" ng-controller="AppCtrl">
 
-      <div class='btn btn-primary' title="Toggle camera macro playback" href="#" style="height: 50px; width: 50px; position: absolute; top:20px; left: 20px; color: white; font-size: 14pt; " ng-click="toggleMacro()">
+    <div class='btn btn-primary' title="Toggle camera macro playback" href="#"
+         style="height: 50px; width: 50px; position: absolute; top:20px; left: 20px; color: white; font-size: 14pt; "
+         ng-click="toggleMacro()">
         <i class="fa fa-video-camera fa-3x"></i>
-      </div>
+    </div>
 
-      <informatics-badge></informatics-badge>
-      
+    <informatics-badge></informatics-badge>
 
-      <div class="twelve columns add-bottom">
-        
+
+    <div class="twelve columns add-bottom">
+
         <ng-webgl
-          id="webglContainer"
-          width="canvasWidth"
-          height="canvasHeight"
-          datashape="dims.datashape"
-        >
-          <gl-macro></gl-macro>
-          <gl-skybox dims='dims'></gl-skybox>
-          <gl-map 
-            datashape='dims.datashape'
-            zscaling='z_scaling'
-          >
-          </gl-map>
+                id="webglContainer"
+                width="canvasWidth"
+                height="canvasHeight"
+                datashape="dims.datashape"
+                >
+            <gl-macro></gl-macro>
+            <gl-skybox dims='dims'></gl-skybox>
+            <gl-map
+                    datashape='dims.datashape'
+                    zscaling='z_scaling'
+                    >
+            </gl-map>
         </ng-webgl>
-
-      </div>
-
-      <gl-video
-        url="videoUrl"
-        shrink-factor="1">
-      </gl-video>
 
     </div>
 
+    <gl-video
+            url="videoUrl"
+            shrink-factor="1">
+    </gl-video>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="libs/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
-    <!--<script src="libs/three.js"></script>-->
+</div>
 
-    <!-- scripts/scripts.js -->
-      <script src="bower_components/threejs-controls/src/OrbitControls.js"></script>
-      <script src="bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
-      <script src="app.js"></script>
-      <script src="components/ngWebgl.js"></script>
-      <script src="components/camera/glCameraModelService.js"></script>
-      <script src="components/camera/glMacro.js"></script>
-      <script src="components/video/glVideoDataModelService.js"></script>
-      <script src="components/video/glVideo.js"></script>
-      <script src="components/scene_objects/skybox/glShaderRequestService.js"></script>
-      <script src="components/scene_objects/skybox/glSkybox.js"></script>
-      <script src="components/scene_objects/skybox/glSkyboxParameterService.js"></script>
-      <script src="components/scene_objects/map/glMapShaderRequestService.js"></script>
-      <script src="components/scene_objects/map/glMap.js"></script>
-      <script src="components/glSceneService.js"></script>
-    <!-- endbuild -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="libs/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
+<!--<script src="libs/three.js"></script>-->
+
+<!-- scripts/scripts.js -->
+<script src="bower_components/threejs-controls/src/OrbitControls.js"></script>
+<script src="bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
+<script src="app.js"></script>
+<script src="components/ngWebgl.js"></script>
+<script src="components/camera/glCameraModelService.js"></script>
+<script src="components/camera/glMacro.js"></script>
+<script src="components/video/glVideoDataModelService.js"></script>
+<script src="components/video/glVideo.js"></script>
+<script src="components/scene_objects/skybox/glShaderRequestService.js"></script>
+<script src="components/scene_objects/skybox/glSkybox.js"></script>
+<script src="components/scene_objects/skybox/glSkyboxParameterService.js"></script>
+<script src="components/scene_objects/map/glMapShaderRequestService.js"></script>
+<script src="components/scene_objects/map/glMap.js"></script>
+<script src="components/glSceneService.js"></script>
+<!-- endbuild -->
 
 </body>
 </html>

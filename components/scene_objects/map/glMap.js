@@ -18,8 +18,9 @@ angular.module('ngWebglDemo')
 
           var ambient = 0x000000, diffuse = 0x666666, specular = 0xffffff, shininess = 50.0, scale = 100;
 
-          var dispTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/land.png');
-          dispTexture.flipY=false;
+          var dispTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/global_dem_unmasked.png');
+          var diffTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/mapserv.jpeg');
+          //dispTexture.flipY=false;
 
           var uniforms = THREE.UniformsUtils.merge( [
 
@@ -68,7 +69,7 @@ angular.module('ngWebglDemo')
 
           uniforms[ "enableDisplacement" ] = { type: 'i', value: 1 };
           uniforms[ "enableDiffuse" ] = { type: 'i', value: 0 };
-          uniforms[ "tDiffuse"].value = dispTexture;
+          uniforms[ "tDiffuse"].value = diffTexture;
           uniforms[ "tDiffuseOpacity" ] = { type: 'f', value: 1.0 };
           uniforms[ "tDisplacement" ] = { type: 't', value: dispTexture };
           uniforms[ "uDisplacementScale" ] = { type: 'f', value: 100 };
@@ -84,7 +85,7 @@ angular.module('ngWebglDemo')
               uniforms[ "uPointLightColor" ] = {type: "c", value: new THREE.Color( pointLight.color )};
           uniforms[ "uAmbientLightColor" ] = {type: "c", value: new THREE.Color( ambientLight.color )};
 
-          uniforms[ "uDisplacementPostScale" ] = {type: 'f', value: 13 };
+          uniforms[ "uDisplacementPostScale" ] = {type: 'f', value: 5 };
 
           uniforms[ "bumpScale" ] = { type: "f", value: 10 };
 
@@ -93,7 +94,7 @@ angular.module('ngWebglDemo')
             uniforms: uniforms,
             vertexShader: scope.vm.shaders.vertex_shader_heightmap,
             fragmentShader: scope.vm.shaders.fragment_shader_heightmap,
-            side: THREE.BackSide
+            side: THREE.DoubleSide
           } );
 
 
@@ -103,7 +104,7 @@ angular.module('ngWebglDemo')
 
           var mesh = new THREE.Mesh(geometry, material);
           mesh.position.y = -(scope.datashape.z / 2)*scope.zscaling;
-          mesh.rotation.x = Math.PI / 2;
+          mesh.rotation.x = (3* Math.PI) / 2;
           parentCtrl.addSomething(mesh);
         };
 
