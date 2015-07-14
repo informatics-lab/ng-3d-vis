@@ -45,16 +45,21 @@
           id="webglContainer"
           width="canvasWidth"
           height="canvasHeight"
+          datashape="dims.datashape"
         >
           <gl-macro></gl-macro>
-          <gl-skybox></gl-skybox>
-          <gl-map></gl-map>
+          <gl-skybox dims='dims'></gl-skybox>
+          <gl-map 
+            datashape='dims.datashape'
+            zscaling='z_scaling'
+          >
+          </gl-map>
         </ng-webgl>
 
       </div>
 
       <gl-video
-        url="'http://ec2-52-16-246-202.eu-west-1.compute.amazonaws.com:9000/molab-3dwx-ds/media/55896829e4b0b14cba17273c'"
+        url="videoUrl"
         shrink-factor="1">
       </gl-video>
 
@@ -73,9 +78,8 @@
       <script src="components/ngWebgl.js"></script>
       <script src="components/camera/glCameraModelService.js"></script>
       <script src="components/camera/glMacro.js"></script>
-      <script src="components/scene_objects/skybox/video/glVideoDataModelService.js"></script>
-      <script src="components/scene_objects/skybox/video/glVideo.js"></script>
-      <script src="components/scene_objects/torus/glTorus.js"></script>
+      <script src="components/video/glVideoDataModelService.js"></script>
+      <script src="components/video/glVideo.js"></script>
       <script src="components/scene_objects/skybox/glShaderRequestService.js"></script>
       <script src="components/scene_objects/skybox/glSkybox.js"></script>
       <script src="components/scene_objects/skybox/glSkyboxParameterService.js"></script>

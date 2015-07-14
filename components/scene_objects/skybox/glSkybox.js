@@ -5,7 +5,10 @@ angular.module('ngWebglDemo')
       require: "^ngWebgl",
       controller: skyboxController,
       controllerAs: 'vm',
-      link: postLink
+      link: postLink,
+      scope: {
+        'dims': '='
+      }
     };
   });
 
@@ -26,7 +29,7 @@ function postLink(scope, element, attrs, parentCtrl) {
 
   function drawBox() {
       var params = scope.vm.paramService;
-      var dims = scope.vm.videoDims;
+      var dims = scope.dims;
       var videoImage = scope.vm.videoImage;
       var shaders = scope.vm.shaders;
       var dirLight = parentCtrl.dirLight;
@@ -141,7 +144,6 @@ function postLink(scope, element, attrs, parentCtrl) {
     conditionalBroadcast();
   })
   scope.$on('videoLoaded', function() {
-    scope.vm.setVideoDims();
     scope.vm.setVideoImage();
     scope.vm.gotVideo = true;
     conditionalBroadcast();
@@ -194,10 +196,6 @@ function skyboxController($scope, glShaderRequestService, glVideoDataModelServic
 
   vm.setShaders = function() {
     vm.shaders = vm.shaderService.shaders;
-  }
-
-  vm.setVideoDims = function() {
-    vm.videoDims = vm.videoService.videoDims;
   }
 
   vm.setVideoImage = function() {

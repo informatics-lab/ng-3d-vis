@@ -3,7 +3,10 @@ angular.module('ngWebglDemo')
     return {
       restrict: 'E',
       require: "^ngWebgl",
-      scope: true,
+      scope: {
+        'datashape': '=',
+        'zscaling': '='
+      },
       controller: mapController,
       controllerAs: 'vm',
       link: function postLink(scope, element, attrs, parentCtrl) {
@@ -90,16 +93,16 @@ angular.module('ngWebglDemo')
             uniforms: uniforms,
             vertexShader: scope.vm.shaders.vertex_shader_heightmap,
             fragmentShader: scope.vm.shaders.fragment_shader_heightmap,
-            side: THREE.DoubleSide
+            side: THREE.BackSide
           } );
 
 
           // GEOMETRY
-          var geometry = new THREE.PlaneGeometry(200, 300, 256, 256);
+          var geometry = new THREE.PlaneGeometry(scope.datashape.x, scope.datashape.y, 256, 256);
           geometry.computeTangents();
 
           var mesh = new THREE.Mesh(geometry, material);
-          mesh.position.y = -50;
+          mesh.position.y = -(scope.datashape.z / 2)*scope.zscaling;
           mesh.rotation.x = Math.PI / 2;
           parentCtrl.addSomething(mesh);
         };

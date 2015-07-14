@@ -6,7 +6,8 @@ angular.module('ngWebglDemo')
       restrict: 'E',
       scope: { 
         'width': '=',
-        'height': '='
+        'height': '=',
+        'datashape': '='
       },
       controller: webglController,
       controllerAs: 'vm',
@@ -34,10 +35,8 @@ function webglPostLink(scope, element, attrs) {
 
 
     scope.init = function () {
-      var dims = scope.vm.videoService.videoDims;
-
       scope.vm.cameraService.setupCamera(
-        contW/contH, params.CAMERA_STANDOFF, params.Z_SCALING, dims.datashape
+        contW/contH, params.CAMERA_STANDOFF, params.Z_SCALING, scope.datashape
       );
 
       // Scene

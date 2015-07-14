@@ -12,7 +12,7 @@ angular.module('ngWebglDemo')
                 var play = true;
 
                 function initialize() {
-                    var dims = getDims(scope.url);
+                    var dims = scope.vm.dataService.getDims(scope.url);
                     var videoUrl = scope.url + '/data';
 
                     scope.vm.video = document.createElement( 'video' );
@@ -51,21 +51,6 @@ angular.module('ngWebglDemo')
                         scope.vm.videoImageContext.drawImage( scope.vm.video, 0, 0, w*scope.shrinkFactor, h*scope.shrinkFactor, 0, 0, w, h );
                         scope.vm.dataService.broadcastUpdate();
                     }
-                }
-
-                function getDims(url) {
-                    // using a synchronous request for now...
-                    var req = new XMLHttpRequest();
-                    req.open("get", url, false);
-                    req.send();
-                    var response = JSON.parse(req.responseText);
-
-                    var result = {datashape:null, textureshape:null};
-
-                    result.datashape = response.data_dimensions;
-                    result.datashape.y += 2; // just for now, to take account of padding
-                    result.textureshape = response.resolution;
-                    return result;
                 }
 
                 initialize();
