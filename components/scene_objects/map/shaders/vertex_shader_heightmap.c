@@ -7,6 +7,7 @@ varying vec3 vNormal;
 varying vec2 vUv;
 varying vec3 vPointLightVector;
 varying vec3 vViewPosition;
+varying float currentElevation;
 uniform vec3 uPointLightPos;
 
 #ifdef VERTEX_TEXTURES
@@ -36,4 +37,6 @@ void main() {
   #else
     gl_Position = projectionMatrix * mvPosition;
   #endif
+  currentElevation = df;
+
 }

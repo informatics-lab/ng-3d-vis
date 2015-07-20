@@ -19,6 +19,7 @@ varying vec3 vNormal;
 varying vec2 vUv;
 varying vec3 vPointLightVector;
 varying vec3 vViewPosition;
+varying float currentElevation;
 uniform float uDisplacementPostScale;
 uniform float bumpScale;
 
@@ -76,7 +77,16 @@ void main() {
   vec4 totalLight             = vec4( uAmbientLightColor * uAmbientColor , 1.0 ); // orig
   totalLight                 += vec4( uPointLightColor, 1.0 ) * ( pointDiffuse + pointSpecular );
   // with texture
-  gl_FragColor = vec4( diffuseTex.xyz + (totalLight.xyz/2.0), 1.0 );
+
+  vec4 color;
+
+  if(currentElevation < 0.001){
+    color = vec4( diffuseTex.xyz, 1.0 );
+  } else {
+    color = vec4( diffuseTex.xyz + (totalLight.xyz/2.0), 1.0 );
+  }
+
+  gl_FragColor = color;
   // without texture
   // gl_FragColor = vec4( totalLight.xyz, 1.0 );
 }
