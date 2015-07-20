@@ -168,4 +168,32 @@ function webglController($scope, $rootScope, glSceneService, glSkyboxParameterSe
     vm.broadcastRender = function () {
         $rootScope.$broadcast('render');
     }
+
+    vm.grid_dims = {x:1261, z:1506};
+    vm.geo_bounds = [
+        {
+            lat: 48.7726557377,
+            lng: -10.1181857923
+        },
+        {
+            lat: 59.286557377,
+            lng: -10.1181857923
+        },
+        {
+            lat: 59.286557377,
+            lng: 2.42998178506
+        },
+        {
+            lat: 48.7726557377,
+            lng: 2.42998178506
+        }
+    ];
+
+    vm.moveCamera = function(pos) {
+        var tween = new TWEEN.Tween(vm.cameraService.camera.position).to(
+            {x: pos.x, y: pos.y, z: pos.z},
+            3000).easing(TWEEN.Easing.Sinusoidal.InOut).onUpdate(function () {
+            }).onComplete(function () {
+            }).start();
+    }
 }
