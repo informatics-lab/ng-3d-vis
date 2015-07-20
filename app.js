@@ -15,6 +15,25 @@ angular.module('ngWebglDemo', ["informatics-badge-directive"])
 
     $scope.dims = $scope.videoService.getDims($scope.videoUrl);
     $scope.z_scaling = $scope.paramService.Z_SCALING;
+    $scope.grid_dims = {x:1261, z:1506};
+    $scope.geo_bounds = [
+      {
+        lat: 48.7726557377,
+        lng: -10.1181857923
+      },
+      {
+        lat: 59.286557377,
+        lng: -10.1181857923
+      },
+      {
+        lat: 59.286557377,
+        lng: 2.42998178506
+      },
+      {
+        lat: 48.7726557377,
+        lng: 2.42998178506
+      }
+    ];
 
     $scope.toggleMacro = function() {
     	$scope.$broadcast('toggleMacro');

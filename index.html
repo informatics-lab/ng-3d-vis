@@ -32,6 +32,7 @@
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
 <script src="bower_components/json3/lib/json3.min.js"></script>
+
 <![endif]-->
 
 <!-- application content -->
@@ -54,6 +55,7 @@
                 height="canvasHeight"
                 datashape="dims.datashape"
                 >
+            <gl-location-search griddims="grid_dims" geobounds="geo_bounds"></gl-location-search>
             <gl-macro></gl-macro>
             <gl-skybox dims='dims'></gl-skybox>
             <gl-map
@@ -90,6 +92,7 @@
 <script type="text/javascript" src="components/scene_objects/map/glMapShaderRequestService.js"></script>
 <script type="text/javascript" src="components/scene_objects/map/glMap.js"></script>
 <script type="text/javascript" src="components/glSceneService.js"></script>
+<script type="text/javascript" src="bower_components/tweenjs/build/tween.min.js"></script>
 <!-- endbuild -->
 
 </body>
