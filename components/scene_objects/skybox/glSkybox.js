@@ -44,22 +44,23 @@ angular.module('ngWebglDemo')
                     boxOutLine.material.color.set( "#000033" );
                     parentCtrl.addSomething( boxOutLine );
 
-                    /*** first pass ***/
+                     /*** first pass ***/
                     var materialbackFace = new THREE.ShaderMaterial( {
-                        vertexShader: shaders.vertex_shader_back_face,
-                        fragmentShader: shaders.fragment_shader_back_face,
-                        side: THREE.BackSide,
-                        uniforms: {dimensions: {type: "v3", value: boxDims}}
-                    });
+                          vertexShader: shaders.vertex_shader_screen_proj,
+                          fragmentShader: shaders.fragment_shader_back_face,
+                          side: THREE.BackSide,
+                          uniforms: {dimensions: {type: "v3", value: boxDims},
+                                     cameraNormal: {type: "v3", value: parentCtrl.cameraService.cameraNormal}}
+                      });
 
                     var meshBackFace = new THREE.Mesh( boxGeometry, materialbackFace );
                     
-                    var sceneBackFace = new THREE.Scene();
+                    sceneBackFace = new THREE.Scene();
                     sceneBackFace.add( meshBackFace );
                     scope.vm.sceneBackFace = sceneBackFace;
                     
                     // get the "colour" coords we just made, as a texture
-                    var backFaceTexture = new THREE.WebGLRenderTarget(  window.innerWidth/params.downScaling,
+                    backFaceTexture = new THREE.WebGLRenderTarget(  window.innerWidth/params.downScaling,
                                                                      window.innerHeight/params.downScaling,
                                                              { minFilter: THREE.NearestFilter,
                                                                magFilter: THREE.NearestFilter,
@@ -69,11 +70,12 @@ angular.module('ngWebglDemo')
                     backFaceTexture.wrapS = backFaceTexture.wrapT = THREE.ClampToEdgeWrapping;    
                     
                     /*** second pass ***/
-                    var uniforms = { backFaceTexture: { type: "t", value: backFaceTexture },
+                    uniforms = { backFaceTexture: { type: "t", value: backFaceTexture },
                                          dataTexture: { type: "t", value: scope.vm.dataTexture },
                                          lightPosition: { type: "v3", value: dirLight.position},
                                          lightColor: { type: "v3", value: {x: dirLight.color.r, y:dirLight.color.g, z:dirLight.color.b}},
                                          lightIntensity: {type: "1f", value: dirLight.intensity},
+                                         cameraNormal: {type: "v3", value: parentCtrl.cameraService.cameraNormal},
                                          steps : {type: "1f" , value: params.nSteps}, // so we know how long to make in incriment 
                                          shadeSteps : {type: "1f" , value: params.shadeSteps},
                                          alphaCorrection : {type: "1f" , value: params.alphaCorrection },
@@ -83,42 +85,19 @@ angular.module('ngWebglDemo')
                                          dimensions: {type: "v3", value: boxDims}
                                      };
 
-                    var materialRayMarch = new THREE.ShaderMaterial( {
-                        vertexShader: shaders.vertex_shader_ray_march,
+                    materialRayMarch = new THREE.ShaderMaterial( {
+                        vertexShader: shaders.vertex_shader_screen_proj,
                         fragmentShader: shaders.fragment_shader_ray_march,
-                        side: THREE.FrontSide,
                         uniforms: uniforms
                     });
-                    // materialRayMarch.transparent = true;
+                    materialRayMarch.transparent = true;
                     
-                    var sceneRayMarch = new THREE.Scene();
+                    scene = new THREE.Scene();
+                    scope.vm.scene = scene;
                     var meshRayMarch = new THREE.Mesh( boxGeometry, materialRayMarch );
-                    sceneRayMarch.add( meshRayMarch );
-                    scope.vm.sceneRayMarch = sceneRayMarch;
-
-                    var rayMarchTexture = new THREE.WebGLRenderTarget(  window.innerWidth/params.downScaling,
-                                                                     window.innerHeight/params.downScaling,
-                                                             { minFilter: THREE.LinearFilter,
-                                                               magFilter: THREE.LinearFilter,
-                                                               format: THREE.RGBAFormat,
-                                                               type: THREE.FloatType } );
-                    scope.vm.rayMarchTexture = rayMarchTexture;
-                    rayMarchTexture.wrapS = rayMarchTexture.wrapT = THREE.ClampToEdgeWrapping;
-
-                    /*************** Resample ray marching ****/
-                    var uniforms2 = {rayMarchTexture: {type: "t", value: rayMarchTexture}};
-                    materialResampledRayMarch = new THREE.ShaderMaterial( {
-                        vertexShader: shaders.vertex_shader_resample,
-                        fragmentShader: shaders.fragment_shader_resample,
-                        side: THREE.FrontSide,
-                        uniforms: uniforms2
-                    });
-                    materialResampledRayMarch.transparent = true;
-                    var meshResampledRayMarch = new THREE.Mesh( boxGeometry, materialResampledRayMarch );
-
-                    parentCtrl.addSomething(meshResampledRayMarch);
-
-                    
+                  
+                    parentCtrl.addSomething(meshRayMarch);
+                                
                     scope.vm.ready = true;
                 }
 
@@ -148,7 +127,6 @@ angular.module('ngWebglDemo')
                   if (scope.vm.ready) {
                     //scope.vm.dataTexture.needsUpdate = true;
                     parentCtrl.renderer.render( scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
-                    parentCtrl.renderer.render( scope.vm.sceneRayMarch, parentCtrl.cameraService.camera, scope.vm.rayMarchTexture, true );
                   }
                 })
                 scope.$on('videoUpdate', function() {
@@ -182,12 +160,9 @@ function skyboxController($scope, glShaderRequestService, glVideoDataModelServic
     var shader_root = 'components/scene_objects/skybox/shaders/';
     vm.shaderService.setShaders(
       {
-        fragment_shader_back_face: shader_root+'fragment_shader_back_face.c',
-        vertex_shader_back_face: shader_root+'vertex_shader_back_face.c',
-        fragment_shader_ray_march: shader_root+'fragment_shader_ray_march.c',
-        vertex_shader_ray_march: shader_root+'vertex_shader_ray_march.c',
-        fragment_shader_resample: shader_root+'fragment_shader_resample.c',
-        vertex_shader_resample: shader_root+'vertex_shader_resample.c'
+        fragment_shader_back_face: shader_root+'fragment_shader_back_face.glsl',
+        fragment_shader_ray_march: shader_root+'fragment_shader_ray_march.glsl',
+        vertex_shader_screen_proj: shader_root+'vertex_shader_screen_proj.glsl',
       });
     vm.shaderService.loadShaders();
   }
