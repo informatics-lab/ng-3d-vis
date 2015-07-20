@@ -18,9 +18,20 @@ angular.module('ngWebglDemo')
 
           var ambient = 0x000000, diffuse = 0x666666, specular = 0xffffff, shininess = 50.0, scale = 100;
 
-          var dispTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/global_dem_unmasked.png');
-          var diffTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/mapserv.jpeg');
+          //var htMapPng = 'components/scene_objects/map/data/land.png';
+          //var htMapPng = 'components/scene_objects/map/data/global_dem_unmasked.png';
+
+          var htMapPng = 'http://ec2-52-16-245-62.eu-west-1.compute.amazonaws.com:8080/' +
+                    'thredds/wms/testLab/global_dem_unmasked.nc?' +
+                    'REQUEST=GetMap&STYLES=boxfill/greyscale&FORMAT=image/png&' +
+                    'HEIGHT=1024&WIDTH=1024&BBOX=48.77,-10.12,59.29,2.43&CRS=EPSG:4326&' +
+                    'LAYER=topo&VERSION=1.3.0&LAYERS=topo&COLORSCALERANGE=0,1000&NUMCOLORBANDS=253&ABOVEMAXCOLOR=extend';
+          // HEIGHT=1506&WIDTH=1261
+          THREE.ImageUtils.crossOrigin = '*';
+          var dispTexture = THREE.ImageUtils.loadTexture( htMapPng, THREE.UVMapping,
+                    function(){}, function(xhr){console.error('Error loading', xhr)} );
           //dispTexture.flipY=false;
+          var diffTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/mapserv.jpeg');
 
           var uniforms = THREE.UniformsUtils.merge( [
 
