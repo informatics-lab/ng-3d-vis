@@ -20,6 +20,7 @@ angular.module('ngWebglDemo')
 		vm.ambience = 0.3;
 
 		vm.fps = 60;
+		vm.interval = 1000/vm.fps;
 
 		vm.lightColor = 0xFFFFFF;
 		vm.dirLightIntensity = 3;

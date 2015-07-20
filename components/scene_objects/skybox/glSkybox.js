@@ -5,7 +5,10 @@ angular.module('ngWebglDemo')
       require: "^ngWebgl",
       controller: skyboxController,
       controllerAs: 'vm',
-      link: postLink
+      link: postLink,
+      scope: {
+        'dims': '='
+      }
     };
   });
 
@@ -26,7 +29,7 @@ function postLink(scope, element, attrs, parentCtrl) {
 
   function drawBox() {
       var params = scope.vm.paramService;
-      var dims = scope.vm.videoDims;
+      var dims = scope.dims;
       var videoImage = scope.vm.videoImage;
       var shaders = scope.vm.shaders;
       var dirLight = parentCtrl.dirLight;
@@ -41,6 +44,12 @@ function postLink(scope, element, attrs, parentCtrl) {
       scope.vm.dataTexture = dataTexture;
 
       setDataTexType(params.mipMapTex); // set mip mapping on or off
+
+      /*************** add aquarium outline **/
+      var boxOutlineMesh = new THREE.Mesh( boxGeometry );
+      var boxOutLine = new THREE.BoxHelper( boxOutlineMesh );
+      boxOutLine.material.color.set( "#000033" );
+      parentCtrl.addSomething( boxOutLine );
 
       /*** first pass ***/
       var materialbackFace = new THREE.ShaderMaterial( {
@@ -116,11 +125,7 @@ function postLink(scope, element, attrs, parentCtrl) {
 
       parentCtrl.addSomething(meshResampledRayMarch);
 
-      /*************** add aquarium outline **/
-      var boxOutlineMesh = new THREE.Mesh( boxGeometry );
-      var boxOutLine = new THREE.BoxHelper( boxOutlineMesh );
-      boxOutLine.material.color.set( "#000033" );
-      parentCtrl.addSomething( boxOutLine );
+      
       scope.vm.ready = true;
   }
 
@@ -139,7 +144,6 @@ function postLink(scope, element, attrs, parentCtrl) {
     conditionalBroadcast();
   })
   scope.$on('videoLoaded', function() {
-    scope.vm.setVideoDims();
     scope.vm.setVideoImage();
     scope.vm.gotVideo = true;
     conditionalBroadcast();
@@ -150,8 +154,8 @@ function postLink(scope, element, attrs, parentCtrl) {
   scope.$on('render', function() {
     if (scope.vm.ready) {
       //scope.vm.dataTexture.needsUpdate = true;
-      parentCtrl.renderer.render( scope.vm.sceneBackFace, parentCtrl.camera, scope.vm.backFaceTexture, true);
-      parentCtrl.renderer.render( scope.vm.sceneRayMarch, parentCtrl.camera, scope.vm.rayMarchTexture, true );
+      parentCtrl.renderer.render( scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
+      parentCtrl.renderer.render( scope.vm.sceneRayMarch, parentCtrl.cameraService.camera, scope.vm.rayMarchTexture, true );
     }
   })
   scope.$on('videoUpdate', function() {
@@ -192,10 +196,6 @@ function skyboxController($scope, glShaderRequestService, glVideoDataModelServic
 
   vm.setShaders = function() {
     vm.shaders = vm.shaderService.shaders;
-  }
-
-  vm.setVideoDims = function() {
-    vm.videoDims = vm.videoService.videoDims;
   }
 
   vm.setVideoImage = function() {

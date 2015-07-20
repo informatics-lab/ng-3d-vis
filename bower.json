@@ -1,0 +1,21 @@
+{
+  "name": "angular-webgl-directive",
+  "version": "0.0.0",
+  "homepage": "https://github.com/met-office-lab/angularWebglDirective",
+  "authors": [
+    "rachel.prudden@informaticslab.co.uk"
+  ],
+  "license": "GPL3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "threejs-controls": "git://github.com/lememora/threejs-controls.git",
+    "informatics-badge-directive": "git://github.com/met-office-lab/informatics-badge-directive.git",
+    "font-awesome": "git://github.com/FortAwesome/Font-Awesome.git"
+  }
+}
