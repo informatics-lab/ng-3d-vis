@@ -16,7 +16,7 @@ angular.module('ngWebglDemo', ["informatics-badge-directive"])
         $scope.dims = $scope.videoService.getDims($scope.videoUrl);
         $scope.z_scaling = $scope.paramService.Z_SCALING;
 
-        $scope.grid_dims = {x: 1261, z: 1506};
+        $scope.grid_dims = {x: $scope.dims.datashape.x, y:$scope.dims.datashape.z * $scope.z_scaling, z: $scope.dims.datashape.y};
 
         $scope.geo_bounds = [
             {

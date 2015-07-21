@@ -53,7 +53,7 @@ angular.module('ngWebglDemo')
         vm.lookupCoords = function (latlon) {
             return {
                 x: vm.lookupCoordX(latlon.lon),
-                y: 30,
+                y: -(vm.grid_dims.y/2) * 0.99,               //setting this to the bottom of the cube?
                 z: vm.lookupCoordZ(latlon.lat)
             };
         };
