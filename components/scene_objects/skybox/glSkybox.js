@@ -157,7 +157,7 @@ function skyboxController($scope, glShaderRequestService, glVideoDataModelServic
   vm.videoImage = null;
 
   vm.fetchShaders = function() {
-    var shader_root = 'components/scene_objects/skybox/shaders/';
+    var shader_root = '../../components/scene_objects/skybox/shaders/';
     vm.shaderService.setShaders(
       {
         fragment_shader_back_face: shader_root+'fragment_shader_back_face.glsl',

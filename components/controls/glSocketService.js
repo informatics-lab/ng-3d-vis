@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('ngWebglDemo')
-    .service('glSocketService', function (glCameraService) {
+    .service('glSocketService', function (glCameraModelService) {
         var vm = this;
 
-        vm.cameraService = glCameraService;
+        vm.cameraService = glCameraModelService;
 
         vm.roomId = null;
         vm.connectedToRoom = false;

@@ -22,7 +22,7 @@ function macroController($scope, glCameraModelService) {
   vm.cameraMacro = [];
 
   vm.loadDefaultMacro = function() {
-    $.getJSON("components/camera/cameraMacro.json", function(data){
+    $.getJSON("../../components/camera/cameraMacro.json", function(data){
         for (i=0; i<data.length; i++){
             var thispos = data[i].position;
             var thisdir = data[i].direction;

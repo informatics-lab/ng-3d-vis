@@ -18,8 +18,8 @@ angular.module('ngWebglDemo')
 
           var ambient = 0x000000, diffuse = 0x666666, specular = 0xffffff, shininess = 50.0, scale = 100;
 
-          var dispTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/global_dem_unmasked.png');
-          var diffTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/mapserv.jpeg');
+          var dispTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/global_dem_unmasked.png');
+          var diffTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/mapserv.jpeg');
           //dispTexture.flipY=false;
 
           var uniforms = THREE.UniformsUtils.merge( [
@@ -74,7 +74,7 @@ angular.module('ngWebglDemo')
           uniforms[ "tDisplacement" ] = { type: 't', value: dispTexture };
           uniforms[ "uDisplacementScale" ] = { type: 'f', value: 100 };
 
-          uniforms[ "tNormal" ] = { type: 't', value: new THREE.ImageUtils.loadTexture( 'components/scene_objects/map/data/flat.png' )};
+          uniforms[ "tNormal" ] = { type: 't', value: new THREE.ImageUtils.loadTexture( '../../components/scene_objects/map/data/flat.png' )};
 
           uniforms[ "uDiffuseColor"].value = new THREE.Color( diffuse );
           uniforms[ "uSpecularColor"].value = new THREE.Color( specular );
@@ -127,7 +127,7 @@ function mapController($scope, glMapShaderRequestService, glSkyboxParameterServi
   vm.load_msg = 'mapShadersLoaded';
 
   vm.fetchShaders = function() {
-    var shader_root = 'components/scene_objects/map/shaders/';
+    var shader_root = '../../components/scene_objects/map/shaders/';
     vm.shaderService.setShaders(
       {
         fragment_shader_heightmap: shader_root+'fragment_shader_heightmap.c',
