@@ -48,14 +48,13 @@
 
 
     <div class="twelve columns add-bottom">
-
+        <gl-location-search griddims="grid_dims" geobounds="geo_bounds"></gl-location-search>
         <ng-webgl
                 id="webglContainer"
                 width="canvasWidth"
                 height="canvasHeight"
                 datashape="dims.datashape"
                 >
-            <gl-location-search griddims="grid_dims" geobounds="geo_bounds"></gl-location-search>
             <gl-macro></gl-macro>
             <gl-skybox dims='dims'></gl-skybox>
             <gl-map

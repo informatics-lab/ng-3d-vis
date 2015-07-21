@@ -59,7 +59,7 @@ angular.module('ngWebglDemo')
                               element[0].appendChild(renderer.domElement);
 
                               // trackball controls
-                              scope.vm.controls = new THREE.OrbitControls(scope.vm.cameraService.camera)
+                              scope.vm.controls = new THREE.OrbitControls(scope.vm.cameraService.camera, renderer.domElement);
                               scope.vm.controls.zoomSpeed *= 1.0;
                               // scope.vm.controls.damping = 0.5;
                               //scope.vm.controls.addEventListener( 'change', scope.render );
@@ -125,6 +125,7 @@ angular.module('ngWebglDemo')
                               scope.vm.renderer.render(scope.vm.scene, scope.vm.cameraService.camera);
                               scope.vm.cameraService.cameraNormal.set(0,0,-1);
                               scope.vm.cameraService.cameraNormal.applyQuaternion(scope.vm.cameraService.camera.quaternion);
+                              TWEEN.update();
                               //scope.vm.broadcastRender();
 
                           };
