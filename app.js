@@ -41,4 +41,8 @@ angular.module('ngWebglDemo', ["informatics-badge-directive"])
             $scope.$broadcast('toggleMacro');
         }
 
+        $scope.connect = function() {
+            console.log("parent");
+        }
+
     }]);

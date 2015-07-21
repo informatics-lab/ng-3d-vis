@@ -54,6 +54,7 @@
                 datashape="dims.datashape"
                 >
             <gl-macro></gl-macro>
+            <gl-mobile-connection></gl-mobile-connection>
             <gl-skybox dims='dims'></gl-skybox>
             <gl-map
                     datashape='dims.datashape'
@@ -78,9 +79,14 @@
 <script type="text/javascript" src="bower_components/angularjs/angular.min.js"></script>
 <script type="text/javascript" src="bower_components/threejs/build/three.min.js"></script>
 <script type="text/javascript" src="bower_components/threejs-controls/src/OrbitControls.js"></script>
+<script type="text/javascript" src="bower_components/threex.windowresize/threex.windowresize.js"></script>
 <script type="text/javascript" src="bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
 <script type="text/javascript" src="bower_components/tweenjs/build/tween.min.js"></script>
+<script type="text/javascript" src="bower_components/socket.io-client/socket.io.js"></script>
+
 <script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="components/controls/glSocketService.js"></script>
+<script type="text/javascript" src="components/controls/glMobileConnection.js"></script>
 <script type="text/javascript" src="components/location_search/glLocationSearch.js"></script>
 <script type="text/javascript" src="components/location_search/glCoordService.js"></script>
 <script type="text/javascript" src="components/ngWebgl.js"></script>

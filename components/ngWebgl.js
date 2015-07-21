@@ -72,8 +72,8 @@ angular.module('ngWebglDemo')
                           // Event listeners
                           // -----------------------------------
                           scope.onWindowResize = function () {
-
                               scope.resizeCanvas();
+                              THREEx.WindowResize(renderer, camera);
 
                           };
 
@@ -82,8 +82,8 @@ angular.module('ngWebglDemo')
                           // -----------------------------------
                           scope.resizeCanvas = function () {
 
-                              contW = scope.width;
-                              contH = scope.height;
+                              contW = window.innerWidth;
+                              contH = window.innerHeight;
 
                               windowHalfX = contW / 2;
                               windowHalfY = contH / 2;
