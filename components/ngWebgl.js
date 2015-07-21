@@ -123,7 +123,8 @@ angular.module('ngWebglDemo')
                           scope.render = function () {
 
                               scope.vm.renderer.render(scope.vm.scene, scope.vm.cameraService.camera);
-
+                              scope.vm.cameraService.cameraNormal.set(0,0,-1);
+                              scope.vm.cameraService.cameraNormal.applyQuaternion(scope.vm.cameraService.camera.quaternion);
                               //scope.vm.broadcastRender();
 
                           };

@@ -12,6 +12,7 @@ angular.module('ngWebglDemo')
                 datashape.z * standoff * z_scaling * 1.1, // 1.1 fac to get rid of
                 datashape.y * standoff * 1.05); // geometrically perfect camera perspective
             vm.camera.lookAt(new THREE.Vector3(0, 0, 0));
+            vm.cameraNormal = new THREE.Vector3(0,0,-1);
         }
 
         return vm;
