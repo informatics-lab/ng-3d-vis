@@ -73,7 +73,7 @@ angular.module('ngWebglDemo')
                           // -----------------------------------
                           scope.onWindowResize = function () {
                               scope.resizeCanvas();
-                              THREEx.WindowResize(renderer, camera);
+                              //THREEx.WindowResize(renderer, camera);
 
                           };
 
