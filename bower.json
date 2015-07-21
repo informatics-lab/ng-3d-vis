@@ -16,6 +16,9 @@
   "dependencies": {
     "threejs-controls": "git://github.com/lememora/threejs-controls.git",
     "informatics-badge-directive": "git://github.com/met-office-lab/informatics-badge-directive.git",
-    "font-awesome": "git://github.com/FortAwesome/Font-Awesome.git"
+    "font-awesome": "git://github.com/FortAwesome/Font-Awesome.git",
+    "threejs": "*",
+    "angularjs": "~1.4.3",
+    "jquery": "~2.1.4"
   }
 }
