@@ -33,7 +33,7 @@ function locSearchPostLink(scope, element, attrs) {
     var loc = {lat:place.geometry.location.A, lon:place.geometry.location.F};
     var newCoords = scope.vm.coordService.lookupCoords(loc);
     console.log(newCoords);
-    scope.vm.cameraService.movefunc(newCoords);
+    scope.vm.cameraService.moveCamera(newCoords);
   });
 }
 
