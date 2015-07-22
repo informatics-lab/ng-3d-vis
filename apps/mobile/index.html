@@ -10,21 +10,21 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Mobile App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="../../styles/base.css">
-    <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="../../styles/base.css">-->
+    <link href="../../styles/reset.css" rel="stylesheet"/>
+    <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
     <!-- endbuild -->
 
 </head>
 <body ng-app="mobileApp">
 <!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 
 <!--[if lt IE 9]>
@@ -34,9 +34,15 @@
 <![endif]-->
 
 <!-- application content -->
-<div class="container" ng-controller="AppCtrl">
+<div ng-controller="AppCtrl">
 
     <informatics-badge></informatics-badge>
+
+    <!-- this element is hidden by default and is just used to allow easy camera manipulation -->
+    <gl-scene hidden="false">
+        <gl-box></gl-box>
+    </gl-scene>
+
 
     <i class="fa fa-5x fa-arrow-circle-o-up"></i>
     <i class="fa fa-5x fa-arrow-circle-o-down"></i>
@@ -57,6 +63,11 @@
 
 <script type="text/javascript" src="mobileApp.js"></script>
 <script type="text/javascript" src="../../components/controls/glMobileSocketService.js"></script>
+<script type="text/javascript" src="../../components/threeModule.js"></script>
+<script type="text/javascript" src="../../components/glScene.js"></script>
+<script type="text/javascript" src="../../components/glSceneService.js"></script>
+<script type="text/javascript" src="../../components/camera/glCameraService.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/glBox.js"></script>
 <!-- endbuild -->
 
 </body>

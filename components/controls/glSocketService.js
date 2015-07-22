@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ngWebglDemo')
-    .service('glSocketService', function (glCameraModelService) {
+    .service('glSocketService', function ($rootScope, glCameraModelService) {
         var vm = this;
 
         vm.cameraService = glCameraModelService;
@@ -23,6 +23,7 @@ angular.module('ngWebglDemo')
                 //TODO swap alerts out for modals
                 if (data.participants == 1) {
                     vm.connectionStatus = "waiting";
+                    $rootScope.$broadcast('socket', vm.connectionStatus);
                     alert("go to app and use code: "+ vm.roomId);
                 } else if (data.participants > 1) {
                     vm.connectionStatus = "connected";

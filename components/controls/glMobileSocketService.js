@@ -30,7 +30,7 @@ angular.module('mobileApp')
         });
 
         vm.send = function(message) {
-            vm.socket.emit('send', {
+            vm.socket.emit('', {
                 room : roomId,
                 message : message
             });

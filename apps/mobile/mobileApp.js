@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobileApp', ["informatics-badge-directive"])
+angular.module('mobileApp', ["informatics-badge-directive", "three"])
 
     .controller('AppCtrl', ['$scope', 'glMobileSocketService', function ($scope, glMobileSocketService) {
 
