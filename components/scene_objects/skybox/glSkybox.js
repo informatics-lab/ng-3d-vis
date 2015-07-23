@@ -3,6 +3,10 @@ angular.module('three')
     return {
       restrict: 'E',
       require: "^glScene",
+      scope: {
+        'name': '@',
+        'dims': '='
+      },
       controller: skyboxController,
       controllerAs: 'vm',
       link: function postLink(scope, element, attrs, parentCtrl) {
@@ -25,7 +29,7 @@ angular.module('three')
                     var dims = scope.dims;
                     var videoImage = scope.vm.videoImage;
                     var shaders = scope.vm.shaders;
-                    var dirLight = parentCtrl.dirLight;
+                    var dirLight = parentCtrl.sceneService.children["light"];
 
                     var boxDims = new THREE.Vector3(dims.datashape.x ,
                                                   dims.datashape.z*params.Z_SCALING,
@@ -42,7 +46,7 @@ angular.module('three')
                     var boxOutlineMesh = new THREE.Mesh( boxGeometry );
                     var boxOutLine = new THREE.BoxHelper( boxOutlineMesh );
                     boxOutLine.material.color.set( "#000033" );
-                    parentCtrl.sceneService.addSomething( boxOutLine );
+                    parentCtrl.sceneService.addSomething( scope.name + '_box', boxOutLine );
 
                      /*** first pass ***/
                     var materialbackFace = new THREE.ShaderMaterial( {
@@ -55,12 +59,12 @@ angular.module('three')
 
                     var meshBackFace = new THREE.Mesh( boxGeometry, materialbackFace );
                     
-                    sceneBackFace = new THREE.Scene();
+                    var sceneBackFace = new THREE.Scene();
                     sceneBackFace.add( meshBackFace );
                     scope.vm.sceneBackFace = sceneBackFace;
                     
                     // get the "colour" coords we just made, as a texture
-                    backFaceTexture = new THREE.WebGLRenderTarget(  window.innerWidth/params.downScaling,
+                    var backFaceTexture = new THREE.WebGLRenderTarget(  window.innerWidth/params.downScaling,
                                                                      window.innerHeight/params.downScaling,
                                                              { minFilter: THREE.NearestFilter,
                                                                magFilter: THREE.NearestFilter,
@@ -70,7 +74,7 @@ angular.module('three')
                     backFaceTexture.wrapS = backFaceTexture.wrapT = THREE.ClampToEdgeWrapping;    
                     
                     /*** second pass ***/
-                    uniforms = { backFaceTexture: { type: "t", value: backFaceTexture },
+                    var uniforms = { backFaceTexture: { type: "t", value: backFaceTexture },
                                          dataTexture: { type: "t", value: scope.vm.dataTexture },
                                          lightPosition: { type: "v3", value: dirLight.position},
                                          lightColor: { type: "v3", value: {x: dirLight.color.r, y:dirLight.color.g, z:dirLight.color.b}},
@@ -85,18 +89,16 @@ angular.module('three')
                                          dimensions: {type: "v3", value: boxDims}
                                      };
 
-                    materialRayMarch = new THREE.ShaderMaterial( {
+                    var materialRayMarch = new THREE.ShaderMaterial( {
                         vertexShader: shaders.vertex_shader_screen_proj,
                         fragmentShader: shaders.fragment_shader_ray_march,
                         uniforms: uniforms
                     });
                     materialRayMarch.transparent = true;
                     
-                    scene = new THREE.Scene();
-                    scope.vm.scene = scene;
                     var meshRayMarch = new THREE.Mesh( boxGeometry, materialRayMarch );
                   
-                    parentCtrl.sceneService.addSomething(meshRayMarch);
+                    parentCtrl.sceneService.addSomething(scope.name, meshRayMarch);
                                 
                     scope.vm.ready = true;
                 }
@@ -133,10 +135,7 @@ angular.module('three')
                   scope.vm.dataTexture.needsUpdate = true;
                 })
 
-              },
-      scope: {
-        'dims': '='
-      }
+              }
     };
   });
 

@@ -50,4 +50,9 @@ angular.module('desktopApp', ["informatics-badge-directive", "three"])
             console.log("parent");
         }
 
+        $scope.$on('skyboxReady', function () {
+                        // Begin
+                        $scope.$broadcast('initScene');
+                    })
+
     }]);

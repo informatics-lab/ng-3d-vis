@@ -26,8 +26,9 @@ angular.module('three')
                     var far = 10000;
 
                     scope.vm.cameraService.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-                    scope.vm.cameraService.camera.position.z = 1800;
+                    scope.vm.cameraService.camera.position.z = 300;
                     scope.vm.cameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
+                    scope.vm.cameraService.cameraNormal = new THREE.Vector3(0,0,-1);
 
                     //init clock
                     scope.vm.clock = new THREE.Clock();
