@@ -6,6 +6,13 @@ angular.module('mobileApp', ["informatics-badge-directive", "three"])
 
         $scope.socketService = glMobileSocketService;
 
+        $scope.width = function() {
+            return window.innerWidth;
+        }
+        $scope.height = function() {
+            return window.innerHeight;
+        }
+
         //TODO initialise phone controller
 
 

@@ -2,7 +2,7 @@ angular.module('three')
   .directive('glMacro', function() {
     return {
       restrict: 'E',
-      require: "^ngWebgl",
+      require: "^glScene",
       controller: macroController,
       controllerAs: 'vm',
       link: function (scope, element, attrs, parentCtrl) {

@@ -4,8 +4,13 @@ angular.module('desktopApp', ["informatics-badge-directive", "three"])
 
     .controller('AppCtrl', ['$scope', 'glVideoDataModelService', 'glSkyboxParameterService', function ($scope, glVideoDataModelService, glSkyboxParameterService) {
 
-        $scope.canvasWidth = window.innerWidth;
-        $scope.canvasHeight = window.innerHeight;
+        $scope.canvasWidth = function() {
+            return window.innerWidth;
+        };
+        $scope.canvasHeight = function() {
+            return window.innerHeight;
+        };
+
         $scope.scale = 1;
         $scope.materialType = 'lambert';
         $scope.videoUrl = 'http://ec2-52-16-246-202.eu-west-1.compute.amazonaws.com:9000/molab-3dwx-ds/media/55896829e4b0b14cba17273c';

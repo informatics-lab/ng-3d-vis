@@ -1,26 +1,27 @@
-/**
- * Created by tom on 22/07/2015.
- */
+'use strict';
+
 angular.module('three')
     .directive('glBox', function () {
         return {
             restrict: 'E',
             require: '^glScene',
-            scope: {},
+            scope: {
+                name: '@'
+            },
             link: postBoxLink
         }
     });
 
 function postBoxLink(scope, element, attrs, parentCtrl) {
 
-    scope.boxGeom = new THREE.BoxGeometry(100,100,100);
-    scope.boxMaterial = new THREE.MeshLambertMaterial({
+    var boxGeom = new THREE.BoxGeometry(100,100,100);
+    var boxMaterial = new THREE.MeshLambertMaterial({
         color: 0xffff00,
         shading: THREE.FlatShading,
         vertexColors: THREE.VertexColors
     });
-    scope.box = new THREE.Mesh(scope.boxGeom, scope.boxMaterial);
+    var box = new THREE.Mesh(boxGeom, boxMaterial);
 
-    parentCtrl.sceneService.addSomething(scope.box);
+    parentCtrl.sceneService.addSomething(scope.name, box);
 
 }

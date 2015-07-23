@@ -48,7 +48,7 @@ angular.module('three')
                         var dirLight = new THREE.DirectionalLight(lightColor, dirLightIntensity);
                         dirLight.position.set(0.0, 20.0, 0.0);
                         scope.vm.dirLight = dirLight;
-                        scope.vm.sceneService.addSomething(dirLight);
+                        scope.vm.sceneService.addSomething('light', dirLight);
 
                         // Shadow
                         var canvas = document.createElement('canvas');
@@ -160,15 +160,10 @@ function webglController($scope, $rootScope, glSceneService, glSkyboxParameterSe
     vm.videoService = glVideoDataModelService;
     vm.cameraService = glCameraService;
 
-    vm.addSomething = function (thing) {
-        vm.sceneService.addSomething(thing);
-    }
-    vm.removeSomething = function (thing) {
-        vm.sceneService.removeSomething(thing);
-    }
+
     vm.broadcastRender = function () {
         $rootScope.$broadcast('render');
-    }
+    };
 
     $rootScope.$on('socket', function (status) {
         console.log(status);

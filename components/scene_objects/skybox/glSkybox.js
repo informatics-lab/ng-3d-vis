@@ -2,7 +2,7 @@ angular.module('three')
   .directive('glSkybox', function() {
     return {
       restrict: 'E',
-      require: "^ngWebgl",
+      require: "^glScene",
       controller: skyboxController,
       controllerAs: 'vm',
       link: function postLink(scope, element, attrs, parentCtrl) {
@@ -42,7 +42,7 @@ angular.module('three')
                     var boxOutlineMesh = new THREE.Mesh( boxGeometry );
                     var boxOutLine = new THREE.BoxHelper( boxOutlineMesh );
                     boxOutLine.material.color.set( "#000033" );
-                    parentCtrl.addSomething( boxOutLine );
+                    parentCtrl.sceneService.addSomething( boxOutLine );
 
                      /*** first pass ***/
                     var materialbackFace = new THREE.ShaderMaterial( {
@@ -96,7 +96,7 @@ angular.module('three')
                     scope.vm.scene = scene;
                     var meshRayMarch = new THREE.Mesh( boxGeometry, materialRayMarch );
                   
-                    parentCtrl.addSomething(meshRayMarch);
+                    parentCtrl.sceneService.addSomething(meshRayMarch);
                                 
                     scope.vm.ready = true;
                 }

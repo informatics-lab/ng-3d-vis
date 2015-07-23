@@ -5,7 +5,9 @@ angular.module('three')
         return {
             restrict: 'E',
             scope: {
-                hide: '='
+                hide: '=',
+                width: '=',
+                height: '='
             },
             controller: sceneController,
             controllerAs: 'vm',
@@ -19,7 +21,7 @@ angular.module('three')
 
                     //init camera
                     var fov = 45;
-                    var aspect = scope.vm.width() / scope.vm.height();
+                    var aspect = scope.width() / scope.height();
                     var near = 0.01;
                     var far = 10000;
 
@@ -34,7 +36,7 @@ angular.module('three')
                     scope.vm.renderer = new THREE.WebGLRenderer({antialias: true});
 
                     if (!scope.hide) {
-                        scope.vm.renderer.setSize(scope.vm.width(), scope.vm.height());
+                        scope.vm.renderer.setSize(scope.width(), scope.height());
                         scope.vm.renderer.setClearColor(0x2222ee);
                         scope.vm.container.appendChild(scope.vm.renderer.domElement);
                     }
@@ -51,9 +53,9 @@ angular.module('three')
                     };
 
                     scope.onWindowResize = function () {
-                        scope.vm.cameraService.camera.aspect = scope.vm.width() / scope.vm.height();
+                        scope.vm.cameraService.camera.aspect = scope.width() / scope.height();
                         scope.vm.cameraService.camera.updateProjectionMatrix();
-                        scope.vm.renderer.setSize(scope.vm.width(), scope.vm.height());
+                        scope.vm.renderer.setSize(scope.width(), scope.height());
                     };
 
                     scope.init();
@@ -62,16 +64,16 @@ angular.module('three')
         }
     });
 
-function sceneController($scope, $rootScope, glSceneService, glCameraService) {
+function sceneController($scope, $rootScope, glSceneService, glCameraService, glConstantsService) {
     var vm = this;
 
+    vm.constants = glConstantsService;
     vm.sceneService = glSceneService;
     vm.cameraService = glCameraService;
 
     vm.animate = function () {
 
-        var fps = 30;
-        var interval = 1 / fps;
+        var interval = 1 / vm.constants.FPS;
 
         requestAnimationFrame(vm.animate);
 
@@ -105,13 +107,4 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService) {
         $rootScope.$emit(event, message);
     };
 
-    //gets the total width of the window
-    vm.width = function () {
-        return window.innerWidth;
-    };
-
-    //gets the total height of the window
-    vm.height = function () {
-        return window.innerHeight;
-    };
 }

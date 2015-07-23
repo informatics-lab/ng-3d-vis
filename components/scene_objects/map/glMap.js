@@ -2,8 +2,9 @@ angular.module('three')
   .directive('glMap', function() {
     return {
       restrict: 'E',
-      require: "^ngWebgl",
+      require: "^glScene",
       scope: {
+        'name': '@',
         'datashape': '=',
         'zscaling': '='
       },
@@ -102,10 +103,10 @@ angular.module('three')
           var geometry = new THREE.PlaneGeometry(scope.datashape.x, scope.datashape.y, 256, 256);
           geometry.computeTangents();
 
-          var mesh = new THREE.Mesh(geometry, material);
-          mesh.position.y = -(scope.datashape.z / 2)*scope.zscaling;
-          mesh.rotation.x = (3* Math.PI) / 2;
-          parentCtrl.addSomething(mesh);
+          var terrain = new THREE.Mesh(geometry, material);
+          terrain.position.y = -(scope.datashape.z / 2)*scope.zscaling;
+          terrain.rotation.x = (3* Math.PI) / 2;
+          parentCtrl.sceneService.addSomething(scope.name, terrain);
         };
 
         scope.vm.fetchShaders();
