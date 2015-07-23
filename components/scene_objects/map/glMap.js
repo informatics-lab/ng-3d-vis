@@ -26,13 +26,30 @@ angular.module('ngWebglDemo')
                     'REQUEST=GetMap&STYLES=boxfill/greyscale&FORMAT=image/png&' +
                     'HEIGHT=1024&WIDTH=1024&BBOX=48.77,-10.12,59.29,2.43&CRS=EPSG:4326&' +
                     'LAYER=topo&VERSION=1.3.0&LAYERS=topo&COLORSCALERANGE=0,1000&NUMCOLORBANDS=253&ABOVEMAXCOLOR=extend';
+          //var landTxtrPng = 'components/scene_objects/map/data/mapserv.jpeg';
+          var landTxtrPng = 'http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?' +
+          'request=getmap&service=wms&BBOX=-10.12,48.77,2.43,59.29&srs=EPSG:4326&format=image/jpeg&' +
+          'layers=gebco_latest&width=1261&height=1506&version=1.1.1';
+
           // HEIGHT=1506&WIDTH=1261
           THREE.ImageUtils.crossOrigin = '*';
           var dispTexture = THREE.ImageUtils.loadTexture( htMapPng, THREE.UVMapping,
                     function(){}, function(xhr){console.error('Error loading', xhr)} );
           //dispTexture.flipY=false;
-          var diffTexture = new THREE.ImageUtils.loadTexture('components/scene_objects/map/data/mapserv.jpeg');
-
+          var diffTexture;
+          var tmpImage = new Image();
+          tmpImage.onload = function(){
+            var canv = document.createElement('canvas');
+            canv.width = this.width;
+            canv.height = this.height;
+            var ctx = canv.getContext('2d');
+            ctx.drawImage(this, 0, 0);
+            console.warn( canv.toDataURL() );
+            diffTexture = new THREE.ImageUtils.loadTexture ( canv.toDataURL() );
+            uniforms[ "tDiffuse"].value = diffTexture;
+          }
+          tmpImage.crossOrigin = 'anonymous';
+          tmpImage.src = landTxtrPng;
           var uniforms = THREE.UniformsUtils.merge( [
 
             THREE.UniformsLib[ "fog" ],
