@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngWebglDemo')
+angular.module('three')
     .service('glCoordService', function () {
         var vm = this;
         vm.grid_dims = null;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngWebglDemo')
+angular.module('three')
   .directive('glLocationSearch', function () {
     return {
       restrict: 'E',
@@ -37,10 +37,10 @@ function locSearchPostLink(scope, element, attrs) {
   });
 }
 
-function locSearchController($scope, glCoordService, glCameraModelService) {
+function locSearchController($scope, glCoordService, glCameraService) {
   var vm = this;
 
   vm.coordService = glCoordService;
-  vm.cameraService = glCameraModelService;
+  vm.cameraService = glCameraService;
   vm.coordService.initialize($scope.griddims, $scope.geobounds);
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngWebglDemo')
+angular.module('three')
 	.service('glSkyboxParameterService', function() {
 		function getAlphaCorrection(opacFace, nSteps){
 		    return opacFac/nSteps;

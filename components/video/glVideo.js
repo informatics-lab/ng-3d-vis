@@ -1,4 +1,4 @@
-angular.module('ngWebglDemo')
+angular.module('desktopApp')
     .directive('glVideo', function() {
         return {
             restrict: 'E',

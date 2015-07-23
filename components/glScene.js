@@ -11,10 +11,13 @@ angular.module('three')
             controllerAs: 'vm',
             link: {
                 pre: function scenePreLink(scope, element, attrs) {
+                    //get element
                     scope.vm.container = element[0];
 
+                    //init scene
                     scope.vm.sceneService.scene = new THREE.Scene();
 
+                    //init camera
                     var fov = 45;
                     var aspect = scope.vm.width() / scope.vm.height();
                     var near = 0.01;
@@ -24,14 +27,15 @@ angular.module('three')
                     scope.vm.cameraService.camera.position.z = 1800;
                     scope.vm.cameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
+                    //init clock
                     scope.vm.clock = new THREE.Clock();
 
+                    //init renderer
                     scope.vm.renderer = new THREE.WebGLRenderer({antialias: true});
 
                     if (!scope.hide) {
                         scope.vm.renderer.setSize(scope.vm.width(), scope.vm.height());
                         scope.vm.renderer.setClearColor(0x2222ee);
-                        // scope.vm.renderer.autoClear = false;
                         scope.vm.container.appendChild(scope.vm.renderer.domElement);
                     }
 
@@ -71,7 +75,8 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService) {
 
         requestAnimationFrame(vm.animate);
 
-        if (vm.clock.getElapsedTime() > interval) {
+        var delta = vm.clock.getElapsedTime();
+        if (delta > interval) {
 
             vm.clock.elapsedTime = 0;
 
@@ -85,19 +90,19 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService) {
     vm.update = function () {
         //console.log("updating...");
 
-        vm.broadcastEvent('update');
+        vm.emitEvent('update');
         var delta = vm.clock.getDelta();
     };
 
     vm.render = function () {
         //console.log('rendering...');
 
-        vm.broadcastEvent('render');
+        vm.emitEvent('render');
         vm.renderer.render(vm.sceneService.scene, vm.cameraService.camera);
     };
 
-    vm.broadcastEvent = function (event) {
-        $rootScope.$broadcast(event);
+    vm.emitEvent = function (event, message) {
+        $rootScope.$emit(event, message);
     };
 
     //gets the total width of the window

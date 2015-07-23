@@ -1,4 +1,4 @@
-angular.module('ngWebglDemo')
+angular.module('three')
   .directive('glMacro', function() {
     return {
       restrict: 'E',
@@ -11,10 +11,10 @@ angular.module('ngWebglDemo')
     };
   });
 
-function macroController($scope, glCameraModelService) {
+function macroController($scope, glCameraService) {
   var vm = this;
 
-  vm.cameraService = glCameraModelService;
+  vm.cameraService = glCameraService;
 
   vm.play_macro = false; // for camera macro
   vm.record_macro = false; // for camera macro

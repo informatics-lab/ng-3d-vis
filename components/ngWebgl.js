@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngWebglDemo')
+angular.module('three')
     .directive('ngWebgl', function () {
         return {
             restrict: 'E',
@@ -15,7 +15,7 @@ angular.module('ngWebglDemo')
                 pre: function webglPreLink(scope, element, attrs) {
                     var scene = new THREE.Scene();
                     scope.scene = scene;
-                    scope.vm.sceneService.setScene(scene);
+                    scope.vm.sceneService.scene = scene;
                 },
                 post: function webglPostLink(scope, element, attrs) {
                     var params = scope.vm.paramService;
@@ -28,9 +28,14 @@ angular.module('ngWebglDemo')
 
 
                     scope.init = function () {
-                        scope.vm.cameraService.setupCamera(
-                            contW / contH, params.CAMERA_STANDOFF, params.Z_SCALING, scope.datashape
-                        );
+
+                        scope.vm.cameraService.camera = new THREE.PerspectiveCamera(45, contW / contH, 0.01, 10000);
+                        scope.vm.cameraService.camera.rotation.order = "YXZ";
+                        scope.vm.cameraService.camera.position.set(scope.datashape.x * params.CAMERA_STANDOFF,
+                            scope.datashape.z * params.CAMERA_STANDOFF * params.Z_SCALING * 1.1, // 1.1 fac to get rid of
+                            scope.datashape.y * params.CAMERA_STANDOFF * 1.05); // geometrically perfect camera perspective
+                        scope.vm.cameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
+                        scope.vm.cameraService.cameraNormal = new THREE.Vector3(0,0,-1);
 
                         // Scene
                         var scene = scope.vm.sceneService.scene;
@@ -144,7 +149,7 @@ angular.module('ngWebglDemo')
         }
     });
 
-function webglController($scope, $rootScope, glSceneService, glSkyboxParameterService, glVideoDataModelService, glCameraModelService) {
+function webglController($scope, $rootScope, glSceneService, glSkyboxParameterService, glVideoDataModelService, glCameraService) {
     var vm = this;
     vm.dirLight = null;
     //vm.ambientLight = null;
@@ -153,7 +158,7 @@ function webglController($scope, $rootScope, glSceneService, glSkyboxParameterSe
     vm.sceneService = glSceneService;
     vm.paramService = glSkyboxParameterService;
     vm.videoService = glVideoDataModelService;
-    vm.cameraService = glCameraModelService;
+    vm.cameraService = glCameraService;
 
     vm.addSomething = function (thing) {
         vm.sceneService.addSomething(thing);

@@ -1,4 +1,4 @@
-angular.module('ngWebglDemo')
+angular.module('three')
   .directive('glSkybox', function() {
     return {
       restrict: 'E',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngWebglDemo')
+angular.module('three')
   .service('glMapShaderRequestService', function($rootScope) {
     var vm = this;
     vm.shaders_to_load = {};

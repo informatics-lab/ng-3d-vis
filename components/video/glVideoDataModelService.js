@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngWebglDemo')
+angular.module('desktopApp')
 	.service('glVideoDataModelService', function($rootScope) {
 		var vm = this;
 		vm.videoImage = null;

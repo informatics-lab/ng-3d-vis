@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Desktop App</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -21,7 +21,7 @@
     <!-- endbuild -->
 
 </head>
-<body ng-app="ngWebglDemo">
+<body ng-app="desktopApp">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -30,7 +30,6 @@
 <!--[if lt IE 9]>
 <script src="../../bower_components/es5-shim/es5-shim.js"></script>
 <script src="../../bower_components/json3/lib/json3.min.js"></script>
-
 <![endif]-->
 
 <!-- application content -->
@@ -43,7 +42,6 @@
     </div>
 
     <informatics-badge></informatics-badge>
-
 
     <div class="twelve columns add-bottom">
 
@@ -86,12 +84,13 @@
 <script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
 
 <script type="text/javascript" src="desktopApp.js"></script>
+<script type="text/javascript" src="../../components/threeModule.js"></script>
 <script type="text/javascript" src="../../components/controls/glSocketService.js"></script>
 <script type="text/javascript" src="../../components/controls/glMobileConnection.js"></script>
 <script type="text/javascript" src="../../components/location_search/glLocationSearch.js"></script>
 <script type="text/javascript" src="../../components/location_search/glCoordService.js"></script>
 <script type="text/javascript" src="../../components/ngWebgl.js"></script>
-<script type="text/javascript" src="../../components/camera/glCameraModelService.js"></script>
+<script type="text/javascript" src="../../components/camera/glCameraService.js"></script>
 <script type="text/javascript" src="../../components/camera/glMacro.js"></script>
 <script type="text/javascript" src="../../components/video/glVideoDataModelService.js"></script>
 <script type="text/javascript" src="../../components/video/glVideo.js"></script>

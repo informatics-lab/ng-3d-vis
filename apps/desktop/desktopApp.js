@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ngWebglDemo', ["informatics-badge-directive"])
+angular.module('desktopApp', ["informatics-badge-directive", "three"])
 
     .controller('AppCtrl', ['$scope', 'glVideoDataModelService', 'glSkyboxParameterService', function ($scope, glVideoDataModelService, glSkyboxParameterService) {
 

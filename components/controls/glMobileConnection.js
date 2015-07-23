@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('ngWebglDemo')
+angular.module('three')
     .directive('glMobileConnection', function () {
         return {
             restrict: 'E',
