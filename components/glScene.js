@@ -5,32 +5,33 @@ angular.module('three')
         return {
             restrict: 'E',
             scope: {
-                hidden: '='
+                hide: '='
             },
             controller: sceneController,
             controllerAs: 'vm',
-            template: '<div id="scene"></div>',
             link: {
                 pre: function scenePreLink(scope, element, attrs) {
-                    scope.vm.container = document.getElementById("scene");
+                    scope.vm.container = element[0];
 
                     scope.vm.sceneService.scene = new THREE.Scene();
 
                     var fov = 45;
-                    var aspect = scope.vm.width / scope.vm.height;
+                    var aspect = scope.vm.width() / scope.vm.height();
                     var near = 0.01;
                     var far = 10000;
 
                     scope.vm.cameraService.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+                    scope.vm.cameraService.camera.position.z = 1800;
+                    scope.vm.cameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
                     scope.vm.clock = new THREE.Clock();
 
                     scope.vm.renderer = new THREE.WebGLRenderer({antialias: true});
 
-                    if(!scope.hidden) {
+                    if (!scope.hide) {
                         scope.vm.renderer.setSize(scope.vm.width(), scope.vm.height());
-                        scope.vm.renderer.setClearColor("rgb(135, 206, 250)", 1);
-                        scope.vm.renderer.autoClear = false;
+                        scope.vm.renderer.setClearColor(0x2222ee);
+                        // scope.vm.renderer.autoClear = false;
                         scope.vm.container.appendChild(scope.vm.renderer.domElement);
                     }
 
@@ -46,6 +47,8 @@ angular.module('three')
                     };
 
                     scope.onWindowResize = function () {
+                        scope.vm.cameraService.camera.aspect = scope.vm.width() / scope.vm.height();
+                        scope.vm.cameraService.camera.updateProjectionMatrix();
                         scope.vm.renderer.setSize(scope.vm.width(), scope.vm.height());
                     };
 
