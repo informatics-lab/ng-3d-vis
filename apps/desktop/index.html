@@ -45,7 +45,7 @@
 
     <div class="twelve columns add-bottom">
 
-        <gl-scene width="canvasWidth" height="canvasHeight">
+        <gl-scene gl-stats width="canvasWidth" height="canvasHeight">
             <gl-light name="light"></gl-light>
             <gl-location-search griddims="grid_dims" geobounds="geo_bounds"></gl-location-search>
             <gl-macro></gl-macro>
@@ -73,6 +73,7 @@
 <script type="text/javascript" src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
 <script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
 <script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
 
 
 <script type="text/javascript" src="desktopApp.js"></script>
@@ -80,6 +81,7 @@
 <script type="text/javascript" src="../../components/glScene.js"></script>
 <script type="text/javascript" src="../../components/glSceneService.js"></script>
 <script type="text/javascript" src="../../components/glConstantsService.js"></script>
+<script type="text/javascript" src="../../components/debug/glStats.js"></script>
 <script type="text/javascript" src="../../components/camera/glCameraService.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/glLight.js"></script>
 

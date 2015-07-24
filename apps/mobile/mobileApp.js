@@ -8,10 +8,10 @@ angular.module('mobileApp', ["informatics-badge-directive", "three"])
 
         $scope.width = function() {
             return window.innerWidth;
-        }
+        };
         $scope.height = function() {
             return window.innerHeight;
-        }
+        };
 
         //TODO initialise phone controller
 

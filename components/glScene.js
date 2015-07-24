@@ -76,11 +76,9 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService, gl
 
         var interval = 1 / vm.constants.FPS;
 
-        requestAnimationFrame(vm.animate);
-
         var delta = vm.clock.getElapsedTime();
-        if (delta > interval) {
 
+        if (delta > interval) {
             vm.clock.elapsedTime = 0;
 
             //Code for Drawing the Frame ...
@@ -88,24 +86,26 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService, gl
             vm.update();
         }
 
+        requestAnimationFrame(vm.animate);
+
     };
 
     vm.update = function () {
         //console.log("updating...");
 
-        vm.emitEvent('update');
+        vm.broadcastEvent('update');
         var delta = vm.clock.getDelta();
     };
 
     vm.render = function () {
         //console.log('rendering...');
 
-        vm.emitEvent('render');
+        vm.broadcastEvent('render');
         vm.renderer.render(vm.sceneService.scene, vm.cameraService.camera);
     };
 
-    vm.emitEvent = function (event, message) {
-        $rootScope.$emit(event, message);
+    vm.broadcastEvent = function (event, message) {
+        $rootScope.$broadcast(event, message);
     };
 
 }
