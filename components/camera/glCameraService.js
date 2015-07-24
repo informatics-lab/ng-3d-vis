@@ -1,19 +1,27 @@
 'use strict';
 
 angular.module('three')
-    .service('glCameraService', function ($rootScope) {
-        var vm = this;
+    .factory('glCameraService', function ($rootScope) {
 
-        vm.camera = null;
+        $rootScope.$on("update", function () {
+            TWEEN.update();
+        });
 
-        vm.moveCamera = function(pos) {
-            var tween = new TWEEN.Tween(vm.camera.position)
-                .to({x: pos.x, y: pos.y, z: pos.z}, 3000)
-                .easing(TWEEN.Easing.Sinusoidal.InOut)
-                .onUpdate(function () {})
-                .onComplete(function () {})
-                .start();
+        var service = {
+
+            camera: null,
+
+            moveCamera: function (pos) {
+                var tween = new TWEEN.Tween(service.camera.position)
+                    .to({x: pos.x, y: pos.y, z: pos.z}, 3000)
+                    .easing(TWEEN.Easing.Sinusoidal.InOut)
+                    .onUpdate(function () {
+                    })
+                    .onComplete(function () {
+                    })
+                    .start();
+            }
         };
 
-        return vm;
+        return service;
     });

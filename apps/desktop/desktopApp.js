@@ -81,9 +81,9 @@ angular.module('desktopApp', ["informatics-badge-directive", "three"])
 
 
         //RENDERER
-        glRendererService.renderer = new THREE.WebGLRenderer({antialias: true});
+        glRendererService.renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
         glRendererService.renderer.setSize($scope.width(), $scope.height());
-        glRendererService.renderer.setClearColor(0x2222ee);
+        //glRendererService.renderer.setClearColor(0x2222ee);
 
 
 
