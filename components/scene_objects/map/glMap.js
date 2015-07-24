@@ -95,7 +95,7 @@ angular.module('three')
             uniforms: uniforms,
             vertexShader: scope.vm.shaders.vertex_shader_heightmap,
             fragmentShader: scope.vm.shaders.fragment_shader_heightmap,
-            side: THREE.DoubleSide
+            side: THREE.FrontSide
           } );
 
 

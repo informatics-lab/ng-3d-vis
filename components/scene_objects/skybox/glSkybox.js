@@ -128,7 +128,7 @@ angular.module('three')
                 scope.$on('render', function() {
                   if (scope.vm.ready) {
                     //scope.vm.dataTexture.needsUpdate = true;
-                    parentCtrl.renderer.render( scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
+                    parentCtrl.rendererService.renderer.render( scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
                   }
                 })
                 scope.$on('videoUpdate', function() {
