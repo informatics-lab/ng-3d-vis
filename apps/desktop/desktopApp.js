@@ -83,6 +83,10 @@ angular.module('desktopApp', ["informatics-badge-directive", "three"])
         //RENDERER
         glRendererService.renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
         glRendererService.renderer.setSize($scope.width(), $scope.height());
+
+        /*
+         * commented out as have set background to transparent
+         */
         //glRendererService.renderer.setClearColor(0x2222ee);
 
 

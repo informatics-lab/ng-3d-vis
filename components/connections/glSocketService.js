@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('three')
-    .service('glSocketService', function ($rootScope, glCameraService) {
+    .service('glSocketService', function (glCameraService) {
         var vm = this;
 
         vm.cameraService = glCameraService;
