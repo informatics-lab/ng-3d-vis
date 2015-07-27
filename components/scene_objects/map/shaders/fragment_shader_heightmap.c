@@ -80,7 +80,7 @@ void main() {
 
   vec4 color;
 
-  if(currentElevation < 0.001){
+  if(currentElevation < 0.0001){
     color = vec4( diffuseTex.xyz, 1.0 );
   } else {
     color = vec4( diffuseTex.xyz + (totalLight.xyz/2.0), 1.0 );

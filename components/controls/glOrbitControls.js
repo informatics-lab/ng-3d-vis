@@ -1,16 +1,16 @@
 'use strict';
 
 angular.module('three')
-    .directive('glOrbitControls', ['glCameraService','glRendererService', function (glCameraService, glRendererService) {
+    .directive('glOrbitControls', function () {
         return {
             restrict: 'A',
             require: '^glScene',
-            link: function (scope, element, attrs) {
+            link: function (scope, element, attrs, sceneCtrl) {
 
-                var controls = new THREE.OrbitControls(glCameraService.camera, glRendererService.renderer.domElement);
+                var controls = new THREE.OrbitControls(sceneCtrl.cameraService.camera, sceneCtrl.rendererService.renderer.domElement);
                 controls.zoomSpeed *= 1.0;
 
             }
         }
-    }]);
+    });
 

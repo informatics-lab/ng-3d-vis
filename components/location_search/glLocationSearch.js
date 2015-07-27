@@ -26,6 +26,8 @@ function locSearchPostLink(scope, element, attrs) {
   );
   scope.autocomplete = new google.maps.places.Autocomplete(scope.loc_input, {bounds:mapBounds});
   //scope.autocomplete.setBounds(mapBounds);
+
+  //TODO add in elevation lookup so that we are always moved to ground level.
   google.maps.event.addListener(scope.autocomplete, 'place_changed', function() {
     //infowindow.close();
     var place = scope.autocomplete.getPlace();
