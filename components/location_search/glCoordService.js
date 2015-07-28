@@ -58,5 +58,15 @@ angular.module('three')
             };
         };
 
+        vm.lookupLatLon = function (position) {
+
+
+
+            return {
+                lat: 0.0,
+                lon: 0.0
+            };
+        };
+
         return vm;
     });

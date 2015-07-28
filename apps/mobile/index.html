@@ -38,7 +38,7 @@
     <informatics-badge></informatics-badge>
 
     <!-- this element is hidden by default and is just used to allow easy camera manipulation -->
-    <gl-scene hide="false" width="width" height="height">
+    <gl-scene gl-stats gl-orbit-controls hide="false" width="width" height="height">
         <gl-box name="testBox"></gl-box>
     </gl-scene>
 
@@ -59,17 +59,19 @@
 <script type="text/javascript" src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
 <script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
 <script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
 
 <script type="text/javascript" src="mobileApp.js"></script>
 <script type="text/javascript" src="../../components/connections/glMobileSocketService.js"></script>
 <script type="text/javascript" src="../../components/threeModule.js"></script>
+<script type="text/javascript" src="../../components/debug/glStats.js"></script>
 <script type="text/javascript" src="../../components/glScene.js"></script>
 <script type="text/javascript" src="../../components/glSceneService.js"></script>
 <script type="text/javascript" src="../../components/camera/glCameraService.js"></script>
 <script type="text/javascript" src="../../components/renderer/glRendererService.js"></script>
 <script type="text/javascript" src="../../components/glConstantsService.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/glBox.js"></script>
-
+<script type="text/javascript" src="../../components/controls/glOrbitControls.js "></script>
 <!-- endbuild -->
 
 </body>
