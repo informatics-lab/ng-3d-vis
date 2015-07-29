@@ -50,6 +50,7 @@ angular.module('desktopApp')
 
                         scope.vm.videoImageContext.drawImage( scope.vm.video, 0, 0, w*scope.shrinkFactor, h*scope.shrinkFactor, 0, 0, w, h );
                         scope.vm.dataService.broadcastUpdate();
+
                     }
                 }
 

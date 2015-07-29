@@ -37,7 +37,10 @@ angular.module('three')
                         scope.vm.rendererService.renderer.setSize(scope.width(), scope.height());
                     };
 
-                    scope.init();
+                    scope.$on('init scene', function() {
+                        console.log("initiating scene");
+                        scope.init();
+                    });
                 }
             }
         }
@@ -73,17 +76,12 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService, gl
 
     vm.update = function () {
         //console.log("updating...");
-        vm.broadcastEvent('update');
+        $rootScope.$broadcast('update');
     };
 
     vm.render = function () {
         //console.log('rendering...');
-        vm.broadcastEvent('render');
+        $rootScope.$broadcast('render');
         vm.rendererService.renderer.render(vm.sceneService.scene, vm.cameraService.camera);
     };
-
-    vm.broadcastEvent = function (event, message) {
-        $rootScope.$broadcast(event, message);
-    };
-
 }

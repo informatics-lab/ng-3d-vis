@@ -51,6 +51,7 @@
             <gl-reverse-location-search></gl-reverse-location-search>
             <gl-macro></gl-macro>
             <gl-mobile-connection></gl-mobile-connection>
+            <!--<gl-layered-sky name="sky"></gl-layered-sky>-->
             <gl-skybox name="sky" dims='dims'></gl-skybox>
             <gl-map name="terrain" datashape='dims.datashape' zscaling='z_scaling'></gl-map>
         </gl-scene>
@@ -59,9 +60,11 @@
 
     <gl-video
             url="videoUrl"
-            shrink-factor="1">
+            shrink-factor="10">
     </gl-video>
 
+    <div id="vid" style="position: absolute; left:0px"></div>
+    <div id="canv" style="position: absolute; right:0px"></div>
 </div>
 
 <!-- scripts/scripts.js -->
@@ -87,6 +90,8 @@
 <script type="text/javascript" src="../../components/glConstantsService.js"></script>
 <script type="text/javascript" src="../../components/controls/glOrbitControls.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/glLight.js"></script>
+<script type="text/javascript" src="../../components/video/glVideoService.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/skybox/glLayeredSky.js"></script>
 
 <!-- old -->
 <script type="text/javascript" src="../../components/connections/glSocketService.js"></script>
