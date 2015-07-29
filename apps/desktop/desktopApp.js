@@ -2,7 +2,7 @@
 
 angular.module('desktopApp', ["informatics-badge-directive", "three"])
 
-    .controller('AppCtrl', ['$scope', 'glVideoDataModelService', 'glSkyboxParameterService', 'glSceneService', 'glCameraService', 'glRendererService', function ($scope, glVideoDataModelService, glSkyboxParameterService, glSceneService, glCameraService, glRendererService) {
+    .controller('AppCtrl', ['$scope', 'glVideoDataModelService', 'glSkyboxParameterService', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService', function ($scope, glVideoDataModelService, glSkyboxParameterService, glSceneService, glCameraService, glRendererService, glVideoService) {
 
         $scope.width = function () {
             return window.innerWidth;
@@ -64,7 +64,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three"])
         Init objects in shared services
         *******************************/
 
-            //SCENE
+        //SCENE
         glSceneService.scene = new THREE.Scene();
 
 
@@ -89,6 +89,13 @@ angular.module('desktopApp', ["informatics-badge-directive", "three"])
          */
         //glRendererService.renderer.setClearColor(0x2222ee);
 
+        //VIDEO DATA
+        glVideoService.loadData($scope.videoUrl);
+
+        $scope.$on('video data loaded', function() {
+            console.log("video ready");
+            $scope.$broadcast('init scene');
+        });
 
 
     }]);
