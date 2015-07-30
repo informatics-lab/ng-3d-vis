@@ -7,7 +7,7 @@ angular.module('three')
     .factory('glConstantsService', function () {
 
         // for some reason this means it will run at 30 frames per second ?
-        var FPS = 4;
+        var FPS = 30;
 
         // the scaling factor for height
         var HEIGHT_SCALE_FACTOR = 3;

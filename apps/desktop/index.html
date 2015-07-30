@@ -47,21 +47,21 @@
 
         <gl-scene gl-stats gl-orbit-controls width="width" height="height">
             <gl-light name="light"></gl-light>
-            <gl-location-search griddims="grid_dims" geobounds="geo_bounds"></gl-location-search>
-            <gl-reverse-location-search></gl-reverse-location-search>
+            <gl-location-search></gl-location-search>
+            <!--<gl-reverse-location-search></gl-reverse-location-search>-->
             <gl-macro></gl-macro>
             <gl-mobile-connection></gl-mobile-connection>
-            <!--<gl-layered-sky name="sky"></gl-layered-sky>-->
-            <gl-skybox name="sky" dims='dims'></gl-skybox>
-            <gl-map name="terrain" datashape='dims.datashape' zscaling='z_scaling'></gl-map>
+            <gl-layered-sky name="sky"></gl-layered-sky>
+            <!--<gl-volume-rendered-sky name="sky"></gl-volume-rendered-sky>-->
+            <!--<gl-map name="terrain"></gl-map>-->
         </gl-scene>
 
     </div>
 
-    <gl-video
-            url="videoUrl"
-            shrink-factor="10">
-    </gl-video>
+    <!--<gl-video-->
+            <!--url="videoUrl"-->
+            <!--shrink-factor="10">-->
+    <!--</gl-video>-->
 
     <div id="vid" style="position: absolute; left:0px"></div>
     <div id="canv" style="position: absolute; right:0px"></div>
@@ -72,7 +72,7 @@
 
 <script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../../bower_components/angularjs/angular.min.js"></script>
-<script type="text/javascript" src="../../bower_components/threejs/build/three.min.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs/build/three.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs-controls/src/OrbitControls.js"></script>
 <script type="text/javascript" src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
 <script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
@@ -100,12 +100,9 @@
 <script type="text/javascript" src="../../components/location_search/glCoordService.js"></script>
 <script type="text/javascript" src="../../components/location_search/glReverseLocationSearch.js"></script>
 <script type="text/javascript" src="../../components/camera/glMacro.js"></script>
-<script type="text/javascript" src="../../components/video/glVideoDataModelService.js"></script>
-<script type="text/javascript" src="../../components/video/glVideo.js"></script>
+
 <script type="text/javascript" src="../../components/scene_objects/skybox/glShaderRequestService.js"></script>
-<script type="text/javascript" src="../../components/scene_objects/skybox/glSkybox.js"></script>
-<script type="text/javascript" src="../../components/scene_objects/skybox/glSkyboxParameterService.js"></script>
-<script type="text/javascript" src="../../components/scene_objects/map/glMapShaderRequestService.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/skybox/glVolumeRenderedSky.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/map/glMap.js"></script>
 <!-- endbuild -->
 

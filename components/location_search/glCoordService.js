@@ -1,40 +1,38 @@
 'use strict';
 
 angular.module('three')
-    .service('glCoordService', function () {
+    .service('glCoordService', ['$rootScope', 'glVideoService', function ($rootScope, glVideoService) {
         var vm = this;
-        vm.grid_dims = null;
 
-        vm.maxLat = null;
-        vm.minLat = null;
-        vm.maxLon = null;
-        vm.minLon = null;
+        vm.videoService = glVideoService;
 
-        vm.initialize = function (dims, bounds) {
-            // We're assuming for now that we have a rectangle along lat/lon lines
-            // Later, might need to worry about the meridian -180/180
-            vm.grid_dims = dims;
+        $rootScope.$on('video data loaded', function() {
 
-            vm.maxLat = -90;
-            vm.minLat = 90;
-            vm.maxLon = -180;
-            vm.minLon = 180;
-            bounds.forEach(function (bound) {
-                if (bound.lat > vm.maxLat) {
-                    vm.maxLat = bound.lat;
-                }
-                if (bound.lat < vm.minLat) {
-                    vm.minLat = bound.lat;
-                }
-                if (bound.lng > vm.maxLon) {
-                    vm.maxLon = bound.lng;
-                }
-                if (bound.lng < vm.minLon) {
-                    vm.minLon = bound.lng;
-                }
-            });
+                // We're assuming for now that we have a rectangle along lat/lon lines
+                // Later, might need to worry about the meridian -180/180
+                vm.grid_dims = vm.videoService.data.data_dimensions;
 
-        };
+                vm.maxLat = -90;
+                vm.minLat = 90;
+                vm.maxLon = -180;
+                vm.minLon = 180;
+                vm.videoService.data.geographic_region.forEach(function (bound) {
+                    if (bound.lat > vm.maxLat) {
+                        vm.maxLat = bound.lat;
+                    }
+                    if (bound.lat < vm.minLat) {
+                        vm.minLat = bound.lat;
+                    }
+                    if (bound.lng > vm.maxLon) {
+                        vm.maxLon = bound.lng;
+                    }
+                    if (bound.lng < vm.minLon) {
+                        vm.minLon = bound.lng;
+                    }
+                });
+
+
+        });
 
         vm.lookupCoordX = function (lon) {
             var btm_left = -vm.grid_dims.x / 2;
@@ -58,9 +56,8 @@ angular.module('three')
             };
         };
 
+        //TODO lookup lat lng from camera position
         vm.lookupLatLon = function (position) {
-
-
 
             return {
                 lat: 0.0,
@@ -69,4 +66,4 @@ angular.module('three')
         };
 
         return vm;
-    });
+    }]);

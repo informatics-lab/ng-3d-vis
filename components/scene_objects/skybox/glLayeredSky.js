@@ -26,7 +26,8 @@ angular.module('three')
                      */
 
                     // EITHER enable to render selection of levels
-                    //var levels = [1, 10, 20];
+                    //TODO why is layer '1' missing???
+                    //var levels = [6,7,8,9,10,11];
                     //for (var i = 0; i < levels.length; i++) {
                     //    var layer = scope.vm.getLayer(levels[i]);
                     //    layerContainer.add(layer);
@@ -142,7 +143,7 @@ function layeredSkyController($scope, $rootScope, glVideoService) {
         layerMesh.receiveShadow = true;
 
         //sets the meshes height and rotation above ground
-        layerMesh.position.y = (levelNumber * 10);
+        layerMesh.position.y = (levelNumber * 2);
         layerMesh.rotation.x = -Math.PI * 0.5;
 
         return layerMesh;

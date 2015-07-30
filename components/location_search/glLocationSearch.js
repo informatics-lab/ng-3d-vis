@@ -4,9 +4,7 @@ angular.module('three')
   .directive('glLocationSearch', function () {
     return {
       restrict: 'E',
-      scope: { 
-        'griddims': '=',
-        'geobounds': '='
+      scope: {
       },
       controller: locSearchController,
       controllerAs: 'vm',
@@ -32,7 +30,8 @@ function locSearchPostLink(scope, element, attrs) {
     //infowindow.close();
     var place = scope.autocomplete.getPlace();
     console.log(place);
-    var loc = {lat:place.geometry.location.A, lon:place.geometry.location.F};
+    var loc = {lat:place.geometry.location.G, lon:place.geometry.location.K};
+
     var newCoords = scope.vm.coordService.lookupCoords(loc);
     console.log(newCoords);
     scope.vm.cameraService.moveCamera(newCoords);
@@ -44,5 +43,4 @@ function locSearchController($scope, glCoordService, glCameraService) {
 
   vm.coordService = glCoordService;
   vm.cameraService = glCameraService;
-  vm.coordService.initialize($scope.griddims, $scope.geobounds);
 }
