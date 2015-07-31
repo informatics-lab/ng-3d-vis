@@ -26,19 +26,19 @@ angular.module('three')
                      */
 
                     // EITHER enable to render selection of levels
-                    //var levels = [1, 10, 20];
-                    //for (var i = 0; i < levels.length; i++) {
-                    //    var layer = scope.vm.getLayer(levels[i]);
-                    //    layerContainer.add(layer);
-                    //
-                    //}
-
-                    // OR enable to render all levels
-                    for (var i = 0; i < scope.vm.videoService.data.data_dimensions.z; i++) {
-                        var layer = scope.vm.getLayer(i);
+                    var levels = [1];
+                    for (var i = 0; i < levels.length; i++) {
+                        var layer = scope.vm.getLayer(levels[i]);
                         layerContainer.add(layer);
 
                     }
+
+                    // OR enable to render all levels
+                    //for (var i = 0; i < scope.vm.videoService.data.data_dimensions.z; i++) {
+                    //    var layer = scope.vm.getLayer(i);
+                    //    layerContainer.add(layer);
+                    //
+                    //}
 
                 });
 
@@ -142,7 +142,7 @@ function layeredSkyController($scope, $rootScope, glVideoService) {
         layerMesh.receiveShadow = true;
 
         //sets the meshes height and rotation above ground
-        layerMesh.position.y = (levelNumber * 10);
+        layerMesh.position.y = (levelNumber * 2);
         layerMesh.rotation.x = -Math.PI * 0.5;
 
         return layerMesh;
