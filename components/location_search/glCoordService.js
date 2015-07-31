@@ -1,16 +1,22 @@
 'use strict';
 
 angular.module('three')
-    .service('glCoordService', ['$rootScope', 'glVideoService', function ($rootScope, glVideoService) {
+    .service('glCoordService', ['$rootScope', 'glVideoService', 'glConstantsService', function ($rootScope, glVideoService, glConstantsService) {
         var vm = this;
 
         vm.videoService = glVideoService;
+        vm.constants = glConstantsService;
 
         $rootScope.$on('video data loaded', function() {
 
                 // We're assuming for now that we have a rectangle along lat/lon lines
                 // Later, might need to worry about the meridian -180/180
-                vm.grid_dims = vm.videoService.data.data_dimensions;
+                var data_dimensions = vm.videoService.data.data_dimensions;
+                vm.grid_dims = {
+                    x: data_dimensions.x,
+                    y:data_dimensions.z * vm.constants.HEIGHT_SCALE_FACTOR,
+                    z: data_dimensions.y
+                };
 
                 vm.maxLat = -90;
                 vm.minLat = 90;
