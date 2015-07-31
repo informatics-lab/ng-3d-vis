@@ -26,8 +26,7 @@ angular.module('three')
                      */
 
                     // EITHER enable to render selection of levels
-                    //TODO why is layer '1' missing???
-                    //var levels = [6,7,8,9,10,11];
+                    //var levels = [1, 10, 20];
                     //for (var i = 0; i < levels.length; i++) {
                     //    var layer = scope.vm.getLayer(levels[i]);
                     //    layerContainer.add(layer);
