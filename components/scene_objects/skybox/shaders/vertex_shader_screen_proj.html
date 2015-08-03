@@ -1,3 +1,4 @@
+<script type="x-shader/x-vertex">
 varying vec3 worldSpaceCoords;
 varying vec4 projectedCoords;
 
@@ -25,3 +26,4 @@ void main()
     gl_Position = projectionMatrix *  modelViewMatrix * vec4( pos, 1.0 );
     projectedCoords =  projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
 }
+</script>

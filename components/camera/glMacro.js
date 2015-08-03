@@ -1,8 +1,8 @@
-angular.module('ngWebglDemo')
+angular.module('three')
   .directive('glMacro', function() {
     return {
       restrict: 'E',
-      require: "^ngWebgl",
+      require: "^glScene",
       controller: macroController,
       controllerAs: 'vm',
       link: function (scope, element, attrs, parentCtrl) {
@@ -11,10 +11,10 @@ angular.module('ngWebglDemo')
     };
   });
 
-function macroController($scope, glCameraModelService) {
+function macroController($scope, glCameraService) {
   var vm = this;
 
-  vm.cameraService = glCameraModelService;
+  vm.cameraService = glCameraService;
 
   vm.play_macro = false; // for camera macro
   vm.record_macro = false; // for camera macro
@@ -22,7 +22,7 @@ function macroController($scope, glCameraModelService) {
   vm.cameraMacro = [];
 
   vm.loadDefaultMacro = function() {
-    $.getJSON("components/camera/cameraMacro.json", function(data){
+    $.getJSON("../../components/camera/cameraMacro.json", function(data){
         for (i=0; i<data.length; i++){
             var thispos = data[i].position;
             var thisdir = data[i].direction;

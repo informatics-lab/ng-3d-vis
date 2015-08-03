@@ -1,12 +1,10 @@
 'use strict';
 
-angular.module('ngWebglDemo')
+angular.module('three')
   .directive('glLocationSearch', function () {
     return {
       restrict: 'E',
-      scope: { 
-        'griddims': '=',
-        'geobounds': '='
+      scope: {
       },
       controller: locSearchController,
       controllerAs: 'vm',
@@ -26,21 +24,22 @@ function locSearchPostLink(scope, element, attrs) {
   );
   scope.autocomplete = new google.maps.places.Autocomplete(scope.loc_input, {bounds:mapBounds});
   //scope.autocomplete.setBounds(mapBounds);
+
+  //TODO add in elevation lookup so that we are always moved to ground level.
   google.maps.event.addListener(scope.autocomplete, 'place_changed', function() {
     //infowindow.close();
     var place = scope.autocomplete.getPlace();
     console.log(place);
-    var loc = {lat:place.geometry.location.A, lon:place.geometry.location.F};
+    var loc = {lat:place.geometry.location.lat(), lon:place.geometry.location.lng()};
     var newCoords = scope.vm.coordService.lookupCoords(loc);
     console.log(newCoords);
     scope.vm.cameraService.moveCamera(newCoords);
   });
 }
 
-function locSearchController($scope, glCoordService, glCameraModelService) {
+function locSearchController($scope, glCoordService, glCameraService) {
   var vm = this;
 
   vm.coordService = glCoordService;
-  vm.cameraService = glCameraModelService;
-  vm.coordService.initialize($scope.griddims, $scope.geobounds);
+  vm.cameraService = glCameraService;
 }

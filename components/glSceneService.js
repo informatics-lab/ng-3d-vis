@@ -1,21 +1,24 @@
 'use strict';
 
-angular.module('ngWebglDemo')
-	.service('glSceneService', function() {
-		this.scene = null;
+angular.module('three')
+    .service('glSceneService', function () {
+        var vm = this;
 
-		function setScene(scene) {
-			this.scene = scene;
-		}
-		this.setScene = setScene;
+        vm.scene = null;
+        vm.children = {};
 
-		function addSomething(thing) {
-			this.scene.add(thing);
-		}
-		this.addSomething = addSomething;
+        vm.addSomething = function (name, thing) {
+            vm.children[name] = thing;
+            vm.scene.add(thing);
+        };
 
-		function removeSomething(thing) {
-			this.scene.remove(thing);
-		}
-		this.removeSomething = removeSomething;
-	});
+        vm.removeSomething = function (name) {
+            var thing = vm.children[name];
+            if(thing) {
+                vm.scene.remove(thing);
+                delete vm.children[name];
+            }
+        };
+
+        return vm;
+    });
