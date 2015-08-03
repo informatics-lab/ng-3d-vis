@@ -1,3 +1,4 @@
+<script type="x-shader/x-fragment">
 varying vec3 worldSpaceCoords;
 varying vec4 projectedCoords;
 
@@ -256,3 +257,4 @@ void main( void ) {
     // cast ray from front position in direction of back position
     gl_FragColor = getPathRGBA(frontPos, backPos, steps, dataTexture);
 }
+</script>

@@ -28,6 +28,7 @@ angular.module('three')
                 function drawBox() {
                     var params = scope.vm.params;
                     var dims = scope.vm.videoService.data.data_dimensions;
+                    var res = scope.vm.videoService.data.resolution;
                     var videoImage = scope.vm.videoService.frame;
                     var shaders = scope.vm.shaders;
                     var dirLight = parentCtrl.sceneService.children["light"];
@@ -51,8 +52,8 @@ angular.module('three')
 
                     /*** first pass ***/
                     var materialbackFace = new THREE.ShaderMaterial({
-                        vertexShader: shaders.vertex_shader_screen_proj,
-                        fragmentShader: shaders.fragment_shader_back_face,
+                        vertexShader: scope.vm.getShader('../../components/scene_objects/skybox/shaders/vertex_shader_screen_proj.html'),
+                        fragmentShader: scope.vm.getShader('../../components/scene_objects/skybox/shaders/fragment_shader_back_face.html'),
                         side: THREE.BackSide,
                         uniforms: {
                             dimensions: {type: "v3", value: boxDims},
@@ -93,14 +94,14 @@ angular.module('three')
                         shadeSteps: {type: "1f", value: params.shadeSteps},
                         alphaCorrection: {type: "1f", value: params.alphaCorrection},
                         ambience: {type: "1f", value: params.ambience},
-                        dataShape: {type: "v3", value: dims.datashape},
-                        texShape: {type: "v2", value: dims.textureshape},
+                        dataShape: {type: "v3", value: dims},
+                        texShape: {type: "v2", value: res},
                         dimensions: {type: "v3", value: boxDims}
                     };
 
                     var materialRayMarch = new THREE.ShaderMaterial({
-                        vertexShader: shaders.vertex_shader_screen_proj,
-                        fragmentShader: shaders.fragment_shader_ray_march,
+                        vertexShader: scope.vm.getShader('../../components/scene_objects/skybox/shaders/vertex_shader_screen_proj.html'),
+                        fragmentShader: scope.vm.getShader('../../components/scene_objects/skybox/shaders/fragment_shader_ray_march.html'),
                         uniforms: uniforms
                     });
                     materialRayMarch.transparent = true;
@@ -119,42 +120,32 @@ angular.module('three')
                     }
                 }
 
-                scope.vm.fetchShaders();
-                scope.$on('shadersLoaded', function () {
-                    scope.vm.setShaders();
-                    scope.vm.gotShaders = true;
-                    conditionalBroadcast();
-                })
-                scope.$on('videoLoaded', function () {
-                    scope.vm.setVideoImage();
-                    scope.vm.gotVideo = true;
-                    conditionalBroadcast();
-                })
-                scope.$on('skyboxReady', function () {
-                    drawBox();
-                })
+
                 scope.$on('render', function () {
-                    if (scope.vm.ready) {
-                        //scope.vm.dataTexture.needsUpdate = true;
-                        parentCtrl.rendererService.renderer.render(scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
-                    }
-                })
-                scope.$on('videoUpdate', function () {
+                    //scope.vm.dataTexture.needsUpdate = true;
+                    parentCtrl.rendererService.renderer.render(scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
+                });
+
+                scope.$on('update',function(){
                     scope.vm.dataTexture.needsUpdate = true;
-                })
+                });
+
+                scope.$on('video data loaded', function() {
+                    drawBox();
+                });
+
 
             }
         };
     });
 
-function volumeRenderedSkyController($scope, glShaderRequestService, glVideoService, glConstantsService) {
+function volumeRenderedSkyController($scope, glVideoService, glConstantsService) {
     var vm = this;
 
-    vm.shaderService = glShaderRequestService;
     vm.videoService = glVideoService;
     vm.constants = glConstantsService;
 
-    //ported from glSkyboxParameterService
+    //ported from glSkyboxParameterService these are volume rendering specific params so belong here?!
     vm.params = {
         nSteps : 64,
         shadeSteps : 16,
@@ -166,19 +157,17 @@ function volumeRenderedSkyController($scope, glShaderRequestService, glVideoServ
         ambience : 0.3
     };
 
-    vm.fetchShaders = function () {
-        var shader_root = '../../components/scene_objects/skybox/shaders/';
-        vm.shaderService.setShaders(
-            {
-                fragment_shader_back_face: shader_root + 'fragment_shader_back_face.glsl',
-                fragment_shader_ray_march: shader_root + 'fragment_shader_ray_march.glsl',
-                vertex_shader_screen_proj: shader_root + 'vertex_shader_screen_proj.glsl',
-            });
-        vm.shaderService.loadShaders();
-    }
-
-    vm.setShaders = function () {
-        vm.shaders = vm.shaderService.shaders;
-    }
+    vm.getShader = function(src) {
+        var source = null;
+        $.ajax({
+            async: false,
+            url: src,
+            success: function (data) {
+                source = $(data).html();
+            },
+            dataType: 'html'
+        });
+        return source;
+    };
 
 }
