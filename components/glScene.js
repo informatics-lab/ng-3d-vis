@@ -66,22 +66,22 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService, gl
             vm.clock.elapsedTime = 0;
 
             //Code for Drawing the Frame ...
-            vm.render();
-            vm.update();
+            vm.render(delta);
+            vm.update(delta);
         }
 
         requestAnimationFrame(vm.animate);
 
     };
 
-    vm.update = function () {
+    vm.update = function (delta) {
         //console.log("updating...");
-        $rootScope.$broadcast('update');
+        $rootScope.$broadcast('update', {delta: delta});
     };
 
-    vm.render = function () {
+    vm.render = function (delta) {
         //console.log('rendering...');
-        $rootScope.$broadcast('render');
+        $rootScope.$broadcast('render', {delta: delta});
         vm.rendererService.renderer.render(vm.sceneService.scene, vm.cameraService.camera);
         vm.cameraService.cameraNormal.set(0, 0, -1);
         vm.cameraService.cameraNormal.applyQuaternion(vm.cameraService.camera.quaternion);
