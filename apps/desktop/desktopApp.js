@@ -23,7 +23,6 @@ angular.module('desktopApp', ["informatics-badge-directive", "three"])
         };
 
 
-
         /******************************
         Init objects in shared services
         *******************************/
