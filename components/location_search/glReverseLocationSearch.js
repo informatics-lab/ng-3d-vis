@@ -5,7 +5,7 @@ angular.module('three')
         return {
             restrict: 'E',
             scope: {},
-            template: '<input type="text" class="rounded" id="molabLocation" placeholder="Location unknown" style="position:absolute; top:110px; left:10px;" onfocus="javascript: if(this.value!==\' \') this.value=\' \';"/>',
+            template: '<input disabled type="text" class="rounded" id="molabLocation" placeholder="Location unknown" style="position:absolute; top:110px; left:10px;" onfocus="javascript: if(this.value!==\' \') this.value=\' \';"/>',
             controller: reverseLocSearchController,
             controllerAs: 'vm',
             link: reverseLocSearchPostLink
