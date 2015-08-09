@@ -210,11 +210,21 @@ vec4 getPathRGBA(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
     for(int i = 0; i < MAX_STEPS; i++){
         //Get the voxel intensity value from the 3D texture.
         dataRGBA = getDataRGBA(tex, currentPosition, dataShape, texShape);
-        //lightPathRGBA = getLightPathRGBA(lightTexture, currentPosition, dataShape, texShape);
-        lightPathRGBA = getLightPathRGBA(currentPosition, light.position, shadeSteps, tex);
+        
+        //lightPathRGBA = getLightPathRGBA(currentPosition, light.position, shadeSteps, tex);
 
 
-        lightRayRGBA = (vec4(1.0) - lightPathRGBA);// * vec4(1.0, 1.0, 1.0, 3.0);
+        //lightRayRGBA = (vec4(1.0) - lightPathRGBA);// * vec4(1.0, 1.0, 1.0, 3.0);
+        vec3 d = deltaDirection * 10.0;
+        vec4 dataRGBAUp = getDataRGBA(tex, currentPosition - d, dataShape, texShape);
+        vec4 dataRGBADown = getDataRGBA(tex, currentPosition + d, dataShape, texShape);
+        lightRayRGBA = vec4(0.5, 0.5, 0.5, 1.0);
+        if (dataRGBAUp.a < 0.01){
+            lightRayRGBA.rgb = vec3(1.0, 1.0, 1.0);
+        }
+        else if (dataRGBADown.a < 0.01){
+            lightRayRGBA.rgb = vec3(0.0, 0.0, 0.0);
+        }
 
         apparentRGB = (1.0 - accumulatedAlpha) * dataRGBA.rgb * lightRayRGBA.rgb * dataRGBA.a * lightRayRGBA.a * 1.5;
 

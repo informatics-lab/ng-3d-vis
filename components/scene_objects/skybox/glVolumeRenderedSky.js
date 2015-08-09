@@ -28,6 +28,7 @@ angular.module('three')
                 function drawBox() {
                     var params = scope.vm.params;
                     var dims = scope.vm.videoService.data.data_dimensions;
+                    dims.y += 2;
                     var res = scope.vm.videoService.data.resolution;
                     var videoImage = scope.vm.videoService.frame;
                     var shaders = scope.vm.shaders;
