@@ -225,18 +225,12 @@ vec4 getPathRGBA(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
         lightRayRGBA = vec4(0.9);
         if ((dataRGBA2Up.a < 0.01) || (currentPosition.y - d.y) > 1.0){
             lightRayRGBA = vec4(1.0);
-            //lightRayRGBA = vec4(0.0, 1.0, 0.0, 1.0);
         }
         else if ((dataRGBA2Up.a > 0.05) && (dataRGBAUp.a > 0.05)){
             lightRayRGBA = vec4(0.7);
-            //lightRayRGBA = vec4(1.0, 0.0, 0.0, 1.0);
         }
         else if ((dataRGBAUp.a > 0.05)){
             lightRayRGBA = vec4(0.8);
-            //lightRayRGBA = vec4(0.0, 0.0, 1.0, 1.0);
-        }
-        else {
-            //dataRGBA = vec4(0.0);
         }
 
         #endif //end preproc
