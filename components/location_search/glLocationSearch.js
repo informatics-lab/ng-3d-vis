@@ -8,7 +8,7 @@ angular.module('three')
       },
       controller: locSearchController,
       controllerAs: 'vm',
-      template: '<input type="text" class="rounded" id="molabSearchInput" placeholder="Enter a location" style="position:absolute; top:10px; left:10px;"/>',
+      template: '<input type="text" class="rounded" id="molabSearchInput" placeholder="Enter a location" style="position:absolute; top:10px; left:10px;" onfocus="javascript: if(this.value!==\' \') this.value=\' \';"/>',
       link: locSearchPostLink
     }
   });
@@ -28,12 +28,18 @@ function locSearchPostLink(scope, element, attrs) {
   //TODO add in elevation lookup so that we are always moved to ground level.
   google.maps.event.addListener(scope.autocomplete, 'place_changed', function() {
     //infowindow.close();
-    var place = scope.autocomplete.getPlace();
-    console.log(place);
-    var loc = {lat:place.geometry.location.lat(), lon:place.geometry.location.lng()};
-    var newCoords = scope.vm.coordService.lookupCoords(loc);
-    console.log(newCoords);
-    scope.vm.cameraService.moveCamera(newCoords);
+    try {
+      var place = scope.autocomplete.getPlace();
+      console.log(place);
+      var loc = {lat:place.geometry.location.lat(), lon:place.geometry.location.lng()};
+      var newCoords = scope.vm.coordService.lookupCoords(loc);
+      console.log(newCoords);
+      scope.vm.cameraService.moveCamera(newCoords);
+      scope.loc_input.blur();
+    }
+    catch (error) {
+      scope.loc_input.blur();
+    }
   });
 }
 

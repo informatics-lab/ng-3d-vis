@@ -18,6 +18,11 @@ angular.module('three')
                     z: data_dimensions.y
                 };
 
+                vm.minX = -vm.grid_dims.x / 2;
+                vm.minZ = -vm.grid_dims.z / 2;
+                vm.maxX = vm.grid_dims.x / 2;
+                vm.maxZ = vm.grid_dims.z / 2;
+
                 vm.maxLat = -90;
                 vm.minLat = 90;
                 vm.maxLon = -180;
@@ -41,13 +46,11 @@ angular.module('three')
         });
 
         vm.lookupCoordX = function (lon) {
-            var btm_left = -vm.grid_dims.x / 2;
-            return vm.lookupCoord(lon, vm.minLon, vm.maxLon, vm.grid_dims.x, btm_left);
+            return vm.lookupCoord(lon, vm.minLon, vm.maxLon, vm.grid_dims.x, vm.minX);
         };
 
         vm.lookupCoordZ = function (lat) {
-            var btm_left = -vm.grid_dims.z / 2;
-            return -vm.lookupCoord(lat, vm.minLat, vm.maxLat, vm.grid_dims.z, btm_left);
+            return -vm.lookupCoord(lat, vm.minLat, vm.maxLat, vm.grid_dims.z, vm.minZ);
         };
 
         vm.lookupCoord = function (val, min, max, grid, btm_left) {
@@ -62,12 +65,19 @@ angular.module('three')
             };
         };
 
+        vm.lookupLat = function (z) {
+            return vm.lookupCoord(-z, vm.minZ, vm.maxZ, (vm.maxLat - vm.minLat), vm.minLat);
+        }
+
+        vm.lookupLon = function (x) {
+            return vm.lookupCoord(x, vm.minX, vm.maxX, (vm.maxLon - vm.minLon), vm.minLon);
+        }
+
         //TODO lookup lat lng from camera position
         vm.lookupLatLon = function (position) {
-
             return {
-                lat: 0.0,
-                lon: 0.0
+                lat: vm.lookupLat(position.z),
+                lon: vm.lookupLon(position.x)
             };
         };
 
