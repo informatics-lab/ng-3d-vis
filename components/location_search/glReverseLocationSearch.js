@@ -40,7 +40,6 @@ function reverseLocSearchController($scope, $interval, glCoordService, glCameraS
             function callback(results, status){
                 var filterfn = function(el){return el.types.indexOf("political") > -1};
                 var political_results = results.filter(filterfn);
-                console.log(political_results);
                 try {
                     vm.loc_input.value = political_results[0].name;
                 }
