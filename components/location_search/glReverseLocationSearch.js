@@ -24,7 +24,7 @@ function stringify(latlon) {
     return latlon.lat.toFixed(1) + ', ' + latlon.lon.toFixed(1);
 }
 
-function reverseLocSearchController($scope, $interval, glCoordService, glCameraService) {
+function reverseLocSearchController($scope, $rootScope, $interval, glCoordService, glCameraService) {
     var vm = this;
 
     var checkPosition = function() {
@@ -42,10 +42,14 @@ function reverseLocSearchController($scope, $interval, glCoordService, glCameraS
                 var political_results = results.filter(filterfn);
                 try {
                     vm.loc_input.value = political_results[0].name;
+                    if ((vm.latlon.lat !== vm.prev.lat) || (vm.latlon.lon !== vm.prev.lon)){
+                        $rootScope.$broadcast('position_change', {position:vm.latlon});
+                    }
                 }
                 catch (err) {
                     vm.loc_input.value = stringify(vm.latlon);
                 }
+                vm.prev = vm.latlon;
             }
         }
         vm.position = new THREE.Vector3(glCameraService.camera.position.x,glCameraService.camera.position.y,glCameraService.camera.position.z);
