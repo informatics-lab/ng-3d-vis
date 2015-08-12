@@ -220,17 +220,25 @@ vec4 getPathRGBA(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
         #else //fake shadows
         vec3 d = normalize(currentPosition - lightPosition) * delta * 3.0;
         vec4 dataRGBAUp = getDataRGBA(tex, currentPosition - d, dataShape, texShape);
-        vec4 dataRGBADown = getDataRGBA(tex, currentPosition + d, dataShape, texShape);
-        vec4 dataRGBA2Up = getDataRGBA(tex, currentPosition - (d*4.0), dataShape, texShape);
-        lightRayRGBA = vec4(0.9);
-        if ((dataRGBA2Up.a < 0.01) || (currentPosition.y - d.y) > 1.0){
+        vec4 dataRGBA2Up = getDataRGBA(tex, currentPosition - (d*2.0), dataShape, texShape);
+        vec4 dataRGBA3Up = getDataRGBA(tex, currentPosition - (d*3.0), dataShape, texShape);
+        vec4 dataRGBA4Up = getDataRGBA(tex, currentPosition - (d*4.0), dataShape, texShape);
+        vec4 ladder = vec4(dataRGBAUp.a, dataRGBA2Up.a, dataRGBA3Up.a, dataRGBA4Up.a);
+        lightRayRGBA = vec4(0.94);
+        if ((dataRGBAUp.a < 0.01)){//} || (currentPosition.y - d.y) > 1.0){
             lightRayRGBA = vec4(1.0);
         }
-        else if ((dataRGBA2Up.a > 0.05) && (dataRGBAUp.a > 0.05)){
+        else if (sign(ladder - vec4(0.05)) == vec4(1.0)){
             lightRayRGBA = vec4(0.7);
         }
+        else if (sign(ladder.xyz - vec3(0.05)) == vec3(1.0)){
+            lightRayRGBA = vec4(0.76);
+        }
+        else if (sign(ladder.xy - vec2(0.05)) == vec2(1.0)){
+            lightRayRGBA = vec4(0.82);
+        }
         else if ((dataRGBAUp.a > 0.05)){
-            lightRayRGBA = vec4(0.8);
+            lightRayRGBA = vec4(0.88);
         }
 
         #endif //end preproc
