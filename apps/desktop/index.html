@@ -43,6 +43,9 @@
 
     <informatics-badge></informatics-badge>
 
+    <toaster-container></toaster-container>
+    <gl-location-messages></gl-location-messages>
+
     <div class="twelve columns add-bottom">
 
         <gl-scene gl-stats gl-first-person-controls width="width" height="height">
@@ -69,6 +72,12 @@
 
 <!-- scripts/scripts.js -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+
+<!-- toaster -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js" ></script>
+<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.js"></script>
 
 <script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../../bower_components/angularjs/angular.min.js"></script>
@@ -101,6 +110,7 @@
 <script type="text/javascript" src="../../components/location_search/glLocationSearch.js"></script>
 <script type="text/javascript" src="../../components/location_search/glCoordService.js"></script>
 <script type="text/javascript" src="../../components/location_search/glReverseLocationSearch.js"></script>
+<script type="text/javascript" src="../../components/location_search/glLocationMessages.js"></script>
 <script type="text/javascript" src="../../components/camera/glMacro.js"></script>
 
 <script type="text/javascript" src="../../components/scene_objects/skybox/glShaderRequestService.js"></script>

@@ -24,14 +24,19 @@ function stringify(latlon) {
     return latlon.lat.toFixed(1) + ', ' + latlon.lon.toFixed(1);
 }
 
-function reverseLocSearchController($scope, $interval, glCoordService, glCameraService) {
+function reverseLocSearchController($scope, $rootScope, $interval, glCoordService, glCameraService) {
     var vm = this;
+    vm.prev = {lat:0,lon:0};
 
     var checkPosition = function() {
-        if(vm.position && glCameraService.camera.position.equals(vm.position)) {
+        if(vm.position){// && glCameraService.camera.position.equals(vm.position)) {
             var loc = vm.coordService.lookupLatLon(vm.position);
             console.log(loc);
             vm.latlon = loc;
+            if ((vm.latlon.lat !== vm.prev.lat) || (vm.latlon.lon !== vm.prev.lon)){
+                $rootScope.$broadcast('position_change', {position:vm.latlon});
+            }
+            vm.prev = vm.latlon;
             var request = {
                 location: new google.maps.LatLng(loc.lat, loc.lon),
                 radius: '100'

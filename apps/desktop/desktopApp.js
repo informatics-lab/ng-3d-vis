@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('desktopApp', ["informatics-badge-directive", "three"])
+angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster', 'ngAnimate'])
 
     .controller('AppCtrl', ['$scope', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', function ($scope, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService) {
 
