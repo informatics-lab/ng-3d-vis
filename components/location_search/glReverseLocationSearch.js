@@ -29,7 +29,7 @@ function reverseLocSearchController($scope, $rootScope, $interval, glCoordServic
     vm.prev = {lat:0,lon:0};
 
     var checkPosition = function() {
-        if(vm.position && glCameraService.camera.position.equals(vm.position)) {
+        if(vm.position){// && glCameraService.camera.position.equals(vm.position)) {
             var loc = vm.coordService.lookupLatLon(vm.position);
             console.log(loc);
             vm.latlon = loc;
