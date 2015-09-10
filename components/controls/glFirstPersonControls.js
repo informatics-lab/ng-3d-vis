@@ -35,7 +35,7 @@ THREE.MyFirstPersonControls = function ( object, domElement ) {
     this.enabled = true;
 
     this.rotateSpeed = 1.0;
-    this.moveSpeed = 10.0;
+    this.moveSpeed = 20.0;
 
     this.keys = {
         LEFT: 37,
