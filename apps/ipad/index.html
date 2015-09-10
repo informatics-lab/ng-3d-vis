@@ -1,0 +1,122 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8 ]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Desktop App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="../../styles/reset.css">
+    <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- endbuild -->
+
+</head>
+<body ng-app="desktopApp" style="background: linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%);">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="../../bower_components/es5-shim/es5-shim.js"></script>
+<script src="../../bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+<!-- application content -->
+<div class="container" ng-controller="AppCtrl">
+
+    <div class='btn btn-primary' title="Toggle camera macro playback" href="#"
+         style="height: 50px; width: 50px; position: absolute; top:40px; left: 10px; color: white; font-size: 14pt; "
+         ng-click="toggleMacro()">
+        <i class="fa fa-video-camera fa-3x"></i>
+    </div>
+
+    <informatics-badge></informatics-badge>
+
+    <toaster-container></toaster-container>
+    <gl-location-messages></gl-location-messages>
+
+    <div class="twelve columns add-bottom">
+
+        <gl-scene gl-stats gl-first-person-controls width="width" height="height">
+            <gl-light name="light"></gl-light>
+            <gl-location-search></gl-location-search>
+            <gl-reverse-location-search></gl-reverse-location-search>
+            <gl-macro></gl-macro>
+            <gl-mobile-connection></gl-mobile-connection>
+            <gl-layered-sky name="sky"></gl-layered-sky>
+            <!-- <gl-volume-rendered-sky name="sky"></gl-volume-rendered-sky> -->
+            <gl-map name="terrain"></gl-map>
+        </gl-scene>
+
+    </div>
+
+    <!--<gl-video-->
+            <!--url="videoUrl"-->
+            <!--shrink-factor="10">-->
+    <!--</gl-video>-->
+
+    <div id="vid" style="position: absolute; left:0px"></div>
+    <div id="canv" style="position: absolute; right:0px"></div>
+</div>
+
+<!-- scripts/scripts.js -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+
+<!-- toaster -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js" ></script>
+<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.js"></script>
+
+<script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../../bower_components/angularjs/angular.min.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs/build/three.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs-controls/src/OrbitControls.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs-controls/src/FirstPersonControls.js"></script>
+<script type="text/javascript" src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
+<script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
+<script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
+
+
+<script type="text/javascript" src="desktopApp.js"></script>
+<script type="text/javascript" src="../../components/threeModule.js"></script>
+<script type="text/javascript" src="../../components/debug/glStats.js"></script>
+<script type="text/javascript" src="../../components/glScene.js"></script>
+<script type="text/javascript" src="../../components/glSceneService.js"></script>
+<script type="text/javascript" src="../../components/camera/glCameraService.js"></script>
+<script type="text/javascript" src="../../components/renderer/glRendererService.js"></script>
+<script type="text/javascript" src="../../components/glConstantsService.js"></script>
+<script type="text/javascript" src="../../components/controls/glOrbitControls.js"></script>
+<script type="text/javascript" src="../../components/controls/glFirstPersonControls.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/glLight.js"></script>
+<script type="text/javascript" src="../../components/video/glVideoService.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/skybox/glLayeredSky.js"></script>
+
+<!-- old -->
+<script type="text/javascript" src="../../components/connections/glSocketService.js"></script>
+<script type="text/javascript" src="../../components/connections/glMobileConnection.js"></script>
+<script type="text/javascript" src="../../components/location_search/glLocationSearch.js"></script>
+<script type="text/javascript" src="../../components/location_search/glCoordService.js"></script>
+<script type="text/javascript" src="../../components/location_search/glReverseLocationSearch.js"></script>
+<script type="text/javascript" src="../../components/location_search/glLocationMessages.js"></script>
+<script type="text/javascript" src="../../components/camera/glMacro.js"></script>
+
+<script type="text/javascript" src="../../components/scene_objects/skybox/glShaderRequestService.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/skybox/glVolumeRenderedSky.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/map/glMap.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>
