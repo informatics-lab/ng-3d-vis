@@ -20,29 +20,50 @@ angular.module('ngWebglDemo')
 
           //var htMapPng = 'components/scene_objects/map/data/land.png';
           //var htMapPng = 'components/scene_objects/map/data/global_dem_unmasked.png';
-
+          var htMapParams = {
+            REQUEST:'GetMap',
+            STYLES:'boxfill/greyscale',
+            FORMAT:'image/png',
+            HEIGHT:1024,
+            WIDTH:1024,
+            BBOX:'48.77,-10.12,59.29,2.43',
+            CRS:'EPSG:4326',
+            LAYER:'topo',
+            VERSION:'1.3.0',
+            LAYERS:'topo',
+            COLORSCALERANGE:'0,1000',
+            NUMCOLORBANDS:'253',
+            ABOVEMAXCOLOR:'extend'
+          };
+          var landTxtrParams = {
+            request:'getmap',
+            service:'wms',
+            BBOX:'-10.12,48.77,2.43,59.29',
+            srs:'EPSG:4326',
+            format:'image/jpeg',
+            layers:'gebco_latest',
+            width:1024,    /* 1261, */
+            height:1024,   /* 1506, */
+            version:'1.1.1'
+          };
           var htMapPng = 'http://ec2-52-16-245-62.eu-west-1.compute.amazonaws.com:8080/' +
                     'thredds/wms/testLab/global_dem_unmasked.nc?' +
-                    'REQUEST=GetMap&STYLES=boxfill/greyscale&FORMAT=image/png&' +
-                    'HEIGHT=1024&WIDTH=1024&BBOX=48.77,-10.12,59.29,2.43&CRS=EPSG:4326&' +
-                    'LAYER=topo&VERSION=1.3.0&LAYERS=topo&COLORSCALERANGE=0,1000&NUMCOLORBANDS=253&ABOVEMAXCOLOR=extend';
+                    jQuery.param( htMapParams );
           //var landTxtrPng = 'components/scene_objects/map/data/mapserv.jpeg';
-          var landTxtrPng = 'http://www.gebco.net/data_and_products/gebco_web_services/web_map_service/mapserv?' +
-          'request=getmap&service=wms&BBOX=-10.12,48.77,2.43,59.29&srs=EPSG:4326&format=image/jpeg&' +
-          'layers=gebco_latest&width=1261&height=1506&version=1.1.1';
-
-          // HEIGHT=1506&WIDTH=1261
+          var landTxtrPng = 'http://www.gebco.net/' +
+            'data_and_products/gebco_web_services/web_map_service/mapserv?' +
+            jQuery.param( landTxtrParams );
           THREE.ImageUtils.crossOrigin = '*';
           var dispTexture = THREE.ImageUtils.loadTexture( htMapPng, THREE.UVMapping,
                     function(){}, function(xhr){console.error('Error loading', xhr)} );
           //dispTexture.flipY=false;
           var diffTexture;
           var tmpImage = new Image();
+          var canv = document.createElement('canvas');
+          var ctx = canv.getContext('2d');
           tmpImage.onload = function(){
-            var canv = document.createElement('canvas');
             canv.width = this.width;
             canv.height = this.height;
-            var ctx = canv.getContext('2d');
             ctx.drawImage(this, 0, 0);
             console.warn( canv.toDataURL() );
             diffTexture = new THREE.ImageUtils.loadTexture ( canv.toDataURL() );
