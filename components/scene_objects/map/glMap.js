@@ -46,7 +46,7 @@ function mapController($scope, glVideoService, glConstantsService) {
         var ambient = 0x000000, diffuse = 0x666666, specular = 0xffffff, shininess = 50.0, scale = 100;
 
         var dispTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/global_dem_unmasked.png');
-        var diffTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/mapserv.jpeg');
+        var diffTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/global_dem_unmasked.png');
 
         var uniforms = THREE.UniformsUtils.merge([
 

@@ -12,16 +12,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Desktop App</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="../../styles/reset.css">
+    <!--<link rel="stylesheet" href="../../styles/reset.css">-->
+
     <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../styles/styles.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.css" rel="stylesheet"/>
     <!-- endbuild -->
 
 </head>
-<body ng-app="desktopApp" style="background: linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%);">
+<!--<body ng-app="desktopApp" style="background: linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%);">-->
+<body ng-app="desktopApp">
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -33,37 +40,54 @@
 <![endif]-->
 
 <!-- application content -->
-<div class="container" ng-controller="AppCtrl">
+<div class="container-fluid" ng-controller="AppCtrl">
 
-    <div class='btn btn-primary' title="Toggle camera macro playback" href="#"
-         style="height: 50px; width: 50px; position: absolute; top:40px; left: 10px; color: white; font-size: 14pt; "
-         ng-click="toggleMacro()">
-        <i class="fa fa-video-camera fa-3x"></i>
+    <!--Modal-->
+    <div id="load-modal" class="modal show">
+        <div class="modal-body">
+            <a class="close" data-dismiss="modal" ng-click="removeLoadModal()">×</a>
+            <p>Modal body content</p>
+        </div>
     </div>
 
-    <informatics-badge></informatics-badge>
 
-    <toaster-container></toaster-container>
-    <gl-location-messages></gl-location-messages>
+    <div id="navbar" class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-2 logo">
+                    <img src="../../images/mo-prototype-logo.svg" alt="Met Office Prototype" width="100"/>
+                </div>
+                <div class="col-md-10 text">
+                    <h2>Experience the weather:</h2>
+                    <p>Rotate, spin and zoom into the cube to start flying through the clouds and immersing yourself in
+                        the latest forecast.</p>
+                </div>
+            </div>
+        </div>
 
-    <div class="twelve columns add-bottom">
+        <div class="col-md-4 device-info">
+            <h4>multiple-screen experience</h4>
+        </div>
+    </div>
 
-        <gl-scene gl-stats gl-first-person-controls width="width" height="height">
+    <div id="scene" class="row">
+
+        <gl-scene gl-stats gl-orbit-controls width="width" height="sceneHeight">
             <gl-light name="light"></gl-light>
             <gl-location-search></gl-location-search>
-            <gl-reverse-location-search></gl-reverse-location-search>
-            <gl-macro></gl-macro>
+            <!--<gl-reverse-location-search></gl-reverse-location-search>-->
+            <gl-camera-reset></gl-camera-reset>
+
             <gl-mobile-connection></gl-mobile-connection>
-            <!-- <gl-layered-sky name="sky"></gl-layered-sky> -->
+            <!--<gl-layered-sky name="sky"></gl-layered-sky>-->
             <gl-volume-rendered-sky name="sky"></gl-volume-rendered-sky>
             <gl-map name="terrain"></gl-map>
         </gl-scene>
 
     </div>
-
     <!--<gl-video-->
-            <!--url="videoUrl"-->
-            <!--shrink-factor="10">-->
+    <!--url="videoUrl"-->
+    <!--shrink-factor="10">-->
     <!--</gl-video>-->
 
     <div id="vid" style="position: absolute; left:0px"></div>
@@ -72,23 +96,22 @@
 
 <!-- scripts/scripts.js -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-
 <!-- toaster -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.css" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js" ></script>
-<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.js"></script>
 
 <script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../../bower_components/angularjs/angular.min.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs/build/three.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs-controls/src/OrbitControls.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs-controls/src/FirstPersonControls.js"></script>
-<script type="text/javascript" src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
+<script type="text/javascript"
+        src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
 <script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
 <script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.js"></script>
 
 <script type="text/javascript" src="desktopApp.js"></script>
 <script type="text/javascript" src="../../components/threeModule.js"></script>
@@ -96,6 +119,7 @@
 <script type="text/javascript" src="../../components/glScene.js"></script>
 <script type="text/javascript" src="../../components/glSceneService.js"></script>
 <script type="text/javascript" src="../../components/camera/glCameraService.js"></script>
+<script type="text/javascript" src="../../components/camera/glCameraReset.js"></script>
 <script type="text/javascript" src="../../components/renderer/glRendererService.js"></script>
 <script type="text/javascript" src="../../components/glConstantsService.js"></script>
 <script type="text/javascript" src="../../components/controls/glOrbitControls.js"></script>

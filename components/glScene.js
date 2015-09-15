@@ -24,6 +24,7 @@ angular.module('three')
                 post: function scenePostLink(scope, element, attrs) {
 
                     scope.init = function () {
+                        //element.css('width', scope.width());
 
                         window.addEventListener('resize', scope.onWindowResize, false);
 

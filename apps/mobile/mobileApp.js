@@ -30,7 +30,7 @@ angular.module('mobileApp', ["informatics-badge-directive", "three"])
         var far = 10000;
 
         glCameraService.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-        glCameraService.camera.position.z = 300;
+        glCameraService.camera.position.z = 500;
         glCameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
         glCameraService.cameraNormal = new THREE.Vector3(0,0,-1);
 
