@@ -57,6 +57,7 @@
             <!-- <gl-layered-sky name="sky"></gl-layered-sky> -->
             <gl-volume-rendered-sky name="sky"></gl-volume-rendered-sky>
             <gl-map name="terrain"></gl-map>
+            <gl-map-marker label="london" coordinate="51.5072,-0.1275"></gl-map-marker>
         </gl-scene>
 
     </div>
@@ -73,14 +74,20 @@
 <!-- scripts/scripts.js -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 
-<!-- toaster -->
+<!-- toaster
 <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.css" rel="stylesheet" />
+-->
+<!--
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js" ></script>
-<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.js"></script>
+-->
+
 
 <script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../../bower_components/angularjs/angular.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.js"></script>
+<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
+
 <script type="text/javascript" src="../../bower_components/threejs/build/three.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs-controls/src/OrbitControls.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs-controls/src/FirstPersonControls.js"></script>
@@ -88,7 +95,6 @@
 <script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
 <script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
-
 
 <script type="text/javascript" src="desktopApp.js"></script>
 <script type="text/javascript" src="../../components/threeModule.js"></script>
@@ -116,6 +122,8 @@
 <script type="text/javascript" src="../../components/scene_objects/skybox/glShaderRequestService.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/skybox/glVolumeRenderedSky.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/map/glMap.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/map/glMapMarker.js"></script>
+
 <!-- endbuild -->
 
 </body>
