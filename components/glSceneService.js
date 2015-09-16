@@ -8,6 +8,7 @@ angular.module('three')
         vm.children = {};
 
         vm.addSomething = function (name, thing) {
+            console.log("SceneService adding", name);
             vm.children[name] = thing;
             vm.scene.add(thing);
         };
