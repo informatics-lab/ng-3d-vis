@@ -44,13 +44,51 @@
 
     <!--Modal-->
     <div id="load-modal" class="modal show">
-        <div class="modal-body">
-            <a class="close" data-dismiss="modal" ng-click="removeLoadModal()">×</a>
-            <p>Modal body content</p>
+        <img id="logo" src="../../images/mo-prototype-logo.svg" />
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="row load-modal-content">
+                        <div id="modal-content-1">
+                            <div class="col-md-6">
+                                <h2>Classic Navigation</h2>
+                                <img src="../../images/mouse.svg" ng-click="launchClassic()"/>
+
+                                <p>Use your mouse and track pad to spin and zoom in and around the weather cube</p>
+                                <a ng-click="launchClassic()">Launch Classic</a>
+                            </div>
+                            <div class="col-md-6 left-border">
+                                <h2>Multiple-Screen Experience</h2>
+                                <img src="../../images/multi-device.svg" ng-click="launchMulti()"/>
+
+                                <p>Sync your mobile or tablet and control how and where you fly through the weather</p>
+                                <a ng-click="launchMulti()">Launch Multi-Screen</a>
+                            </div>
+                        </div>
+                        <div id="modal-content-2" style="display: none;">
+                            <div class="col-md-12">
+                                <h2>Multiple-Screen Experience</h2>
+                                <p>Control your computer screen with your smart phone or tablet</p>
+                                <hr/>
+                                <div class="steps">
+                                    <p class="step">Step 1.&nbsp;&nbsp;Navigate your device browser to the following
+                                        url...</p>
+                                    <p class="info">http://www......../mobile</p>
+                                    <p class="step">Step 2.&nbsp;&nbsp;Enter this 4 digit code <span style="color:rgb(74,133,169)">1234</span></p>
+                                </div>
+                                <img id="control-device" src="../../images/hand-gesture.svg" />
+                                <p style="position:relative;">Turning your device into a controller
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-
+    <!--Cloud Box App -->
     <div id="navbar" class="row">
         <div class="col-md-8">
             <div class="row">
@@ -59,14 +97,16 @@
                 </div>
                 <div class="col-md-10 text">
                     <h2>Experience the weather:</h2>
+
                     <p>Rotate, spin and zoom into the cube to start flying through the clouds and immersing yourself in
                         the latest forecast.</p>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4 device-info">
+        <div class="col-md-4 device-info left-border">
             <h4>multiple-screen experience</h4>
+            <img src="../../images/multi-device.svg" style="max-width: 120px"/>
         </div>
     </div>
 

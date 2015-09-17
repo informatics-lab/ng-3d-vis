@@ -46,7 +46,7 @@ function mapController($scope, glVideoService, glConstantsService) {
         var ambient = 0x000000, diffuse = 0x666666, specular = 0xffffff, shininess = 50.0, scale = 100;
 
         var dispTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/global_dem_unmasked.png');
-        var diffTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/global_dem_unmasked.png');
+        var diffTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/UK-sateliite.jpg');
 
         var uniforms = THREE.UniformsUtils.merge([
 
@@ -127,7 +127,7 @@ function mapController($scope, glVideoService, glConstantsService) {
         });
 
         // GEOMETRY
-        var geometry = new THREE.PlaneBufferGeometry(vm.videoService.data.data_dimensions.x, vm.videoService.data.data_dimensions.y, 256, 256);
+        var geometry = new THREE.PlaneBufferGeometry(vm.videoService.data.data_dimensions.x, vm.videoService.data.data_dimensions.y, 512, 512);
         geometry.computeTangents();
 
         var terrain = new THREE.Mesh(geometry, material);

@@ -63,8 +63,17 @@ body {
 #navbar div.device-info {
     height:100%;
     text-align: center;
+    margin-bottom: 8px;
+    cursor: pointer;
 }
 
+#navbar div.device-info h4{
+    margin-bottom: 0;
+}
+
+#navbar div.device-info:hover {
+    opacity:0.45;
+}
 
 #scene {
     position: relative;
@@ -101,6 +110,147 @@ body {
     text-transform: uppercase;
 }
 
+.left-border {
+    border-left: 2px dotted #333333;
+
+}
+
+/*
+ *  MODAL
+ */
+
 #load-modal {
-    /*background-color: black;*/
+    background: url("../images/bg-cloud.gif") no-repeat center center fixed;
+    background-size: cover;
+    font-family: ostrich-black, sans-serif;
+    /*position: relative;*/
+}
+
+#load-modal #logo {
+    position: absolute;
+    left:10px;
+    top:10px;
+    /*opacity: 0.2;*/
+    max-width: 130px;
+}
+
+#load-modal .load-modal-content {
+    background-color: white;
+    opacity: 0.7;
+    box-shadow: 0px 0px 10px #222222;
+    margin-top: 18%;
+    text-align: center;
+}
+
+#load-modal .load-modal-content img {
+    opacity: 0.2;
+    max-height: 180px;
+    cursor: pointer;
+}
+
+#load-modal .load-modal-content img:hover {
+    opacity: 0.35;
+}
+
+#load-modal .load-modal-content div{
+    margin-top: 8%;
+    margin-bottom: 8%;
+}
+
+#load-modal h2 {
+    font-family: ostrich-black, sans-serif;
+    color: rgb(74,133,169);
+    font-size: 180%;
+    margin-top:0;
+    /*text-align: left;*/
+    /*padding-left: 15%;*/
+}
+
+#load-modal .load-modal-content p {
+    font-size: 145%;
+    display: block;
+    text-align: center;
+    padding:4% 11%;
+    /*padding-top:4%;*/
+    color: #666666;
+    line-height: 110%;
+}
+
+#load-modal .load-modal-content a {
+    display: block;
+    width: 70%;
+    background-color: rgb(74,133,169);
+    color: white;
+    /*margin-bottom: 20%;*/
+    margin-left: 15%;
+    font-family: ostrich-black, sans-serif;
+    padding:5px;
+    padding-top:8px;
+    font-size: 130%;
+    cursor: pointer;
+    letter-spacing: 0.8px;
+}
+
+#load-modal .load-modal-content a:hover{
+    text-decoration: none;
+    opacity: 0.7;
+}
+
+#load-modal #modal-content-1 {
+     margin-top:0;
+}
+
+#load-modal #modal-content-2 {
+    margin-top:0;
+    text-align: center;
+}
+
+#load-modal #modal-content-2 h2 {
+    text-align: center;
+    width: 100%;
+    color: rgb(74,133,169);
+    margin-bottom: 4px;
+    font-size:188%;
+}
+
+#load-modal #modal-content-2 p {
+    width:100%;
+    margin:0;
+    padding:0;
+    text-align: center;
+    color: #666666;
+}
+
+#load-modal #modal-content-2 hr{
+    width:30%;
+    border: 1px solid rgb(74,133,169);
+}
+
+#load-modal #modal-content-2 p.info {
+    font-family: ostrich-black, sans-serif;
+    margin-left: 0;
+    display: block;
+    color: rgb(74,133,169);
+    padding:5px;
+    padding-top:8px;
+
+}
+
+#load-modal #modal-content-2 div.steps {
+    margin-top: 4%;
+    margin-bottom:2%;
+}
+
+
+#load-modal #control-device {
+    /*position: absolute;*/
+    /*top: -120px;*/
+    /*right: 0;*/
+    cursor: auto;
+    width: 300px;
+    opacity: 0.35;
+}
+
+#load-modal #control-device:hover {
+    opacity: 0.35;
 }

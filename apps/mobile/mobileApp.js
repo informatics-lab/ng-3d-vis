@@ -4,8 +4,6 @@ angular.module('mobileApp', ["informatics-badge-directive", "three"])
 
     .controller('AppCtrl', ['$scope', 'glMobileSocketService', 'glSceneService', 'glCameraService', 'glRendererService', function ($scope, glMobileSocketService, glSceneService, glCameraService, glRendererService) {
 
-        $scope.socketService = glMobileSocketService;
-
         $scope.width = function() {
             return window.innerWidth;
         };
@@ -21,7 +19,6 @@ angular.module('mobileApp', ["informatics-badge-directive", "three"])
 
         //SCENE
         glSceneService.scene = new THREE.Scene();
-
 
         //CAMERA
         var fov = 45;
@@ -39,6 +36,41 @@ angular.module('mobileApp', ["informatics-badge-directive", "three"])
         glRendererService.renderer = new THREE.WebGLRenderer({antialias: true});
         glRendererService.renderer.setSize($scope.width(), $scope.height());
         glRendererService.renderer.setClearColor(0x2222ee);
+
+
+        if (window.DeviceOrientationEvent) {
+            console.log("device orientation supported");
+
+            //set orientation as we load 1st time
+            if(window.matchMedia("(orientation: portrait)").matches) {
+                //console.log("portrait mode");
+                $scope.orientation = "portrait";
+            } else {
+                //console.log("landscape mode");
+                $scope.orientation = "landscape";
+            }
+
+            //set listener to trigger on orientation change
+            window.addEventListener('deviceorientation',
+                function() {
+                    if(window.matchMedia("(orientation: portrait)").matches) {
+                        //console.log("portrait mode");
+                        $scope.orientation = "portrait";
+                    } else {
+                        //console.log("landscape mode");
+                        $scope.orientation = "landscape";
+                    }
+                }, false);
+        }
+
+        $scope.$watch($scope.orientation, function(newValue, oldValue){
+            //if(newValue === "landscape") {
+            //
+            //} else {
+            //
+            //}
+            console.log(newValue, oldValue);
+        });
 
 
     }]);

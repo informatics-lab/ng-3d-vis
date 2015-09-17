@@ -2,7 +2,7 @@
 
 var cam;
 angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster', 'ngAnimate'])
-    .controller('AppCtrl', ['$scope', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', function ($scope, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService) {
+    .controller('AppCtrl', ['$scope', '$timeout', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', function ($scope, $timeout, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService) {
 
         $scope.width = function () {
             return window.innerWidth;
@@ -51,9 +51,9 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
 
         glCameraService.cameraNormal = new THREE.Vector3(0,0,-1);
 
-        glCameraService.camera.position.x = 230;
-        glCameraService.camera.position.y =  84;
-        glCameraService.camera.position.z = 326;
+        glCameraService.camera.position.x = 0;
+        glCameraService.camera.position.y = 791;
+        glCameraService.camera.position.z = 63;
 
         glCameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -68,13 +68,28 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
         //glRendererService.renderer.setClearColor(0x2222ee);
         window.onload = function() {
             $('#load-modal').modal('show');
+            $('.modal-backdrop').remove();
         };
 
-        $scope.removeLoadModal = function () {
-            console.log("removing modal");
-            $('#load-modal').remove();
-            $('.modal-backdrop').remove();
-            $("body").removeClass("modal-open");
+        $scope.launchClassic = function () {
+            console.log("launching classic controls");
+
+            $('#load-modal').fadeOut(2000, function() {
+                $('#load-modal').remove();
+                $("body").removeClass("modal-open");
+            });
+            $timeout(function() {
+                glCameraService.moveCamera(glCameraService.defaultPosition, true);
+            }, 2500);
+        };
+
+        $scope.launchMulti = function () {
+            console.log("launching multi controls");
+            $("#modal-content-1").fadeOut(500, function() {
+                $("#modal-content-2").fadeIn(500, function(){
+
+                });
+            });
         };
 
         //VIDEO DATA
