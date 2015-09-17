@@ -1,6 +1,7 @@
 
 .container-fluid {
     padding: 0;
+    margin: 0;
 }
 
 /* portrait */
@@ -25,5 +26,13 @@
     }
     #landscape {
         display: block;
+    }
+
+    #controls span {
+        display: inline-block;
+        width:80px;
+        height:80px;
+        margin:10px;
+
     }
 }

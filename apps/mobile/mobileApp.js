@@ -4,10 +4,10 @@ angular.module('mobileApp', ["three"])
 
     .controller('AppCtrl', ['$scope', 'glMobileSocketService', 'glSceneService', 'glCameraService', 'glRendererService', function ($scope, glMobileSocketService, glSceneService, glCameraService, glRendererService) {
 
-        $scope.width = function() {
+        $scope.width = function () {
             return window.innerWidth;
         };
-        $scope.height = function() {
+        $scope.height = function () {
             return window.innerHeight;
         };
 
@@ -17,7 +17,7 @@ angular.module('mobileApp', ["three"])
          Init objects in shared services
          *******************************/
 
-        //SCENE
+            //SCENE
         glSceneService.scene = new THREE.Scene();
 
         //CAMERA
@@ -29,12 +29,16 @@ angular.module('mobileApp', ["three"])
         glCameraService.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
         glCameraService.camera.position.z = 500;
         glCameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
-        glCameraService.cameraNormal = new THREE.Vector3(0,0,-1);
+        glCameraService.cameraNormal = new THREE.Vector3(0, 0, -1);
 
 
         //RENDERER
-        glRendererService.renderer = new THREE.WebGLRenderer({antialias: true});
+        glRendererService.renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
         glRendererService.renderer.setSize($scope.width(), $scope.height());
-        glRendererService.renderer.setClearColor(0x2222ee);
+        //glRendererService.renderer.setClearColor(new THREE.Color("rgb(255, 0, 0)"));
+
+        window.onload = function () {
+            $scope.$broadcast('init scene');
+        };
 
     }]);
