@@ -7,7 +7,7 @@ angular.module('mobileApp')
         vm.connectedToRoom = false;
         vm.connectionStatus = "disconnected";
 
-        vm.roomId = prompt("Enter sync ID");
+        //vm.roomId = prompt("Enter sync ID");
         if(vm.roomId) {
 
             vm.socket.emit('subscribe', vm.roomId);

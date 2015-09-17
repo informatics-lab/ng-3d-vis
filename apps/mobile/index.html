@@ -29,13 +29,23 @@
 <!-- application content -->
 <div ng-controller="AppCtrl" class="container-fluid">
 
-    <div class="row">
-        <div class="col-xs-6"></div>
-        <div class="col-xs-6"></div>
+    <div id="portrait">
+        <div class="col-xs-12">
+            <img src="../../images/phone-tilt.svg"/>
+        </div>
+    </div>
+
+    <div id="landscape" class="row">
+        <div class="col-xs-6">
+
+        </div>
+        <div class="col-xs-6">
+
+        </div>
     </div>
 
     <!-- this element is hidden by default and is just used to allow easy camera manipulation -->
-    <gl-scene gl-stats gl-orbit-controls hide="false" width="width" height="height">
+    <gl-scene gl-first-person-controls hide="false" width="width" height="height">
         <gl-box name="testBox"></gl-box>
     </gl-scene>
 

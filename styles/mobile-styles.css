@@ -1,0 +1,29 @@
+
+.container-fluid {
+    padding: 0;
+}
+
+/* portrait */
+@media screen and (orientation:portrait) {
+    /* portrait-specific styles */
+    #portrait {
+        display: block;
+        text-align: center;
+        padding-top: 50%;
+        height:100%;
+    }
+    #landscape {
+        display: none;
+    }
+}
+
+/* landscape */
+@media screen and (orientation:landscape) {
+    /* landscape-specific styles */
+    #portrait {
+        display: none;
+    }
+    #landscape {
+        display: block;
+    }
+}
