@@ -38,6 +38,14 @@
     <div id="landscape" class="row">
         <div class="col-xs-12" style="position: relative">
 
+            <div id="controls">
+                <span id="up">up</span>
+                <span id="down">down</span>
+                <span id="left">left</span>
+                <span id="right">right</span>
+                <span id="forward">forward</span>
+                <span id="back">back</span>
+            </div>
 
             <!-- this element is hidden by default and is just used to allow easy camera manipulation -->
             <gl-scene gl-retro-mobile-controls hide="false" width="width" height="height">
@@ -50,14 +58,10 @@
 </div>
 
 <!-- scripts/scripts.js -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 
 <script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../../bower_components/angularjs/angular.min.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs/build/three.min.js"></script>
-<script type="text/javascript" src="../../bower_components/threejs-controls/src/OrbitControls.js"></script>
-<script type="text/javascript"
-        src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
 <script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
 <script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
@@ -74,7 +78,6 @@
 <script type="text/javascript" src="../../components/renderer/glRendererService.js"></script>
 <script type="text/javascript" src="../../components/glConstantsService.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/glBox.js"></script>
-<script type="text/javascript" src="../../components/controls/glOrbitControls.js "></script>
 <script type="text/javascript" src="../../components/controls/glRetroMobileControls.js"></script>
 <!-- endbuild -->
 

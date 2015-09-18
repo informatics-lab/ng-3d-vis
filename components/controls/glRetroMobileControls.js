@@ -5,7 +5,6 @@ angular.module('three')
         return {
             restrict: 'A',
             require: '^glScene',
-            //templateUrl: '../../components/controls/retroMobileControls.html',
             link: function (scope, element, attrs, sceneCtrl) {
 
                 console.log("loading controls");
@@ -306,11 +305,11 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
 
     $('#back').bind('touchstart', function() {
         console.log("back start");
-        scope.moveBack =true;
+        scope.moveBackward = true;
     });
     $('#back').bind('touchend', function() {
         console.log("back ended");
-        scope.moveback = false;
+        scope.moveBackward = false;
     });
 
 };
