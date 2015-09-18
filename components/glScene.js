@@ -83,6 +83,8 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService, gl
         //console.log('rendering...');
         $rootScope.$broadcast('render', {delta: delta});
         vm.rendererService.renderer.render(vm.sceneService.scene, vm.cameraService.camera);
+        vm.rendererService.renderer.clearDepth(); // optional, depending on use case
+        vm.rendererService.renderer.render(vm.sceneService.scene2, vm.cameraService.camera );
         vm.cameraService.cameraNormal.set(0, 0, -1);
         vm.cameraService.cameraNormal.applyQuaternion(vm.cameraService.camera.quaternion);
     };

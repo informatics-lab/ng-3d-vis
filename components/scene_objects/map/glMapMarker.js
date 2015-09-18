@@ -13,7 +13,7 @@ angular.module('three')
     link: function postLink(scope, element, attrs, parentCtrl) {
 
       scope.$on('video data loaded', function () {
-        parentCtrl.sceneService.addSomething(scope.name, scope.vm.addMarker(attrs));
+        parentCtrl.sceneService.addSomething2(scope.name, scope.vm.addMarker(attrs));
       });
 
     }
