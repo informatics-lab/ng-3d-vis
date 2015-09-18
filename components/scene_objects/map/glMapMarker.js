@@ -1,3 +1,5 @@
+// @msaunby wrote this.  It's probably got bugs in it.
+
 angular.module('three')
 .directive('glMapMarker', function () {
   return {
@@ -19,20 +21,20 @@ angular.module('three')
 });
 
 
-// Sprite example
-// http://threejs.org/examples/webgl_sprites.html
-
-function mapMarkerController($scope, glVideoService, glConstantsService) {
+function mapMarkerController($scope, glVideoService, glConstantsService, glCoordService) {
   var vm = this;
+  vm.coordService = glCoordService;
   vm.addMarker = function(attrs)
   {
-    console.log("adding map marker", attrs);
-    var spritey = vm.makeTextSprite(attrs['label']);
-    console.log("have sprite", spritey);
+    var loc = {};
+    loc.lat = Number(attrs.coordinate.split(',')[0]);
+    loc.lon = Number(attrs.coordinate.split(',')[1]);
+    var newCoords = vm.coordService.lookupCoords(loc);
+    var spritey = vm.makeTextSprite(attrs['label'], newCoords);
     return spritey;
   };
 
-  vm.makeTextSprite = function( myString )
+  vm.makeTextSprite = function( myString, myCoords )
   {
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
@@ -40,14 +42,15 @@ function mapMarkerController($scope, glVideoService, glConstantsService) {
     var myFont = fsize + "px Open Sans,sans-serif";
     ctx.font = myFont;
     var metrics = ctx.measureText(myString);
-    console.log(metrics);
-    canvas.width = metrics.width + 5;
-    canvas.height = fsize;
+    canvas.width = metrics.width * 2 + 10;
+    canvas.height = fsize * 4;
     ctx.fillStyle = "rgba(255,255,255,0.6)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(canvas.width/2, 0, canvas.width, canvas.height/4);
+    ctx.fillStyle = "rgba(255,255,255,1.0)";
+    ctx.fillRect(canvas.width/2-2, 0, 4, canvas.height/2);
     ctx.fillStyle = "rgb(0,0,0)";
     ctx.font = myFont;
-    ctx.fillText(myString, 2, canvas.height * 0.75);
+    ctx.fillText(myString, canvas.width/2 + 2, fsize * 0.75);
 
 
     var spriteMap = THREE.ImageUtils.loadTexture( canvas.toDataURL() );
@@ -55,12 +58,9 @@ function mapMarkerController($scope, glVideoService, glConstantsService) {
     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, fog: true } );
 
     var sprite = new THREE.Sprite( spriteMaterial );
-    sprite.scale.set( 20, 10, 10 );
+    sprite.scale.set( canvas.width * 0.1, canvas.height * 0.1, 0 );
 
-    sprite.position.set( 0, -40, 0 );
-    //sprite.position.normalize();
-    //sprite.position.multiplyScalar( radius );
-
+    sprite.position.set( myCoords.x, myCoords.y, myCoords.z );
     return sprite;
 
   };
