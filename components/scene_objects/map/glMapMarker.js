@@ -44,11 +44,11 @@ function mapMarkerController($scope, glVideoService, glConstantsService, glCoord
     var metrics = ctx.measureText(myString);
     canvas.width = metrics.width * 2 + 10;
     canvas.height = fsize * 4;
-    ctx.fillStyle = "rgba(255,255,255,0.6)";
+    ctx.fillStyle = "rgba(255,255,255,0.0)";
     ctx.fillRect(canvas.width/2, 0, canvas.width, canvas.height/4);
     ctx.fillStyle = "rgba(255,255,255,1.0)";
     ctx.fillRect(canvas.width/2-2, 0, 4, canvas.height/2);
-    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillStyle = "rgba(255,255,255,1.0)";//"rgb(0,0,0)";
     ctx.font = myFont;
     ctx.fillText(myString, canvas.width/2 + 2, fsize * 0.75);
 
