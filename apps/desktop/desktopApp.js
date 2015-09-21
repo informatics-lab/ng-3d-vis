@@ -68,9 +68,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             $('.modal-backdrop').remove();
         };
 
-        $scope.launchClassic = function () {
-            console.log("launching classic controls");
-
+        $scope.startUp = function() {
             $('#load-modal').fadeOut(2000, function() {
                 $('#load-modal').remove();
                 $("body").removeClass("modal-open");
@@ -78,6 +76,12 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             $timeout(function() {
                 glCameraService.moveCamera(glCameraService.defaultPosition, true);
             }, 2500);
+        };
+
+        $scope.launchClassic = function () {
+            console.log("launching classic controls");
+            $scope.startUp();
+
         };
 
         $scope.launchMulti = function () {
@@ -90,11 +94,29 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
                     $("#modal-content-2").fadeIn(500, function(){
                     });
                 });
-
             });
-
-
         };
+
+        $scope.$on('client connected', function() {
+            console.log("remote client was connected");
+            $scope.startUp();
+            $scope.$on('tween complete', function() {
+
+            glSocketService.send({
+                'position' : {
+                    x : glCameraService.camera.position.x,
+                    y : glCameraService.camera.position.y,
+                    z : glCameraService.camera.position.z
+                },
+                'quaternion' : {
+                    _w : glCameraService.camera.quaternion._w,
+                    _x : glCameraService.camera.quaternion._x,
+                    _y : glCameraService.camera.quaternion._y,
+                    _z : glCameraService.camera.quaternion._z
+                }
+            });
+            });
+        });
 
         //VIDEO DATA
         glVideoService.loadData($scope.videoUrl);

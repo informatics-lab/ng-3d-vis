@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('three')
-    .directive('glRetroMobileControls', function () {
+    .directive('glRetroMobileControls', function ($rootScope) {
         return {
             restrict: 'A',
             require: '^glScene',
@@ -12,6 +12,10 @@ angular.module('three')
 
                 scope.$on('update', function(event, data){
                     controls.update(data.delta);
+
+                    if(controls.move){
+                        $rootScope.$broadcast('moving');
+                    }
                 });
 
             }
@@ -227,7 +231,7 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
     /*Key events*/
     function onKeyDown( event ) {
         if ( scope.enabled === false) return;
-
+        scope.move = true;
         switch ( event.keyCode ) {
             case scope.keys.UP: scope.lookUp = true; break;
             case scope.keys.BOTTOM: scope.lookDown = true; break;
@@ -241,6 +245,7 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
     }
 
     function onKeyUp( event ) {
+        scope.move = false;
         switch ( event.keyCode ) {
             case scope.keys.W: scope.moveForward = false; break;
             case scope.keys.S: scope.moveBackward = false; break;
@@ -261,55 +266,67 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
     $('#up').bind('touchstart', function() {
         console.log("up start");
         scope.lookUp = true;
+        scope.move = true;
     });
     $('#up').bind('touchend', function() {
         console.log("up ended");
         scope.lookUp = false;
+        scope.move = false;
     });
 
     $('#down').bind('touchstart', function() {
         console.log("down start");
         scope.lookDown = true;
+        scope.move = true;
     });
     $('#down').bind('touchend', function() {
         console.log("down ended");
         scope.lookDown = false;
+        scope.move = false;
     });
 
     $('#left').bind('touchstart', function() {
         console.log("left start");
         scope.lookLeft = true;
+        scope.move = true;
     });
     $('#left').bind('touchend', function() {
         console.log("left ended");
         scope.lookLeft = false;
+        scope.move = false;
     });
 
     $('#right').bind('touchstart', function() {
         console.log("right start");
         scope.lookRight=true;
+        scope.move = true;
     });
     $('#right').bind('touchend', function() {
         console.log("right ended");
         scope.lookRight = false;
+        scope.move = false;
     });
 
     $('#forward').bind('touchstart', function() {
         console.log("forward start");
         scope.moveForward = true;
+        scope.move = true;
     });
     $('#forward').bind('touchend', function() {
         console.log("forward ended");
         scope.moveForward = false;
+        scope.move = false;
     });
 
     $('#back').bind('touchstart', function() {
         console.log("back start");
         scope.moveBackward = true;
+        scope.move = true;
     });
     $('#back').bind('touchend', function() {
         console.log("back ended");
         scope.moveBackward = false;
+        scope.move = false;
     });
 
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mobileApp', ["three"])
+angular.module('mobileApp', ["three", "ngTouch"])
 
     .controller('AppCtrl', ['$scope', 'glMobileSocketService', 'glSceneService', 'glCameraService', 'glRendererService', function ($scope, glMobileSocketService, glSceneService, glCameraService, glRendererService) {
 
@@ -46,14 +46,33 @@ angular.module('mobileApp', ["three"])
             glMobileSocketService.connect(code);
         };
 
-        $scope.connectionSuccess = function() {
-            console.log("connected");
+        $scope.$on('socket connected', function() {
+            console.log('connection message received');
             $('#connection').fadeOut(500, function() {
                 $('#controls').css("display","block");
-                $('#controller').fadeIn(500, function() {
 
+                $('#controller').fadeIn(500, function() {
+                    //$('body').css('background', 'url("../../images/controller.png") no-repeat center center fixed');
+                    //$('body').css('background-size', '100%');
                 });
             });
-        }
+            $scope.$on('moving', function() {
+                glMobileSocketService.send({
+                    'position' : {
+                        x : glCameraService.camera.position.x,
+                        y : glCameraService.camera.position.y,
+                        z : glCameraService.camera.position.z
+                    },
+                    'quaternion' : {
+                        _w : glCameraService.camera.quaternion._w,
+                        _x : glCameraService.camera.quaternion._x,
+                        _y : glCameraService.camera.quaternion._y,
+                        _z : glCameraService.camera.quaternion._z
+                    }
+                });
+            });
+        });
+
+
 
     }]);

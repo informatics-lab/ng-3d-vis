@@ -4,8 +4,6 @@ angular.module('three')
     .service('glSocketService', function ($rootScope, glCameraService) {
         var vm = this;
 
-        vm.cameraService = glCameraService;
-
         vm.roomId = null;
         vm.connectedToRoom = false;
         vm.connectionStatus = "disconnected";
@@ -19,25 +17,24 @@ angular.module('three')
                 vm.connectedToRoom = true;
                 vm.roomId = data.roomId;
 
-                //TODO swap alerts out for modals
                 if (data.participants == 1) {
                     vm.connectionStatus = "waiting";
                     $rootScope.$broadcast('connection-code', vm.roomId);
                 } else if (data.participants > 1) {
                     vm.connectionStatus = "connected";
-                    $rootScope.$broadcast('')
+                    $rootScope.$broadcast('client connected',{});
                 }
             });
 
             vm.socket.on('camera', function (data) {
 
-                vm.cameraService.camera.position.set(
+                glCameraService.camera.position.set(
                     data.message.position.x,
                     data.message.position.y,
                     data.message.position.z
                 );
 
-                vm.cameraService.camera.setRotationFromQuaternion(
+                glCameraService.camera.setRotationFromQuaternion(
                     new THREE.Quaternion(
                         data.message.quaternion._x,
                         data.message.quaternion._y,
@@ -45,8 +42,15 @@ angular.module('three')
                         data.message.quaternion._w
                     )
                 );
-
             });
+
+            vm.send = function(message) {
+                console.log("sending",message);
+                vm.socket.emit('send camera', {
+                    room : vm.roomId,
+                    message : message
+                });
+            };
 
         };
 

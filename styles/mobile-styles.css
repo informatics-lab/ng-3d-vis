@@ -44,6 +44,7 @@
     body {
         background: url('../images/bg-cloud.gif') no-repeat center center fixed;
         background-size: cover;
+        transition: background 1s;
     }
 
     /* landscape-specific styles */

@@ -12,9 +12,9 @@ angular.module('three')
         vm.camera = null;
 
         vm.defaultPosition = {
-            x : 230,
-            y : 84,
-            z : 326
+            x: 230,
+            y: 84,
+            z: 326
         };
 
         vm.moveCamera = function (pos, lookAtMiddle) {
@@ -22,11 +22,12 @@ angular.module('three')
                 .to({x: pos.x, y: pos.y, z: pos.z}, 3000)
                 .easing(TWEEN.Easing.Sinusoidal.InOut)
                 .onUpdate(function () {
-                    if(lookAtMiddle) {
+                    if (lookAtMiddle) {
                         vm.camera.lookAt(new THREE.Vector3(0, 0, 0));
                     }
                 })
                 .onComplete(function () {
+                    $rootScope.$broadcast('tween complete');
                 })
                 .start();
         };
