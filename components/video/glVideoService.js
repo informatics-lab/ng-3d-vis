@@ -21,6 +21,9 @@ angular.module('desktopApp')
                 .success(function (data, status, headers, config) {
                     vm.data = data;
                     console.log("loaded data : ", vm.data);
+                    // data.forecast_reference_time
+                    // fmt "YYYY-MM-DDTHH:MM:SS.000Z"
+                    // also data.model = "uk_v"
                     loadVideo(vm.data._links.data.href);
                 })
                 .error(function (data, status, headers, config) {
