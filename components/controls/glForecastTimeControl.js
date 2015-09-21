@@ -7,21 +7,29 @@ angular.module('three')
     .directive('glForecastTime', function () {
         return {
             restrict: 'E',
-            scope: {
-            },
+            scope: {},
             controller: forecastTimeController,
             controllerAs: 'vm',
-            template: '<b id="forecastTime" style="color:white; position: absolute; bottom: 20px; right: 80px;">HELLO WORLD</b>',
+            template: '<span id="forecastTime" style="color:white; position: absolute; bottom: 20px; right: 80px;">{{dateTime}}</span>',
             link: forecastTimePostLink
         }
     });
 
 function forecastTimePostLink(scope, elem, attrs) {
     elem.on('click', function() {
-        alert('Hello');
+        console.log('forecastTime: click event');
+    });
+    scope.$on('frame updated', function () {
+      //console.log('forecastTime: frame updated', scope.vm.videoService.video.currentTime);
+      scope.dateTime = scope.vm.videoService.video.currentTime;
+      // See http://www.inwebson.com/html5/custom-html5-video-controls-with-jquery/
     });
 }
 
-function forecastTimeController($scope, glSocketService) {
+function forecastTimeController($scope, glVideoService, glConstantsService) {
     var vm = this;
+    vm.videoService = glVideoService;
+    vm.constants = glConstantsService;
+
+
 }
