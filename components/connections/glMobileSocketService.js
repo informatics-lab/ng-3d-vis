@@ -1,18 +1,20 @@
 'use strict';
 
 angular.module('mobileApp')
-    .service('glMobileSocketService', function () {
+    .service('glMobileSocketService', function ($rootScope) {
         var vm = this;
 
         vm.connectedToRoom = false;
         vm.connectionStatus = "disconnected";
 
         //vm.roomId = prompt("Enter sync ID");
-        if(vm.roomId) {
+        vm.connect = function(code) {
 
-            vm.socket.emit('subscribe', vm.roomId);
-            vm.connectionStatus = "waiting";
             vm.socket = io.connect("http://sync.3dvis.informaticslab.co.uk/");
+
+            vm.roomId = code;
+            vm.socket.emit('subscribe', '');
+            vm.connectionStatus = "waiting";
 
             vm.socket.on('subscription', function (data) {
                 vm.connectedToRoom = true;
@@ -34,6 +36,8 @@ angular.module('mobileApp')
                 });
             };
 
-        }
+        };
+
+        return vm;
 
     });

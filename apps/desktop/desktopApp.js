@@ -2,7 +2,7 @@
 
 var cam;
 angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster', 'ngAnimate'])
-    .controller('AppCtrl', ['$scope', '$timeout', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', function ($scope, $timeout, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService) {
+    .controller('AppCtrl', ['$scope', '$timeout', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', 'glSocketService', function ($scope, $timeout, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService, glSocketService) {
 
         $scope.width = function () {
             return window.innerWidth;
@@ -12,10 +12,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
         };
 
         $scope.sceneHeight = function() {
-            console.log($scope.height());
             var sceneHeight = $scope.height() - angular.element("#navbar").outerHeight();
-            console.log(angular.element("#navbar").outerHeight());
-            console.log(sceneHeight);
             return sceneHeight;
         };
 
@@ -85,11 +82,18 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
 
         $scope.launchMulti = function () {
             console.log("launching multi controls");
-            $("#modal-content-1").fadeOut(500, function() {
-                $("#modal-content-2").fadeIn(500, function(){
+            glSocketService.connect();
+            $scope.$on('connection-code', function(event, message) {
 
+                $("#modal-content-1").fadeOut(500, function() {
+                    $("#connection-code").text(message);
+                    $("#modal-content-2").fadeIn(500, function(){
+                    });
                 });
+
             });
+
+
         };
 
         //VIDEO DATA
@@ -98,7 +102,6 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
         $scope.$on('video data loaded', function() {
             console.log("video ready");
             $scope.$broadcast('init scene');
-
         });
 
 

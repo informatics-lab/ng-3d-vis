@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('three')
-    .service('glSocketService', function (glCameraService) {
+    .service('glSocketService', function ($rootScope, glCameraService) {
         var vm = this;
 
         vm.cameraService = glCameraService;
@@ -18,16 +18,14 @@ angular.module('three')
             vm.socket.on('subscription', function (data) {
                 vm.connectedToRoom = true;
                 vm.roomId = data.roomId;
-                console.log('roomId set to : ' + vm.roomId);
 
                 //TODO swap alerts out for modals
                 if (data.participants == 1) {
                     vm.connectionStatus = "waiting";
-                    $rootScope.$broadcast('socket', vm.connectionStatus);
-                    alert("go to app and use code: "+ vm.roomId);
+                    $rootScope.$broadcast('connection-code', vm.roomId);
                 } else if (data.participants > 1) {
                     vm.connectionStatus = "connected";
-                    alert("mobile device connected!");
+                    $rootScope.$broadcast('')
                 }
             });
 
@@ -51,6 +49,8 @@ angular.module('three')
             });
 
         };
+
+        return vm;
 
 
     });

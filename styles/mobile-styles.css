@@ -1,5 +1,23 @@
+@font-face {
+    font-family: 'ostrich-sans-inline';
+    src: url('../fonts/ostrich-sans-inline-regular.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/ostrich-sans-inline-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/ostrich-sans-inline-regular.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../fonts/ostrich-sans-inline-regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/ostrich-sans-inline-regular.svg#ostrich-sans-inline-regular') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'ostrich-black';
+    src: url('../fonts/ostrich-black.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/ostrich-black.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/ostrich-black.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../fonts/ostrich-black.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/ostrich-black.svg#ostrich-black') format('svg'); /* Legacy iOS */
+}
 
 .container-fluid {
+    font-family: ostrich-black, sans-serif;
     padding: 0;
     margin: 0;
     overflow-x: hidden;
@@ -23,6 +41,11 @@
 
 /* landscape */
 @media screen and (orientation: landscape) {
+    body {
+        background: url('../images/bg-cloud.gif') no-repeat center center fixed;
+        background-size: cover;
+    }
+
     /* landscape-specific styles */
     #portrait {
         display: none;
@@ -30,6 +53,59 @@
 
     #landscape {
         display: block;
+        position: relative;
+
+    }
+
+    #connection {
+        background-color: white;
+        opacity: 0.7;
+        box-shadow: 0px 0px 10px #222222;
+        padding:20px;
+        margin-top:9%;
+        margin-bottom:10%;
+        text-align: center;
+    }
+
+    #connection label {
+        padding-right: 10px;
+        font-size: 130%;
+        line-height: 140%;
+        color: #666666;
+    }
+
+    #connection input {
+        opacity:0.9;
+        border: 2px solid #666666;
+        background-color: white;
+        font-size: 130%;
+        text-align: center;
+    }
+
+    #connection h2 {
+        color:rgb(74,133,169);
+        font-size:190%;
+        margin-top:8px;
+    }
+
+    #connection a {
+        display: block;
+        width:60%;
+        margin-left:20%;
+        margin-top:10px;
+        background-color: rgb(74,133,169);
+        color: white;
+        cursor: pointer;
+        font-size:180%;
+        padding-top: 8px;
+    }
+    #connection a:hover {
+        opacity: 0.7;
+        text-decoration: none;
+    }
+
+    #controller {
+        display:none;
     }
 
     #controls {

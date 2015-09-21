@@ -41,4 +41,19 @@ angular.module('mobileApp', ["three"])
             $scope.$broadcast('init scene');
         };
 
+        $scope.connect = function() {
+            var code = document.getElementById("connection-code").value;
+            glMobileSocketService.connect(code);
+        };
+
+        $scope.connectionSuccess = function() {
+            console.log("connected");
+            $('#connection').fadeOut(500, function() {
+                $('#controls').css("display","block");
+                $('#controller').fadeIn(500, function() {
+
+                });
+            });
+        }
+
     }]);

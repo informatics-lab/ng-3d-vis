@@ -29,15 +29,21 @@
 <!-- application content -->
 <div ng-controller="AppCtrl" class="container-fluid">
 
-    <div id="portrait">
+    <div id="portrait" class="row">
         <div class="col-xs-12">
             <img src="../../images/phone-tilt.svg"/>
         </div>
     </div>
 
     <div id="landscape" class="row">
-        <div class="col-xs-12" style="position: relative">
 
+        <div id="connection" class="col-xs-8 col-xs-offset-2">
+            <h2>Sync device to your desktop app</h2>
+            <label>Enter 4 digit code :</label><input id="connection-code" type="text">
+            <a ng-click="connect()">Connect</a>
+        </div>
+
+        <div id="controller" class="col-xs-12">
             <div id="controls">
                 <span id="up">up</span>
                 <span id="down">down</span>
