@@ -71,9 +71,9 @@ body {
     margin-bottom: 0;
 }
 
-#navbar div.device-info:hover {
-    opacity:0.45;
-}
+/*#navbar div.device-info:hover {*/
+    /*opacity:0.45;*/
+/*}*/
 
 #scene {
     position: relative;

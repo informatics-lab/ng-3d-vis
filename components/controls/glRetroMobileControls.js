@@ -263,7 +263,8 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
 
     /*my touch events*/
 
-    $('#up').bind('touchstart', function() {
+    $('#up').bind('touchstart', function(event) {
+        event.preventDefault();
         console.log("up start");
         scope.lookUp = true;
         scope.move = true;
@@ -274,7 +275,8 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
         scope.move = false;
     });
 
-    $('#down').bind('touchstart', function() {
+    $('#down').bind('touchstart', function(event) {
+        event.preventDefault();
         console.log("down start");
         scope.lookDown = true;
         scope.move = true;
@@ -285,7 +287,8 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
         scope.move = false;
     });
 
-    $('#left').bind('touchstart', function() {
+    $('#left').bind('touchstart', function(event) {
+        event.preventDefault();
         console.log("left start");
         scope.lookLeft = true;
         scope.move = true;
@@ -296,7 +299,8 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
         scope.move = false;
     });
 
-    $('#right').bind('touchstart', function() {
+    $('#right').bind('touchstart', function(event) {
+        event.preventDefault();
         console.log("right start");
         scope.lookRight=true;
         scope.move = true;
@@ -307,7 +311,8 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
         scope.move = false;
     });
 
-    $('#forward').bind('touchstart', function() {
+    $('#forward').bind('touchstart', function(event) {
+        event.preventDefault();
         console.log("forward start");
         scope.moveForward = true;
         scope.move = true;
@@ -318,7 +323,8 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
         scope.move = false;
     });
 
-    $('#back').bind('touchstart', function() {
+    $('#back').bind('touchstart', function(event) {
+        event.preventDefault();
         console.log("back start");
         scope.moveBackward = true;
         scope.move = true;
