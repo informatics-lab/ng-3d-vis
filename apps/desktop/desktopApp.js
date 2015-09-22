@@ -34,7 +34,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
 
         //SCENE
         glSceneService.scene = new THREE.Scene();
-
+        glSceneService.scene2 = new THREE.Scene();
 
         //CAMERA
         var fov = 45;
@@ -58,7 +58,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
         //RENDERER
         glRendererService.renderer = new THREE.WebGLRenderer({antialias: true, alpha:true});
         glRendererService.renderer.setSize($scope.width(), $scope.sceneHeight());
-
+        glRendererService.renderer.autoClear = false;
         /*
          * commented out as have set background to transparent
          */
