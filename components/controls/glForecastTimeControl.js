@@ -21,7 +21,7 @@ function forecastTimePostLink(scope, elem, attrs) {
     });
     scope.$on('frame updated', function () {
       //console.log('forecastTime: frame updated', scope.vm.videoService.video.currentTime);
-      scope.dateTime = scope.vm.videoService.video.currentTime;
+      scope.dateTime = "+" + (36 * scope.vm.videoService.video.currentTime / scope.vm.videoService.video.duration).toPrecision(3) + "hrs";
       // See http://www.inwebson.com/html5/custom-html5-video-controls-with-jquery/
     });
 }

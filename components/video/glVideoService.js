@@ -45,6 +45,10 @@ angular.module('desktopApp')
                 $rootScope.$broadcast('video data loaded');
                 vm.video.play();
             });
+            vm.video.addEventListener('loadedmetadata', function () {
+                $rootScope.$broadcast('video metadata loaded');
+                console.log('video duration', vm.video.duration);
+            });
         };
 
         /*
