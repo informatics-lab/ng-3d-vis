@@ -6,7 +6,8 @@ angular.module('three')
             restrict: 'E',
             require: '^glScene',
             scope: {
-                name: '@'
+                name: '@',
+                fillcolour: '@'
             },
             link: postBackgroundLink,
             controller: backgroundController,
@@ -15,33 +16,31 @@ angular.module('three')
     });
 
 function postBackgroundLink(scope, element, attrs, parentCtrl) {
-    function getGradient(h, w){
+    function getFill(h, w, rgba){
         var canvas = document.createElement( 'canvas' );
         canvas.width = w;
         canvas.height = h;
         var context = canvas.getContext( '2d' );
-        var gradient = context.createLinearGradient( canvas.width / 2, 0, canvas.width / 2, canvas.height);
-        gradient.addColorStop( 0.1, 'rgba(160,150,190,1)' );
-        gradient.addColorStop( 1, 'rgba(150,150,200,1)' );
-        context.fillStyle = gradient;
+        context.fillStyle = rgba;
         context.fillRect( 0, 0, canvas.width, canvas.height );
-        var shadowTexture = new THREE.Texture( canvas );
-        shadowTexture.needsUpdate = true;
-        return shadowTexture;
+        var texture = new THREE.Texture( canvas );
+        texture.needsUpdate = true;
+        return texture;
     }
 
     function draw(){
         var dims = scope.vm.videoService.data.data_dimensions;
         dims.y += 2;
-        var boxDims = new THREE.Vector3(dims.x,
+        var boxDims = new THREE.Vector3(dims.x + 1,
                             dims.z * scope.vm.constants.HEIGHT_SCALE_FACTOR + 1,
-                            dims.y);
+                            dims.y + 1);
 
         var boxGeom = new THREE.BoxGeometry(boxDims.x, boxDims.y, boxDims.z);
 
-        var gradient = getGradient(boxDims.y, boxDims.z);
+        console.log('fill', scope.fillColour);
+        var fill = getFill(boxDims.y, boxDims.z, scope.fillcolour);
         var boxMaterial = new THREE.MeshBasicMaterial({
-            map: gradient,
+            map: fill,
             shading: THREE.FlatShading,
             vertexColors: THREE.VertexColors,
             side: THREE.BackSide
