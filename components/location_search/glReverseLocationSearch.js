@@ -56,7 +56,7 @@ function reverseLocSearchController($scope, $rootScope, $interval, glCoordServic
         vm.position = new THREE.Vector3(glCameraService.camera.position.x,glCameraService.camera.position.y,glCameraService.camera.position.z);
     };
 
-    $interval(checkPosition, 2000);
+    //$interval(checkPosition, 2000);
 
     vm.coordService = glCoordService;
     vm.cameraService = glCameraService;

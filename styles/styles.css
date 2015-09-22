@@ -1,0 +1,256 @@
+@font-face {
+    font-family: 'ostrich-sans-inline';
+    src: url('../fonts/ostrich-sans-inline-regular.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/ostrich-sans-inline-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/ostrich-sans-inline-regular.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../fonts/ostrich-sans-inline-regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/ostrich-sans-inline-regular.svg#ostrich-sans-inline-regular') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'ostrich-black';
+    src: url('../fonts/ostrich-black.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/ostrich-black.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/ostrich-black.woff') format('woff'), /* Pretty Modern Browsers */
+    url('../fonts/ostrich-black.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/ostrich-black.svg#ostrich-black') format('svg'); /* Legacy iOS */
+}
+
+
+
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family: ostrich-sans-inline, sans-serif;
+}
+
+.container-fluid{
+    padding:0;
+}
+
+#navbar {
+    background-color: rgb(223,223,223);
+    width: 100%;
+    height: 18%;
+    min-height: 130px;
+    position: relative;
+    border-bottom: 10px solid rgb(74,133,169);
+    margin:0;
+    padding-top:10px;
+    text-transform: uppercase;
+}
+
+#navbar div.logo {
+    text-align: center;
+}
+
+#navbar div.text {
+    font-size: x-large;
+}
+
+#navbar div.text h2{
+    /*padding-top:10px;*/
+    margin-top:12px;
+    color: rgb(74,133,169);
+    font-family: ostrich-black, sans-serif;
+}
+
+#navbar div.text p{
+    line-height: 110%;
+    color: #888888;
+    font-size: 120%;
+}
+#navbar div.device-info {
+    height:100%;
+    text-align: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+#navbar div.device-info h4{
+    margin-bottom: 0;
+}
+
+/*#navbar div.device-info:hover {*/
+    /*opacity:0.45;*/
+/*}*/
+
+#scene {
+    position: relative;
+    background: url("../images/bg.gif") no-repeat center center fixed;
+    background-size: cover;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+
+.text-input {
+    border: 5px white solid;
+    color: rgb(169,169,169);;
+    width: 20%;
+    min-width:200px;
+    text-transform: uppercase;
+    font-size: 130%;
+}
+
+.text-input::-webkit-input-placeholder {
+    color: rgb(169,169,169);
+    text-transform: uppercase;
+}
+.text-input:-moz-placeholder {
+    color: rgb(169,169,169);
+    text-transform: uppercase;
+}
+.text-input::-moz-placeholder {
+    color: rgb(169,169,169);
+    text-transform: uppercase;
+}
+.text-input:-ms-input-placeholder {
+    color: rgb(169,169,169);
+    text-transform: uppercase;
+}
+
+.left-border {
+    border-left: 2px dotted #333333;
+
+}
+
+/*
+ *  MODAL
+ */
+
+#load-modal {
+    background: url("../images/bg-cloud.gif") no-repeat center center fixed;
+    background-size: cover;
+    font-family: ostrich-black, sans-serif;
+    /*position: relative;*/
+}
+
+#load-modal #logo {
+    position: absolute;
+    left:10px;
+    top:10px;
+    /*opacity: 0.2;*/
+    max-width: 130px;
+}
+
+#load-modal .load-modal-content {
+    background-color: white;
+    opacity: 0.7;
+    box-shadow: 0px 0px 10px #222222;
+    margin-top: 18%;
+    text-align: center;
+}
+
+#load-modal .load-modal-content img {
+    opacity: 0.2;
+    max-height: 180px;
+    cursor: pointer;
+}
+
+#load-modal .load-modal-content img:hover {
+    opacity: 0.35;
+}
+
+#load-modal .load-modal-content div{
+    margin-top: 8%;
+    margin-bottom: 8%;
+}
+
+#load-modal h2 {
+    font-family: ostrich-black, sans-serif;
+    color: rgb(74,133,169);
+    font-size: 180%;
+    margin-top:0;
+    /*text-align: left;*/
+    /*padding-left: 15%;*/
+}
+
+#load-modal .load-modal-content p {
+    font-size: 145%;
+    display: block;
+    text-align: center;
+    padding:4% 11%;
+    /*padding-top:4%;*/
+    color: #666666;
+    line-height: 110%;
+}
+
+#load-modal .load-modal-content a {
+    display: block;
+    width: 70%;
+    background-color: rgb(74,133,169);
+    color: white;
+    /*margin-bottom: 20%;*/
+    margin-left: 15%;
+    font-family: ostrich-black, sans-serif;
+    padding:5px;
+    padding-top:8px;
+    font-size: 130%;
+    cursor: pointer;
+    letter-spacing: 0.8px;
+}
+
+#load-modal .load-modal-content a:hover{
+    text-decoration: none;
+    opacity: 0.7;
+}
+
+#load-modal #modal-content-1 {
+     margin-top:0;
+}
+
+#load-modal #modal-content-2 {
+    margin-top:0;
+    text-align: center;
+}
+
+#load-modal #modal-content-2 h2 {
+    text-align: center;
+    width: 100%;
+    color: rgb(74,133,169);
+    margin-bottom: 4px;
+    font-size:188%;
+}
+
+#load-modal #modal-content-2 p {
+    width:100%;
+    margin:0;
+    padding:0;
+    text-align: center;
+    color: #666666;
+}
+
+#load-modal #modal-content-2 hr{
+    width:30%;
+    border: 1px solid rgb(74,133,169);
+}
+
+#load-modal #modal-content-2 p.info {
+    font-family: ostrich-black, sans-serif;
+    margin-left: 0;
+    display: block;
+    color: rgb(74,133,169);
+    padding:5px;
+    padding-top:8px;
+
+}
+
+#load-modal #modal-content-2 div.steps {
+    margin-top: 4%;
+    margin-bottom:2%;
+}
+
+
+#load-modal #control-device {
+    /*position: absolute;*/
+    /*top: -120px;*/
+    /*right: 0;*/
+    cursor: auto;
+    width: 300px;
+    opacity: 0.35;
+}
+
+#load-modal #control-device:hover {
+    opacity: 0.35;
+}
