@@ -1,0 +1,232 @@
+@font-face {
+    font-family: 'ostrich-sans-inline';
+    src: url('../fonts/ostrich-sans-inline-regular.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/ostrich-sans-inline-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/ostrich-sans-inline-regular.woff') format('woff'), /* Pretty Modern Browsers */ url('../fonts/ostrich-sans-inline-regular.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/ostrich-sans-inline-regular.svg#ostrich-sans-inline-regular') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'ostrich-black';
+    src: url('../fonts/ostrich-black.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/ostrich-black.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/ostrich-black.woff') format('woff'), /* Pretty Modern Browsers */ url('../fonts/ostrich-black.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/ostrich-black.svg#ostrich-black') format('svg'); /* Legacy iOS */
+}
+
+body {
+    font-family: ostrich-black, sans-serif;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+/* portrait */
+@media screen and (orientation: portrait) {
+    /* portrait-specific styles */
+    #portrait {
+        display: block;
+    }
+
+    #landscape {
+        display: none;
+    }
+}
+
+/* landscape */
+@media screen and (orientation: landscape) {
+
+    /* landscape-specific styles */
+    #portrait {
+        display: none;
+    }
+
+    #landscape {
+        display:block;
+        position: relative;
+        background: url('../images/bg-cloud.gif') no-repeat center center fixed;
+        background-size: cover;
+    }
+}
+
+.container-fluid {
+    padding: 0;
+    margin: 0;
+}
+
+#portrait {
+    text-align: center;
+    padding-top: 50%;
+    height: 100%;
+    background-color: white;
+}
+
+#landscape {
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+}
+
+#connection {
+    background-color: white;
+    opacity: 0.7;
+    box-shadow: 0px 0px 10px #222222;
+    padding: 20px;
+    margin-top: 9%;
+    margin-bottom: 10%;
+    text-align: center;
+}
+
+#connection label {
+    padding-right: 10px;
+    font-size: 130%;
+    line-height: 140%;
+    color: #666666;
+}
+
+#connection input {
+    opacity: 0.9;
+    border: 2px solid #666666;
+    background-color: white;
+    font-size: 130%;
+    text-align: center;
+}
+
+#connection h2 {
+    color: rgb(74, 133, 169);
+    font-size: 190%;
+    margin-top: 8px;
+}
+
+#connection a {
+    display: block;
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 10px;
+    background-color: rgb(74, 133, 169);
+    color: white;
+    cursor: pointer;
+    font-size: 180%;
+    padding-top: 8px;
+}
+
+#connection a:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+/**
+ * CONTROLLER STYLES
+ */
+
+#controller {
+    dsiplay: none;
+    position: relative;
+    text-align: center;
+    width:100%;
+    height:100%;
+    padding:0;
+    margin:0;
+}
+
+#control-panel {
+    position: absolute;
+    bottom:20px;
+    display: block;
+    height:60%;
+    width: 84%;
+    margin-left: 8%;
+    margin-right:8%;
+    padding:8px;
+    background-color: white;
+    opacity: 0.7;
+}
+
+#look-controls {
+    /*background-color: #888888;*/
+    width: 33.3%;
+    height:100%;
+}
+
+#look-controls .row {
+    height:33.3%
+}
+
+.look-button {
+    display: block;
+    width: 33.3333333333%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#look-controls-center {
+    background-image: url('../images/controller/leftpad_center.png');
+}
+
+#up {
+    /*background-color: red;*/
+    background-image: url('../images/controller/leftpad_up.png');
+}
+
+#down {
+    /*background-color: yellow;*/
+    background-image: url('../images/controller/leftpad_down.png');
+}
+
+#left {
+    /*background-color: green;*/
+    background-image: url('../images/controller/leftpad_left.png');
+}
+
+#right {
+    /*background-color: blue;*/
+    background-image: url('../images/controller/leftpad_right.png');
+}
+
+#option-controls {
+    /*background-color: #222222;*/
+    height:100%;
+}
+
+#option-controls img {
+    margin-top:55%;
+    width: 80%;
+}
+
+#pan-controls {
+    /*background-color: aqua;*/
+    height: 100%;
+}
+
+#pan-controls .row {
+    height:50%;
+    margin-top:50%;
+    margin-bottom:50%;
+}
+
+.pan-button {
+    height:100%;
+    background-size: cover;
+    background-position: center;
+}
+
+#forward {
+    background-image: url('../images/controller/rightpad_arrowup.png');
+}
+
+#back {
+    background-image: url('../images/controller/rightpad_arrowdown.png');
+}
+
+#mo-logo {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#weather-logo {
+    padding-top:20px;
+}

@@ -10,56 +10,101 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Mobile App</title>
+    <title>Weath&#179;r Mobile App</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="../../styles/reset.css">
-    <!-- <link href="../../styles/reset.css" rel="stylesheet"/> -->
-    <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
-    <!-- endbuild -->
+
+    <!--<link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../styles/mobile-styles.css">
+
 
 </head>
 <body ng-app="mobileApp">
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
-
-<!--[if lt IE 9]>
-<script src="../../bower_components/es5-shim/es5-shim.js"></script>
-<script src="../../bower_components/json3/lib/json3.min.js"></script>
-<![endif]-->
 
 <!-- application content -->
-<div ng-controller="AppCtrl">
+<div ng-controller="AppCtrl" class="container-fluid">
 
-    <informatics-badge></informatics-badge>
+    <div id="portrait" class="row">
+        <div class="col-xs-12">
+            <img src="../../images/phone-tilt.svg"/>
+        </div>
+    </div>
 
-    <!-- this element is hidden by default and is just used to allow easy camera manipulation -->
-    <gl-scene gl-stats gl-orbit-controls hide="false" width="width" height="height">
-        <gl-box name="testBox"></gl-box>
-    </gl-scene>
+    <div id="landscape" class="row">
 
-    <!-- to do -->
-    <!--<gl-controls></gl-controls>-->
-    <i class="fa fa-5x fa-arrow-circle-o-up" style="position:absolute; top:0px; left:0px;"></i>
-    <i class="fa fa-5x fa-arrow-circle-o-down" style="position:absolute; top:0px; left:0px;"></i>
+        <div id="connection" class="col-xs-8 col-xs-offset-2">
+            <h2>Sync device to your desktop app</h2>
+            <label>Enter 4 digit code :</label><input id="connection-code" type="text">
+            <a ng-click="connect()">Connect</a>
+        </div>
+
+        <div id="controller" class="col-xs-12" style="display: none">
+
+            <img id="mo-logo" src="../../images/controller/metlogo.png" />
+            <img id="weather-logo" src="../../images/controller/weath3rlogo.png"/>
+
+            <div class="row" id="control-panel">
+                <div class="col-xs-4 control-button-panel" id="look-controls">
+                    <div class="row">
+                        <div class="col-xs-4 look-button"></div>
+                        <div id="up" class="col-xs-4 look-button"></div>
+                        <div class="col-xs-4 look-button"></div>
+                    </div>
+                    <div class="row">
+                        <div id="left" class="col-xs-4 look-button"></div>
+                        <div id="look-controls-center" class="col-xs-4 look-button"></div>
+                        <div id="right" class="col-xs-4 look-button"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 look-button"></div>
+                        <div id="down" class="col-xs-4 look-button"></div>
+                        <div class="col-xs-4 look-button"></div>
+                    </div>
+                </div>
+                <div class="col-xs-4 control-button-panel" id="option-controls">
+                    <img src="../../images/controller/reset.png">
+                </div>
+                <div class="col-xs-4 control-button-panel" id="pan-controls">
+                    <div class="row">
+                        <div id="forward" class="col-xs-6 pan-button"></div>
+                        <div id="back" class="col-xs-6 pan-button"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<div id="controls">-->
+                <!--<a id="up">&nbsp;</a>-->
+                <!--<a id="down">&nbsp;</a>-->
+                <!--<a id="left">&nbsp;</a>-->
+                <!--<a id="right">&nbsp;</a>-->
+                <!--<a id="forward">&nbsp;</a>-->
+                <!--<a id="back">&nbsp;</a>-->
+            <!--</div>-->
+
+            <!-- this element is hidden by default and is just used to allow easy camera manipulation -->
+            <gl-scene gl-retro-mobile-controls hide="false" width="width" height="height">
+                <!--<gl-box name="testBox"></gl-box>-->
+            </gl-scene>
+        </div>
+    </div>
+
 
 </div>
 
 <!-- scripts/scripts.js -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 
 <script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../../bower_components/angularjs/angular.min.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs/build/three.min.js"></script>
-<script type="text/javascript" src="../../bower_components/threejs-controls/src/OrbitControls.js"></script>
-<script type="text/javascript" src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
 <script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
 <script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://code.angularjs.org/1.4.3/angular-touch.js"></script>
 
 <script type="text/javascript" src="mobileApp.js"></script>
 <script type="text/javascript" src="../../components/connections/glMobileSocketService.js"></script>
@@ -71,7 +116,7 @@
 <script type="text/javascript" src="../../components/renderer/glRendererService.js"></script>
 <script type="text/javascript" src="../../components/glConstantsService.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/glBox.js"></script>
-<script type="text/javascript" src="../../components/controls/glOrbitControls.js "></script>
+<script type="text/javascript" src="../../components/controls/glRetroMobileControls.js"></script>
 <!-- endbuild -->
 
 </body>
