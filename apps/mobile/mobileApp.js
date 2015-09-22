@@ -38,7 +38,21 @@ angular.module('mobileApp', ["three", "ngTouch"])
         //glRendererService.renderer.setClearColor(new THREE.Color("rgb(255, 0, 0)"));
 
         window.onload = function () {
+            $scope.setBodySize();
             $scope.$broadcast('init scene');
+        };
+
+        window.onresize = function () {
+            $scope.setBodySize();
+        };
+
+        window.ondeviceorientation = function() {
+            $scope.setBodySize();
+        }
+
+        $scope.setBodySize = function() {
+            $('.container-fluid').css('width',$scope.width()+"px");
+            $('.container-fluid').css('height',$scope.height()+"px");
         };
 
         $scope.connect = function() {
@@ -72,7 +86,6 @@ angular.module('mobileApp', ["three", "ngTouch"])
                 });
             });
         });
-
 
 
     }]);

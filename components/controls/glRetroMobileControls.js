@@ -11,8 +11,8 @@ angular.module('three')
                 var controls = new THREE.MyRetroMobileControls(sceneCtrl.cameraService.camera, sceneCtrl.rendererService.renderer.domElement);
 
                 scope.$on('update', function(event, data){
-                    controls.update(data.delta);
 
+                    controls.update(data.delta);
                     if(controls.move){
                         $rootScope.$broadcast('moving');
                     }
