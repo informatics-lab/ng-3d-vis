@@ -1,10 +1,8 @@
 'use strict';
 
 angular.module('three')
-    .service('glSocketService', function (glCameraService) {
+    .service('glSocketService', function ($rootScope, glCameraService) {
         var vm = this;
-
-        vm.cameraService = glCameraService;
 
         vm.roomId = null;
         vm.connectedToRoom = false;
@@ -18,39 +16,45 @@ angular.module('three')
             vm.socket.on('subscription', function (data) {
                 vm.connectedToRoom = true;
                 vm.roomId = data.roomId;
-                console.log('roomId set to : ' + vm.roomId);
 
-                //TODO swap alerts out for modals
                 if (data.participants == 1) {
                     vm.connectionStatus = "waiting";
-                    $rootScope.$broadcast('socket', vm.connectionStatus);
-                    alert("go to app and use code: "+ vm.roomId);
+                    $rootScope.$broadcast('connection-code', vm.roomId);
                 } else if (data.participants > 1) {
                     vm.connectionStatus = "connected";
-                    alert("mobile device connected!");
+                    $rootScope.$broadcast('client connected',{});
                 }
             });
 
             vm.socket.on('camera', function (data) {
+                if(!glCameraService.tweening) {
+                    glCameraService.camera.position.set(
+                        data.message.position.x,
+                        data.message.position.y,
+                        data.message.position.z
+                    );
 
-                vm.cameraService.camera.position.set(
-                    data.message.position.x,
-                    data.message.position.y,
-                    data.message.position.z
-                );
-
-                vm.cameraService.camera.setRotationFromQuaternion(
-                    new THREE.Quaternion(
-                        data.message.quaternion._x,
-                        data.message.quaternion._y,
-                        data.message.quaternion._z,
-                        data.message.quaternion._w
-                    )
-                );
-
+                    glCameraService.camera.setRotationFromQuaternion(
+                        new THREE.Quaternion(
+                            data.message.quaternion._x,
+                            data.message.quaternion._y,
+                            data.message.quaternion._z,
+                            data.message.quaternion._w
+                        )
+                    );
+                }
             });
 
+            vm.send = function(message) {
+                vm.socket.emit('send camera', {
+                    room : vm.roomId,
+                    message : message
+                });
+            };
+
         };
+
+        return vm;
 
 
     });
