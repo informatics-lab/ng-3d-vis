@@ -20,10 +20,6 @@ angular.module('desktopApp')
             $http.get(url)
                 .success(function (data, status, headers, config) {
                     vm.data = data;
-                    console.log("loaded data : ", vm.data);
-                    // data.forecast_reference_time
-                    // fmt "YYYY-MM-DDTHH:MM:SS.000Z"
-                    // also data.model = "uk_v"
                     loadVideo(vm.data._links.data.href);
                 })
                 .error(function (data, status, headers, config) {
@@ -44,10 +40,6 @@ angular.module('desktopApp')
             vm.video.addEventListener('loadeddata', function () {
                 $rootScope.$broadcast('video data loaded');
                 vm.video.play();
-            });
-            vm.video.addEventListener('loadedmetadata', function () {
-                $rootScope.$broadcast('video metadata loaded');
-                console.log('video duration', vm.video.duration);
             });
         };
 

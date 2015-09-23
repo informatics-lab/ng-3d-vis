@@ -10,19 +10,21 @@ angular.module('three')
             scope: {},
             controller: forecastTimeController,
             controllerAs: 'vm',
-            template: '<span id="forecastTime" style="color:white; position: absolute; bottom: 20px; right: 80px;">{{dateTime}}</span>',
+            //template: '<span id="forecast-time" ></span>',
             link: forecastTimePostLink
         }
     });
 
 function forecastTimePostLink(scope, elem, attrs) {
-    elem.on('click', function() {
-        console.log('forecastTime: click event');
-    });
+    elem.append('span');
+    elem.addClass('forecast-time');
+
     scope.$on('frame updated', function () {
-      //console.log('forecastTime: frame updated', scope.vm.videoService.video.currentTime);
-      scope.dateTime = "+" + (36 * scope.vm.videoService.video.currentTime / scope.vm.videoService.video.duration).toPrecision(3) + "hrs";
-      // See http://www.inwebson.com/html5/custom-html5-video-controls-with-jquery/
+        scope.dateTime = new Date(scope.vm.videoService.data.forecast_reference_time);
+        scope.dateTime = scope.dateTime.addHours(Math.floor(scope.vm.videoService.video.currentTime));
+        //elem.append('span');
+        //elem.addClass('forecast-time');
+        elem.text(scope.dateTime);
     });
 }
 
@@ -31,5 +33,8 @@ function forecastTimeController($scope, glVideoService, glConstantsService) {
     vm.videoService = glVideoService;
     vm.constants = glConstantsService;
 
-
+    Date.prototype.addHours= function(h){
+        this.setHours(this.getHours()+h);
+        return this;
+    }
 }
