@@ -39,21 +39,22 @@ angular.module('mobileApp')
             vm.socket.on('camera', function (data) {
 
                 console.log("cam data received", data);
+                if(!glCameraService.tweening) {
+                    glCameraService.camera.position.set(
+                        data.message.position.x,
+                        data.message.position.y,
+                        data.message.position.z
+                    );
 
-                glCameraService.camera.position.set(
-                    data.message.position.x,
-                    data.message.position.y,
-                    data.message.position.z
-                );
-
-                glCameraService.camera.setRotationFromQuaternion(
-                    new THREE.Quaternion(
-                        data.message.quaternion._x,
-                        data.message.quaternion._y,
-                        data.message.quaternion._z,
-                        data.message.quaternion._w
-                    )
-                );
+                    glCameraService.camera.setRotationFromQuaternion(
+                        new THREE.Quaternion(
+                            data.message.quaternion._x,
+                            data.message.quaternion._y,
+                            data.message.quaternion._z,
+                            data.message.quaternion._w
+                        )
+                    );
+                }
             });
 
             vm.send = function(message) {

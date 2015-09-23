@@ -70,7 +70,7 @@ angular.module('mobileApp', ["three", "ngTouch"])
                     //$('body').css('background-size', '100%');
                 });
             });
-            $scope.$on('moving', function() {
+            $scope.$on('update', function() {
                 glMobileSocketService.send({
                     'position' : {
                         x : glCameraService.camera.position.x,

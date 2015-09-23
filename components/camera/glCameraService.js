@@ -18,6 +18,7 @@ angular.module('three')
         };
 
         vm.moveCamera = function (pos, lookAtMiddle) {
+            vm.tweening = true;
             var tween = new TWEEN.Tween(vm.camera.position)
                 .to({x: pos.x, y: pos.y, z: pos.z}, 3000)
                 .easing(TWEEN.Easing.Sinusoidal.InOut)
@@ -28,6 +29,7 @@ angular.module('three')
                 })
                 .onComplete(function () {
                     $rootScope.$broadcast('tween complete');
+                    vm.tweening = false;
                 })
                 .start();
         };

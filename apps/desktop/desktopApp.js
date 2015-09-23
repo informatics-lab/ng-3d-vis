@@ -126,5 +126,4 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             $scope.$broadcast('init scene');
         });
 
-
     }]);
