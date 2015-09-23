@@ -24,6 +24,7 @@ angular.module('three')
                 post: function scenePostLink(scope, element, attrs) {
 
                     scope.init = function () {
+                        //element.css('width', scope.width());
 
                         window.addEventListener('resize', scope.onWindowResize, false);
 
@@ -83,6 +84,10 @@ function sceneController($scope, $rootScope, glSceneService, glCameraService, gl
         //console.log('rendering...');
         $rootScope.$broadcast('render', {delta: delta});
         vm.rendererService.renderer.render(vm.sceneService.scene, vm.cameraService.camera);
+        vm.rendererService.renderer.clearDepth(); // optional, depending on use case
+        if(vm.sceneService.scene2) {
+            vm.rendererService.renderer.render(vm.sceneService.scene2, vm.cameraService.camera);
+        }
         vm.cameraService.cameraNormal.set(0, 0, -1);
         vm.cameraService.cameraNormal.applyQuaternion(vm.cameraService.camera.quaternion);
     };

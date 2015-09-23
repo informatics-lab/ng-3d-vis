@@ -76,7 +76,6 @@ THREE.MyFirstPersonControls = function ( object, domElement ) {
     this.position0 = this.object.position.clone();
 
     // events
-
     var changeEvent = { type: 'change' };
     var startEvent = { type: 'start'};
     var endEvent = { type: 'end'};
