@@ -31,9 +31,9 @@ function postBackgroundLink(scope, element, attrs, parentCtrl) {
     function draw(){
         var dims = scope.vm.videoService.data.data_dimensions;
         dims.y += 2;
-        var boxDims = new THREE.Vector3(dims.x + 1,
-                            dims.z * scope.vm.constants.HEIGHT_SCALE_FACTOR + 1,
-                            dims.y + 1);
+        var boxDims = new THREE.Vector3(dims.x + 5,
+            (dims.z * scope.vm.constants.HEIGHT_SCALE_FACTOR) + 5,
+                            dims.y + 5);
 
         var boxGeom = new THREE.BoxGeometry(boxDims.x, boxDims.y, boxDims.z);
 
