@@ -27,25 +27,25 @@ angular.module('three')
             });
 
             vm.socket.on('camera', function (data) {
+                if(!glCameraService.tweening) {
+                    glCameraService.camera.position.set(
+                        data.message.position.x,
+                        data.message.position.y,
+                        data.message.position.z
+                    );
 
-                glCameraService.camera.position.set(
-                    data.message.position.x,
-                    data.message.position.y,
-                    data.message.position.z
-                );
-
-                glCameraService.camera.setRotationFromQuaternion(
-                    new THREE.Quaternion(
-                        data.message.quaternion._x,
-                        data.message.quaternion._y,
-                        data.message.quaternion._z,
-                        data.message.quaternion._w
-                    )
-                );
+                    glCameraService.camera.setRotationFromQuaternion(
+                        new THREE.Quaternion(
+                            data.message.quaternion._x,
+                            data.message.quaternion._y,
+                            data.message.quaternion._z,
+                            data.message.quaternion._w
+                        )
+                    );
+                }
             });
 
             vm.send = function(message) {
-                console.log("sending",message);
                 vm.socket.emit('send camera', {
                     room : vm.roomId,
                     message : message
