@@ -20,7 +20,6 @@ angular.module('desktopApp')
             $http.get(url)
                 .success(function (data, status, headers, config) {
                     vm.data = data;
-                    console.log("loaded data : ", vm.data);
                     loadVideo(vm.data._links.data.href);
                 })
                 .error(function (data, status, headers, config) {
