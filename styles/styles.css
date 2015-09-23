@@ -268,3 +268,11 @@ body {
     font-size:180%;
     padding:10px;
 }
+
+#resetCamera {
+    position: absolute;
+    max-width:110px;
+    top:22px;
+    left:20px;
+    cursor: pointer;
+}
