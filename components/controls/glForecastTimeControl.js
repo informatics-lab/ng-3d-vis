@@ -25,9 +25,9 @@ function forecastTimePostLink(scope, elem, attrs) {
     });
 }
 
-function forecastTimeController($scope, glVideoService, glConstantsService) {
+function forecastTimeController($scope, glImageService, glConstantsService) {
     var vm = this;
-    vm.videoService = glVideoService;
+    vm.videoService = glImageService;
     vm.constants = glConstantsService;
 
     Date.prototype.addHours= function(h){

@@ -18,7 +18,7 @@ function postLightLink(scope, element, attrs, parentCtrl) {
     var dirLightIntensity = 3;
 
     var dirLight = new THREE.DirectionalLight(lightColor, dirLightIntensity);
-    dirLight.position.set(0.0, 20.0, 0.0);
+    dirLight.position.set(0.0, 20.0, 20.0);
 
     parentCtrl.sceneService.addSomething(scope.name, dirLight);
 

@@ -55,9 +55,9 @@ function postBackgroundLink(scope, element, attrs, parentCtrl) {
     });
 }
 
-function backgroundController($scope, glVideoService, glConstantsService) {
+function backgroundController($scope, glImageService, glConstantsService) {
     var vm = this;
 
-    vm.videoService = glVideoService;
+    vm.videoService = glImageService;
     vm.constants = glConstantsService;
 }

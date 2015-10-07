@@ -1,0 +1,198 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8 ]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weath&#179;r Desktop App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <!--<link rel="stylesheet" href="../../styles/reset.css">-->
+
+    <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../styles/styles.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.css" rel="stylesheet"/>
+    <!-- endbuild -->
+
+</head>
+<!--<body ng-app="desktopApp" style="background: linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%);">-->
+<body ng-app="desktopApp">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!--[if lt IE 9]>
+<script src="../../bower_components/es5-shim/es5-shim.js"></script>
+<script src="../../bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+<!-- application content -->
+<div class="container-fluid" ng-controller="AppCtrl">
+
+    <!--Modal-->
+    <div id="load-modal" class="modal show">
+        <img id="logo" src="../../images/mo-prototype-logo.svg" />
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <div class="row load-modal-content">
+                        <div id="modal-content-1">
+                            <div class="col-md-6">
+                                <h2>Classic Navigation</h2>
+                                <img src="../../images/mouse.svg" ng-click="launchClassic()"/>
+
+                                <p>Use your mouse and track pad to spin and zoom in and around the weather cube</p>
+                                <a ng-click="launchClassic()">Launch Classic</a>
+                            </div>
+                            <div class="col-md-6 left-border">
+                                <h2>Multiple-Screen Experience</h2>
+                                <img src="../../images/multi-device.svg" ng-click="launchMulti()"/>
+
+                                <p>Sync your mobile or tablet and control how and where you fly through the weather</p>
+                                <a ng-click="launchMulti()">Launch Multi-Screen</a>
+                            </div>
+                        </div>
+                        <div id="modal-content-2" style="display: none;">
+                            <div class="col-md-12">
+                                <h2>Multiple-Screen Experience</h2>
+                                <p>Control your computer screen with your smart phone or tablet</p>
+                                <hr/>
+                                <div class="steps">
+                                    <p class="step">Step 1.&nbsp;&nbsp;Navigate your device browser to the following
+                                        url...</p>
+                                    <p class="info">http://www......../mobile</p>
+                                    <p class="step">Step 2.&nbsp;&nbsp;Enter this 4 digit code <span id="connection-code" style="color:rgb(74,133,169)">1234</span></p>
+                                </div>
+                                <img id="control-device" src="../../images/hand-gesture.svg" />
+                                <p style="position:relative;">Turning your device into a controller
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Cloud Box App -->
+    <div id="navbar" class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-2 logo">
+                    <img src="../../images/mo-prototype-logo.svg" alt="Met Office Prototype" width="100"/>
+                </div>
+                <div class="col-md-10 text">
+                    <h2>Experience the weather:</h2>
+
+                    <p>Rotate, spin and zoom into the cube to start flying through the clouds and immersing yourself in
+                        the latest forecast.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 device-info left-border">
+            <h4>multiple-screen experience</h4>
+            <img src="../../images/multi-device.svg" style="max-width: 120px"/>
+        </div>
+    </div>
+
+    <div id="scene" class="row">
+
+        <gl-scene gl-orbit-controls width="width" height="sceneHeight">
+            <gl-light name="light"></gl-light>
+            <gl-location-search></gl-location-search>
+            <!--<gl-reverse-location-search></gl-reverse-location-search>-->
+            <gl-camera-reset></gl-camera-reset>
+            <gl-forecast-time></gl-forecast-time>
+            <!--<gl-layered-sky name="sky"></gl-layered-sky>-->
+            <gl-volume-rendered-sky name="sky"></gl-volume-rendered-sky>
+            <gl-background name="background" fillcolour="rgba(10,0,20,0.05)"></gl-background>
+
+            <!-- <gl-map name="terrain"></gl-map> -->
+
+            <gl-map-marker name="marker-london" label="London" coordinate="51.5072,-0.1275"></gl-map-marker>
+            <gl-map-marker name="marker-birmingham" label="Birmingham" coordinate="52.4831,-1.8936"></gl-map-marker>
+            <gl-map-marker name="marker-dublin" label="Dublin" coordinate="53.3478,-6.2597"></gl-map-marker>
+            <gl-map-marker name="marker-edinburgh" label="Edinburgh" coordinate="55.9531,-3.1889"></gl-map-marker>
+            <!--<gl-map-marker name="marker-cardiff" label="Cardiff" coordinate="51.4815,-3.1790"></gl-map-marker>-->
+            <gl-map-marker name="marker-exeter" label="Exeter" coordinate="50.7167,-3.5333"></gl-map-marker>
+        </gl-scene>
+
+    </div>
+    <!--<gl-video-->
+    <!--url="videoUrl"-->
+    <!--shrink-factor="10">-->
+    <!--</gl-video>-->
+
+    <div id="vid" style="position: absolute; left:0px"></div>
+    <div id="canv" style="position: absolute; right:0px"></div>
+</div>
+
+<!-- scripts/scripts.js -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+<!-- toaster -->
+
+<script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../../bower_components/angularjs/angular.min.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs/build/three.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs-controls/src/OrbitControls.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs-controls/src/FirstPersonControls.js"></script>
+<script type="text/javascript"
+        src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
+<script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
+<script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
+<script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.js"></script>
+
+<script type="text/javascript" src="londonApp.js"></script>
+<script type="text/javascript" src="../../components/threeModule.js"></script>
+<script type="text/javascript" src="../../components/debug/glStats.js"></script>
+<script type="text/javascript" src="../../components/glScene.js"></script>
+<script type="text/javascript" src="../../components/glSceneService.js"></script>
+<script type="text/javascript" src="../../components/camera/glCameraService.js"></script>
+<script type="text/javascript" src="../../components/camera/glCameraReset.js"></script>
+<script type="text/javascript" src="../../components/renderer/glRendererService.js"></script>
+<script type="text/javascript" src="../../components/glConstantsService.js"></script>
+<script type="text/javascript" src="../../components/controls/glOrbitControls.js"></script>
+<script type="text/javascript" src="../../components/controls/glFirstPersonControls.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/glBackground.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/glLight.js"></script>
+<script type="text/javascript" src="../../components/image/glImageService.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/skybox/glLayeredSky.js"></script>
+<script type="text/javascript" src="../../components/connections/glSocketService.js"></script>
+
+<!-- old -->
+<script type="text/javascript" src="../../components/connections/glMobileConnection.js"></script>
+<script type="text/javascript" src="../../components/controls/glForecastTimeControl.js"></script>
+<script type="text/javascript" src="../../components/location_search/glLocationSearch.js"></script>
+<script type="text/javascript" src="../../components/location_search/glCoordService.js"></script>
+<script type="text/javascript" src="../../components/location_search/glReverseLocationSearch.js"></script>
+<script type="text/javascript" src="../../components/location_search/glLocationMessages.js"></script>
+<script type="text/javascript" src="../../components/camera/glMacro.js"></script>
+
+<script type="text/javascript" src="../../components/scene_objects/skybox/glShaderRequestService.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/skybox/glVolumeRenderedSky.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/map/glMap.js"></script>
+<script type="text/javascript" src="../../components/scene_objects/map/glMapMarker.js"></script>
+
+<!-- endbuild -->
+
+</body>
+</html>

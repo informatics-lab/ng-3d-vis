@@ -139,18 +139,18 @@ angular.module('three')
         };
     });
 
-function volumeRenderedSkyController($scope, glVideoService, glConstantsService) {
+function volumeRenderedSkyController($scope, glImageService, glConstantsService) {
     var vm = this;
 
-    vm.videoService = glVideoService;
+    vm.videoService = glImageService;
     vm.constants = glConstantsService;
 
     //ported from glSkyboxParameterService these are volume rendering specific params so belong here?!
     vm.params = {
         nSteps : 64,
         shadeSteps : 16,
-        opacFac : 4.0,
-        alphaCorrection : 4 / 64, //opacFac / nSteps
+        opacFac : 10.0,
+        alphaCorrection : 10 / 64, //opacFac / nSteps
         mipMapTex : false,
         downScaling : 1,
         play : true,

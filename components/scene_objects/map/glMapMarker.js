@@ -21,7 +21,7 @@ angular.module('three')
 });
 
 
-function mapMarkerController($scope, glVideoService, glConstantsService, glCoordService) {
+function mapMarkerController($scope, glImageService, glConstantsService, glCoordService) {
   var vm = this;
   vm.coordService = glCoordService;
   vm.addMarker = function(attrs)

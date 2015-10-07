@@ -19,10 +19,10 @@ angular.module('three')
         };
     });
 
-function mapController($scope, glVideoService, glConstantsService) {
+function mapController($scope, glImageService, glConstantsService) {
     var vm = this;
 
-    vm.videoService = glVideoService;
+    vm.videoService = glImageService;
     vm.constants = glConstantsService;
 
     vm.getShader = function(src) {

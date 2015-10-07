@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('three')
-    .service('glCoordService', ['$rootScope', 'glVideoService', 'glConstantsService', function ($rootScope, glVideoService, glConstantsService) {
+    .service('glCoordService', ['$rootScope', 'glImageService', 'glConstantsService', function ($rootScope, glImageService, glConstantsService) {
         var vm = this;
 
-        vm.videoService = glVideoService;
+        vm.videoService = glImageService;
         vm.constants = glConstantsService;
 
         $rootScope.$on('video data loaded', function() {
