@@ -54,7 +54,7 @@ function mapMarkerController($scope, glVideoService, glConstantsService, glCoord
 
 
     var spriteMap = THREE.ImageUtils.loadTexture( canvas.toDataURL() );
-
+    spriteMap.minFilter = THREE.NearestFilter;
     var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, fog: true } );
 
     var sprite = new THREE.Sprite( spriteMaterial );

@@ -24,6 +24,7 @@ function postBackgroundLink(scope, element, attrs, parentCtrl) {
         context.fillStyle = rgba;
         context.fillRect( 0, 0, canvas.width, canvas.height );
         var texture = new THREE.Texture( canvas );
+        texture.minFilter = THREE.NearestFilter;
         texture.needsUpdate = true;
         return texture;
     }
