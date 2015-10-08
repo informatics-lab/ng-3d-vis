@@ -112,15 +112,6 @@ angular.module('three')
 
                 }
 
-                function conditionalBroadcast() {
-                    if (scope.vm.gotShaders && scope.vm.gotVideo) {
-                        scope.$broadcast('skyboxReady');
-                        scope.vm.gotShaders = false;
-                        scope.vm.gotVideo = false;
-                    }
-                }
-
-
                 scope.$on('render', function () {
                     //scope.vm.dataTexture.needsUpdate = true;
                     parentCtrl.rendererService.renderer.render(scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
