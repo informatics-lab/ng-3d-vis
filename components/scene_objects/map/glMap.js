@@ -129,7 +129,7 @@ function mapController($scope, glVideoService, glConstantsService) {
 
         // GEOMETRY
         var geometry = new THREE.PlaneBufferGeometry(vm.videoService.data.data_dimensions.x, vm.videoService.data.data_dimensions.y, 512, 512);
-        geometry.computeTangents();
+        //geometry.computeTangents();
 
         var terrain = new THREE.Mesh(geometry, material);
         terrain.position.y = -(vm.videoService.data.data_dimensions.z / 2) * vm.constants.HEIGHT_SCALE_FACTOR;
