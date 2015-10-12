@@ -1,6 +1,9 @@
 <script type="x-shader/x-vertex">
 varying vec3 worldSpaceCoords;
+varying vec4 projectedCoords;
+
 void main(){
+	projectedCoords; //stupid line to avoid console warning
     //The fragment's world space coordinates as fragment output.
     gl_FragColor = vec4( worldSpaceCoords.x , worldSpaceCoords.y, worldSpaceCoords.z, 1 );
 }
