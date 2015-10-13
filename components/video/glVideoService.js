@@ -13,6 +13,11 @@ angular.module('desktopApp')
         //document.getElementById('vid').appendChild(vm.video);
         //document.getElementById('canv').appendChild(vm.frame);
 
+        vm.clear = function() {
+            vm.data = null;
+            vm.video = document.createElement('video');
+            vm.frame = document.createElement('canvas');
+        }
         /*
          * load metadata from data service
          */
