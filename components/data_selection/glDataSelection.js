@@ -9,13 +9,14 @@ angular.module('three')
       },
       controller: selectionController,
       controllerAs: 'vm',
-      template: '<input ng-model="url" id="molabSelection" style="position:absolute; top:22px; left:50%; width:500px"/>',
+      template: '<input id="molabSelection" style="position:absolute; top:22px; left:50%; width:500px"/>',
       link: selectionPostLink
     }
   });
 
 function selectionPostLink(scope, element, attrs) {
     scope.vm.loc_input = $('#molabSelection');
+    scope.vm.loc_input.attr("placeholder", scope.url);
 
     scope.vm.loc_input.keyup(function (e) {
         if (e.keyCode == 13) {

@@ -54,11 +54,13 @@ angular.module('desktopApp')
          * This is then available within this service as the vm.frame obj.
          */
         $rootScope.$on('update', function () {
-            vm.frame.width = vm.data.resolution.x / glConstantsService.DATA_DOWNSAMPLING_FACTOR;
-            vm.frame.height = vm.data.resolution.y / glConstantsService.DATA_DOWNSAMPLING_FACTOR;
-            var context = vm.frame.getContext('2d');
-            context.drawImage(vm.video, 0, 0, vm.frame.width * glConstantsService.DATA_DOWNSAMPLING_FACTOR, vm.frame.height * glConstantsService.DATA_DOWNSAMPLING_FACTOR, 0, 0, vm.frame.width, vm.frame.height);
-            $rootScope.$broadcast('frame updated');
+            if (vm.data) {
+                vm.frame.width = vm.data.resolution.x / glConstantsService.DATA_DOWNSAMPLING_FACTOR;
+                vm.frame.height = vm.data.resolution.y / glConstantsService.DATA_DOWNSAMPLING_FACTOR;
+                var context = vm.frame.getContext('2d');
+                context.drawImage(vm.video, 0, 0, vm.frame.width * glConstantsService.DATA_DOWNSAMPLING_FACTOR, vm.frame.height * glConstantsService.DATA_DOWNSAMPLING_FACTOR, 0, 0, vm.frame.width, vm.frame.height);
+                $rootScope.$broadcast('frame updated');
+            }
         });
 
         return vm;
