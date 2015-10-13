@@ -48,7 +48,7 @@ angular.module('three')
                     var boxOutlineMesh = new THREE.Mesh(boxGeometry);
                     var boxOutLine = new THREE.BoxHelper(boxOutlineMesh);
                     boxOutLine.material.color.set("#000033");
-                    parentCtrl.sceneService.addSomething(scope.name + '_box', boxOutLine);
+                    parentCtrl.sceneService.addSomething2(scope.name + '_box', boxOutLine);
 
                     /*** first pass ***/
                     var materialbackFace = new THREE.ShaderMaterial({
