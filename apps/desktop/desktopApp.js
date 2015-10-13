@@ -16,7 +16,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             return sceneHeight;
         };
 
-        $scope.videoUrl = 'http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/5617a071e4b0e3a528b9512b';
+        $scope.videoUrl = 'http://ec2-52-16-246-202.eu-west-1.compute.amazonaws.com:9000/molab-3dwx-ds/media/55896829e4b0b14cba17273c';
 
 
         $scope.toggleMacro = function () {

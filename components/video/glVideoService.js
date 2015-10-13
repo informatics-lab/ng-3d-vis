@@ -20,19 +20,6 @@ angular.module('desktopApp')
             $http.get(url)
                 .success(function (data, status, headers, config) {
                     vm.data = data;
-                    vm.data.geographic_region = [ {
-                        "lat" : 48.7673383459,
-                        "lng" : -10.1066666667
-                      }, {
-                        "lat" : 59.2766315789,
-                        "lng" : -10.1066666667
-                      }, {
-                        "lat" : 59.2766315789,
-                        "lng" : 2.44095238095
-                      }, {
-                        "lat" : 48.7673383459,
-                        "lng" : 2.44095238095
-                      } ];
                     loadVideo(vm.data._links.data.href);
                 })
                 .error(function (data, status, headers, config) {
