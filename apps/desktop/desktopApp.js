@@ -27,6 +27,8 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             console.log("parent");
         };
 
+        $scope.loadModal = $('#load-modal');
+
 
         /******************************
         Init objects in shared services
@@ -87,8 +89,8 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
         $scope.launchMulti = function () {
             console.log("launching multi controls");
             glSocketService.connect();
+            $("#container").append($scope.loadModal[0]);
             $scope.$on('connection-code', function(event, message) {
-
                 $("#modal-content-1").fadeOut(500, function() {
                     $("#connection-code").text(message);
                     $("#modal-content-2").fadeIn(500, function(){
