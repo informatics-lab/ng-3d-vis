@@ -48,9 +48,9 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
 
         glCameraService.cameraNormal = new THREE.Vector3(0,0,-1);
 
-        glCameraService.camera.position.x = 0;
-        glCameraService.camera.position.y = 791;
-        glCameraService.camera.position.z = 63;
+        glCameraService.camera.position.x = 2*0;
+        glCameraService.camera.position.y = 2*791;
+        glCameraService.camera.position.z = 2*63;
 
         glCameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
