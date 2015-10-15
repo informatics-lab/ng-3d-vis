@@ -17,10 +17,15 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
         };
 
         $scope.getVideoUrl = function() {
-            var home = "http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/models/UKV";
+            var home = "http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/videos/latest";
             $http.get(home)
                 .success(function (data, status, headers, config) {
-                    $scope.videoUrl = data._links.latest.href;
+                    var videos = data._embedded.latest_videos;
+                    for (var i=0; i<videos.length; i++) {
+                        if (videos[i].model === "UKV" && videos[i].phenomenon === "cloud_volume_fraction_in_atmosphere_layer") {
+                            $scope.videoUrl = videos[i]._links.self.href;
+                        }
+                    }
                     //VIDEO DATA
                     glVideoService.loadData($scope.videoUrl);
                 })
