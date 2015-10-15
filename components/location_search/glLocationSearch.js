@@ -8,7 +8,7 @@ angular.module('three')
       },
       controller: locSearchController,
       controllerAs: 'vm',
-      template: '<input type="text" class="text-input" id="molabSearchInput" placeholder="Take me to..." style="position:absolute; top:22px; left:12%;" onfocus="javascript: if(this.value!==\' \') this.value=\' \';"/>',
+      template: '<input type="text" class="text-input" id="molabSearchInput" placeholder="Take me to..." style="position:absolute; top:22px; left:150px;" onfocus="javascript: if(this.value!==\' \') this.value=\' \';"/>',
       link: locSearchPostLink
     }
   });
