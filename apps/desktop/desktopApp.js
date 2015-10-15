@@ -16,7 +16,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             return sceneHeight;
         };
 
-        $scope.videoUrl = 'http://ec2-52-16-246-202.eu-west-1.compute.amazonaws.com:9000/molab-3dwx-ds/media/55896829e4b0b14cba17273c';
+        $scope.videoUrl = 'http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/561b9701e4b0e3a528b9520b';
 
 
         $scope.toggleMacro = function () {
@@ -50,9 +50,9 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
 
         glCameraService.cameraNormal = new THREE.Vector3(0,0,-1);
 
-        glCameraService.camera.position.x = 0;
-        glCameraService.camera.position.y = 791;
-        glCameraService.camera.position.z = 63;
+        glCameraService.camera.position.x = 2*0;
+        glCameraService.camera.position.y = 2*791;
+        glCameraService.camera.position.z = 2*63;
 
         glCameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
 

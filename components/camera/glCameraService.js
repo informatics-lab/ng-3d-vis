@@ -12,9 +12,9 @@ angular.module('three')
         vm.camera = null;
 
         vm.defaultPosition = {
-            x: 230,
-            y: 84,
-            z: 326
+            x: 2*230,
+            y: 2*84,
+            z: 2*326
         };
 
         vm.moveCamera = function (pos, lookAtMiddle) {
