@@ -2,7 +2,7 @@
 
 var cam;
 angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster', 'ngAnimate'])
-    .controller('AppCtrl', ['$scope', '$timeout', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', 'glSocketService', function ($scope, $timeout, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService, glSocketService) {
+    .controller('AppCtrl', ['$scope', '$timeout', '$http', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', 'glSocketService', function ($scope, $timeout, $http, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService, glSocketService) {
 
         $scope.width = function () {
             return window.innerWidth;
@@ -16,7 +16,26 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             return sceneHeight;
         };
 
-        $scope.videoUrl = 'http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/5617a071e4b0e3a528b9512b';
+        $scope.getVideoUrl = function() {
+            var home = "http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/videos/latest";
+            $http.get(home)
+                .success(function (data, status, headers, config) {
+                    var videos = data._embedded.latest_videos;
+                    for (var i=0; i<videos.length; i++) {
+                        if (videos[i].model === "UKV" && videos[i].phenomenon === "cloud_volume_fraction_in_atmosphere_layer") {
+                            $scope.videoUrl = videos[i]._links.self.href;
+                        }
+                    }
+                    //VIDEO DATA
+                    glVideoService.loadData($scope.videoUrl);
+                })
+                .error(function (data, status, headers, config) {
+                    alert("failed to load data : " + status);
+                });
+        }
+
+        $scope.getVideoUrl();
+        //$scope.videoUrl = 'http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/5617a071e4b0e3a528b9512b';
 
 
         $scope.toggleMacro = function () {
@@ -120,8 +139,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             });
         });
 
-        //VIDEO DATA
-        glVideoService.loadData($scope.videoUrl);
+        
 
         $scope.$on('video data loaded', function() {
             console.log("video ready");
