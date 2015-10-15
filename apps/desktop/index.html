@@ -40,7 +40,7 @@
 <![endif]-->
 
 <!-- application content -->
-<div class="container-fluid" ng-controller="AppCtrl">
+<div id="container" class="container-fluid" ng-controller="AppCtrl">
 
     <!--Modal-->
     <div id="load-modal" class="modal show">
@@ -106,7 +106,7 @@
 
         <div class="col-md-4 device-info left-border">
             <h4>multiple-screen experience</h4>
-            <img src="../../images/multi-device.svg" style="max-width: 120px"/>
+            <img src="../../images/multi-device.svg" style="max-width: 120px" ng-click="launchMulti()"/>
         </div>
     </div>
 
