@@ -55,7 +55,10 @@ function mapMarkerController($scope, glCoordService) {
 
     var spriteMap = THREE.ImageUtils.loadTexture( canvas.toDataURL() );
     spriteMap.minFilter = THREE.NearestFilter;
-    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, fog: true } );
+    var spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap, 
+                                                    fog: true,
+                                                    depthWrite: false, 
+                                                    depthTest: false } );
 
     var sprite = new THREE.Sprite( spriteMaterial );
     sprite.scale.set( canvas.width * 0.1, canvas.height * 0.1, 0 );
