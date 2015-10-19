@@ -10,6 +10,8 @@ angular.module('three')
                 var controls = new THREE.OrbitControls(sceneCtrl.cameraService.camera, sceneCtrl.rendererService.renderer.domElement);
                 controls.zoomSpeed *= 0.5;
 
+                console.log(controls.target);
+
             }
         }
     });

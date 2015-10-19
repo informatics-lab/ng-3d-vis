@@ -35,7 +35,7 @@ THREE.MyFirstPersonControls = function ( object, domElement ) {
     this.enabled = true;
 
     this.rotateSpeed = 1.0;
-    this.moveSpeed = 20.0;
+    this.moveSpeed = 40.0;
 
     this.keys = {
         LEFT: 37,
@@ -79,6 +79,10 @@ THREE.MyFirstPersonControls = function ( object, domElement ) {
     var changeEvent = { type: 'change' };
     var startEvent = { type: 'start'};
     var endEvent = { type: 'end'};
+
+    this.resetQuat = function() {
+        
+    }
 
     this.rotateLeft = function ( angle ) {
         thetaDelta -= angle;

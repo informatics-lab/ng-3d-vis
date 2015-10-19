@@ -112,14 +112,14 @@ angular.module('three')
 
                 }
 
-                scope.$on('render', function () {
-                    //scope.vm.dataTexture.needsUpdate = true;
-                    parentCtrl.rendererService.renderer.render(scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
-                });
+                // scope.$on('render', function () {
+                //     //scope.vm.dataTexture.needsUpdate = true;
+                //     parentCtrl.rendererService.renderer.render(scope.vm.sceneBackFace, parentCtrl.cameraService.camera, scope.vm.backFaceTexture, true);
+                // });
 
-                scope.$on('update',function(){
-                    scope.vm.dataTexture.needsUpdate = true;
-                });
+                // scope.$on('update',function(){
+                //     scope.vm.dataTexture.needsUpdate = true;
+                // });
 
                 scope.$on('video data loaded', function() {
                     drawBox();
