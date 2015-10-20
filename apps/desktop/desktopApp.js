@@ -24,12 +24,14 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
                     for (var i=0; i<videos.length; i++) {
                         if (videos[i].model === "UKV" && videos[i].phenomenon === "cloud_volume_fraction_in_atmosphere_layer") {
                             $scope.videoUrl = videos[i]._links.self.href;
+                            console.log(videos[i]._links.self.href);
                         }
                     }
                     //VIDEO DATA
                     glVideoService.loadData($scope.videoUrl);
                 })
                 .error(function (data, status, headers, config) {
+                    console.log("Data", data);
                     alert("failed to load data : " + status);
                 });
         }
