@@ -108,7 +108,7 @@ angular.module('three')
 
                     var meshRayMarch = new THREE.Mesh(boxGeometry, materialRayMarch);
 
-                    parentCtrl.sceneService.addSomething(scope.name, meshRayMarch);
+                    parentCtrl.sceneService.addSomething2(scope.name, meshRayMarch);
 
                 }
 
