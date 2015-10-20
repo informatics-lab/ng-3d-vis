@@ -28,6 +28,10 @@ body {
     padding:0;
 }
 
+.img-responsive {
+    margin: 0 auto;
+}
+
 #navbar {
     background-color: rgb(223,223,223);
     width: 100%;
