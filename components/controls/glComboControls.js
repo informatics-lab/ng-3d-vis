@@ -16,11 +16,6 @@ angular.module('three')
 
                 var prev = null;
 
-                scope.$on('update', function(event, data){
-
-                    controls.update(data.delta);
-                });
-
             }
         }
     });
