@@ -16,9 +16,6 @@ angular.module('three')
                     if(controls.move){
                         $rootScope.$broadcast('moving');
                     }
-                    if(controls.reset){
-                        $rootScope.$broadcast('reset');
-                    }
                 });
 
             }
@@ -336,14 +333,6 @@ THREE.MyRetroMobileControls = function ( object, domElement ) {
         console.log("back ended");
         scope.moveBackward = false;
         scope.move = false;
-    });
-    $('#reset').bind('touchstart', function() {
-        console.log("reset start");
-        //scope.reset = true;
-    });
-    $('#reset').bind('touchend', function() {
-        console.log("reset ended");
-        //scope.reset = false;
     });
 
 };

@@ -122,20 +122,19 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             console.log("remote client was connected");
             $scope.startUp();
             $scope.$on('tween complete', function() {
-
-            glSocketService.send({
-                'position' : {
-                    x : glCameraService.camera.position.x,
-                    y : glCameraService.camera.position.y,
-                    z : glCameraService.camera.position.z
-                },
-                'quaternion' : {
-                    _w : glCameraService.camera.quaternion._w,
-                    _x : glCameraService.camera.quaternion._x,
-                    _y : glCameraService.camera.quaternion._y,
-                    _z : glCameraService.camera.quaternion._z
-                }
-            });
+                glSocketService.send({
+                    'position' : {
+                        x : glCameraService.camera.position.x,
+                        y : glCameraService.camera.position.y,
+                        z : glCameraService.camera.position.z
+                    },
+                    'quaternion' : {
+                        _w : glCameraService.camera.quaternion._w,
+                        _x : glCameraService.camera.quaternion._x,
+                        _y : glCameraService.camera.quaternion._y,
+                        _z : glCameraService.camera.quaternion._z
+                    }
+                });
             });
         });
 

@@ -85,9 +85,6 @@ angular.module('mobileApp', ["three", "ngTouch"])
                     }
                 });
             });
-            $scope.$on('reset', function() {
-                glCameraService.moveCamera(glCameraService.defaultPosition, true);
-            });
         });
 
 
