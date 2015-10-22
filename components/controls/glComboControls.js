@@ -6,21 +6,21 @@ angular.module('three')
             restrict: 'A',
             require: '^glScene',
             link: function (scope, element, attrs, sceneCtrl) {
-
-                var orbitControls = new THREE.MyOrbitControls(sceneCtrl.cameraService.camera, sceneCtrl.rendererService.renderer.domElement);
-                orbitControls.zoomSpeed *= 0.5;
-
-                var controls = orbitControls;
-
-                
-
-                var prev = null;
-
+                scope.$on('video data loaded', function() {
+                    var orbitControls = new THREE.MyOrbitControls(sceneCtrl.cameraService.camera,
+                                                    sceneCtrl.rendererService.renderer.domElement,
+                                                    {x: sceneCtrl.videoService.data.resolution.x,
+                                                     y: sceneCtrl.videoService.data.resolution.y,
+                                                     z: sceneCtrl.videoService.data.resolution.z*sceneCtrl.constants.HEIGHT_SCALE_FACTOR});
+                    orbitControls.zoomSpeed *= 0.5;
+                    var controls = orbitControls;
+                    var prev = null;
+                })
             }
         }
     });
 
-THREE.MyOrbitControls = function ( object, domElement ) {
+THREE.MyOrbitControls = function ( object, domElement, boxDims ) {
 
     this.object = object;
     this.domElement = ( domElement !== undefined ) ? domElement : document;
@@ -329,7 +329,7 @@ THREE.MyOrbitControls = function ( object, domElement ) {
 
         var delta = new THREE.Vector3(0.001, 0.001, 0.001);
 
-        if (Math.abs(scope.object.position.x) < 500 && Math.abs(scope.object.position.y) < 500 && Math.abs(scope.object.position.z) < 500) {
+        if (Math.abs(scope.object.position.x) < (boxDims.x/2.0) && Math.abs(scope.object.position.y) < (boxDims.y/2.0) && Math.abs(scope.object.position.z) < (boxDims.z/2.0)) {
             if (scope.target.distanceTo(scope.object.position) > 1) {
                 scope.target = scope.object.position.clone().sub(delta);
             }
