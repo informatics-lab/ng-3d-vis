@@ -69,8 +69,7 @@ function mapController($scope, glVideoService, glConstantsService, glCoordServic
             ABOVEMAXCOLOR:'extend'
         };
 
-        var htMapPng = 'http://ec2-52-16-245-62.eu-west-1.compute.amazonaws.com:8080/' +
-        'thredds/wms/testLab/global_dem_unmasked.nc?' +
+        var htMapPng = 'http://thredds.3dvis.informaticslab.co.uk/thredds/wms/testLab/global_dem_unmasked.nc?' +
         jQuery.param( htMapParams );
 
         wrBBox = vm.coordService.minLon.toString() + "," +
