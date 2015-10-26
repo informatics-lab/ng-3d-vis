@@ -11,6 +11,8 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             return window.innerHeight;
         };
 
+        $scope.baseUrl = "http://inlb.co/1O7IYe6";
+
         $scope.sceneHeight = function() {
             var sceneHeight = $scope.height() - angular.element("#navbar").outerHeight();
             return sceneHeight;
