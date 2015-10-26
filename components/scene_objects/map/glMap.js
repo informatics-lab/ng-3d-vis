@@ -47,88 +47,12 @@ function mapController($scope, glVideoService, glConstantsService, glCoordServic
 
         var ambient = 0x000000, diffuse = 0x666666, specular = 0xffffff, shininess = 50.0, scale = 100;
 
-        htBBox = vm.coordService.minLat.toString() + "," +
-                    vm.coordService.minLon.toString() + "," +
-                    vm.coordService.maxLat.toString() + "," +
-                    vm.coordService.maxLon.toString();
+        $scope.$on('video data loaded', function() {
+            onLoaded(parentCtrl);
+        })
 
-        var htMapParams = {
-            REQUEST:'GetMap',
-            STYLES:'boxfill/greyscale',
-            FORMAT:'image/png',
-            HEIGHT:1024,
-            WIDTH:1024,
-            //BBOX:'48.77,-10.12,59.29,2.43',
-            BBOX:htBBox,
-            CRS:'EPSG:4326',
-            LAYER:'topo',
-            VERSION:'1.3.0',
-            LAYERS:'topo',
-            COLORSCALERANGE:'0,1000',
-            NUMCOLORBANDS:'253',
-            ABOVEMAXCOLOR:'extend'
-        };
-
-        var htMapPng = 'http://thredds.3dvis.informaticslab.co.uk/thredds/wms/testLab/global_dem_unmasked.nc?' +
-        jQuery.param( htMapParams );
-
-        wrBBox = vm.coordService.minLon.toString() + "," +
-                    vm.coordService.minLat.toString() + "," +
-                    vm.coordService.maxLon.toString() + "," +
-                    vm.coordService.maxLat.toString();
-
-        var landTxtrParams = {
-            request:'getmap',
-            service:'wms',
-            //BBOX:'-10.12,48.77,2.43,59.29',
-            BBOX:wrBBox,
-            srs:'EPSG:4326',
-            format:'image/jpeg',
-            layers:'gebco_latest',
-            width:2048,
-            height:2048,
-            version:'1.1.1'
-
-        };
-        var landTxtrPng = 'http://www.gebco.net/' +
-        'data_and_products/gebco_web_services/web_map_service/mapserv?' +
-        jQuery.param( landTxtrParams );
-
-        var htImage = new Image();
-        var wrImage = new Image();
-        var dispTexture = null;
-        var wrapTexture = null;
-
-        htImage.onload = function() {
-            var canv = document.createElement('canvas');
-            var ctx = canv.getContext('2d');
-            canv.width = this.width;
-            canv.height = this.height;
-            ctx.drawImage(this, 0, 0);
-            dispTexture = new THREE.ImageUtils.loadTexture ( canv.toDataURL() );
-            if (dispTexture && wrapTexture){
-                onLoaded(dispTexture, wrapTexture, parentCtrl);
-            }
-        }
-        htImage.crossOrigin = 'anonymous';
-        htImage.src = htMapPng;      
-
-        wrImage.onload = function() {
-            var canv = document.createElement('canvas');
-            var ctx = canv.getContext('2d');
-            canv.width = this.width;
-            canv.height = this.height;
-            ctx.drawImage(this, 0, 0);
-            wrapTexture = new THREE.ImageUtils.loadTexture ( canv.toDataURL() );
-            if (dispTexture && wrapTexture){
-                onLoaded(dispTexture, wrapTexture, parentCtrl);
-            }
-        }
-        wrImage.crossOrigin = 'anonymous';
-        wrImage.src =  landTxtrPng;   
-
-        function onLoaded(dispTexture, wrapTexture, parentCtrl) {
-            //var dispTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/global_dem_unmasked.png');
+        function onLoaded(parentCtrl) {
+            var dispTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/global_dem_unmasked.png');
             dispTexture.minFilter = THREE.NearestFilter;
             var diffTexture = new THREE.ImageUtils.loadTexture('../../components/scene_objects/map/data/UK-colormap-cropped.jpg');
             //var diffTexture = wrapTexture;

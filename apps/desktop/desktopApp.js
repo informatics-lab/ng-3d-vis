@@ -1,7 +1,7 @@
 'use strict';
 
 var cam;
-angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster', 'ngAnimate'])
+angular.module('desktopApp', ["informatics-badge-directive", "three", 'ngAnimate'])
     .controller('AppCtrl', ['$scope', '$timeout', '$http', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', 'glSocketService', function ($scope, $timeout, $http, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService, glSocketService) {
 
         $scope.width = function () {
@@ -11,33 +11,17 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             return window.innerHeight;
         };
 
-        $scope.baseUrl = "http://inlb.co/1O7IYe6";
-
         $scope.sceneHeight = function() {
             var sceneHeight = $scope.height() - angular.element("#navbar").outerHeight();
             return sceneHeight;
         };
 
         $scope.getVideoUrl = function() {
-            var home = "http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/videos/latest";
-            $http.get(home)
-                .success(function (data, status, headers, config) {
-                    var videos = data._embedded.latest_videos;
-                    for (var i=0; i<videos.length; i++) {
-                        if (videos[i].model === "UKV" && videos[i].phenomenon === "cloud_volume_fraction_in_atmosphere_layer") {
-                            $scope.videoUrl = videos[i]._links.self.href;
-                        }
-                    }
-                    //VIDEO DATA
-                    glVideoService.loadData($scope.videoUrl);
-                })
-                .error(function (data, status, headers, config) {
-                    alert("failed to load data : " + status);
-                });
+            $scope.videoUrl = "../../data/video";
+            glVideoService.loadData($scope.videoUrl);
         }
 
         $scope.getVideoUrl();
-        //$scope.videoUrl = 'http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/5617a071e4b0e3a528b9512b';
 
 
         $scope.toggleMacro = function () {

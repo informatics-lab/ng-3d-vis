@@ -19,11 +19,10 @@
     <!--<link rel="stylesheet" href="../../styles/reset.css">-->
 
     <link href="../../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../../styles/styles.css">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.css" rel="stylesheet"/>
     <!-- endbuild -->
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
@@ -61,52 +60,6 @@
 <!-- application content -->
 <div id="container" class="container-fluid" ng-controller="AppCtrl">
 
-    <!--Modal-->
-    <div id="load-modal" class="modal show">
-        <img id="logo" src="../../images/mo-prototype-logo.svg" />
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6">
-                    <div class="row load-modal-content">
-                        <div id="modal-content-1">
-                            <div class="col-md-6">
-                                <h2>Classic Navigation</h2>
-                                <img src="../../images/mouse.svg" ng-click="launchClassic()"/>
-
-                                <p>Use your mouse and track pad to spin and zoom in and around the weather cube</p>
-                                <a ng-click="launchClassic()">Launch Classic</a>
-                            </div>
-                            <div class="col-md-6 left-border">
-                                <h2>Multiple-Screen Experience</h2>
-                                <img src="../../images/multi-device.svg" ng-click="launchMulti()"/>
-
-                                <p>Sync your mobile or tablet and control how and where you fly through the weather</p>
-                                <a ng-click="launchMulti()">Launch Multi-Screen</a>
-                            </div>
-                        </div>
-                        <div id="modal-content-2" style="display: none;">
-                            <div class="col-md-12">
-                                <h2>Multiple-Screen Experience</h2>
-                                <p>Control your computer screen with your smart phone or tablet</p>
-                                <hr/>
-                                <div class="steps">
-                                    <p class="step">Step 1.&nbsp;&nbsp;Navigate your device browser to the following
-                                        url...</p>
-                                    <p class="info">{{baseUrl}}/mobile</p>
-                                    <p class="step">Step 2.&nbsp;&nbsp;Enter this 4 digit code <span id="connection-code" style="color:rgb(74,133,169)">1234</span></p>
-                                </div>
-                                <img id="control-device" src="../../images/hand-gesture.svg" />
-                                <p style="position:relative;">Turning your device into a controller
-
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!--Cloud Box App -->
     <div id="navbar" class="row">
         <div class="col-md-2 col-xs-6 logo">
@@ -118,21 +71,14 @@
             <p>Rotate, spin and zoom into the cube to start flying through the clouds and immersing yourself in
                 the latest forecast.</p>
         </div>
-        <div class="col-md-4 col-xs-6 device-info left-border">
-            <h4>multiple-screen experience</h4>
-            <img src="../../images/multi-device.svg" style="max-width: 120px" ng-click="launchMulti()"/>
-        </div>
     </div>
 
     <div id="scene" class="row">
 
         <gl-scene gl-combo-controls width="width" height="sceneHeight">
             <gl-light name="light"></gl-light>
-            <gl-location-search></gl-location-search>
-            <!--<gl-reverse-location-search></gl-reverse-location-search>-->
             <gl-camera-reset></gl-camera-reset>
             <gl-forecast-time></gl-forecast-time>
-            <!--<gl-layered-sky name="sky"></gl-layered-sky>-->
             <gl-volume-rendered-sky name="sky"></gl-volume-rendered-sky>
             <gl-background name="background" fillcolour="rgba(10,0,20,0.05)"></gl-background>
 
@@ -157,7 +103,6 @@
 </div>
 
 <!-- scripts/scripts.js -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
 <!-- toaster -->
 
 <script type="text/javascript" src="../../bower_components/jquery/dist/jquery.min.js"></script>
@@ -171,9 +116,8 @@
 <script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
 <script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://code.angularjs.org/1.2.0/angular-animate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.js"></script>
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../../bower_components/angular-animate/angular-animate.min.js"></script>
 
 <script type="text/javascript" src="desktopApp.js"></script>
 <script type="text/javascript" src="../../components/threeModule.js"></script>

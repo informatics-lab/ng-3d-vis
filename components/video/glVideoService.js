@@ -17,14 +17,43 @@ angular.module('desktopApp')
          * load metadata from data service
          */
         vm.loadData = function (url) {
-            $http.get(url)
-                .success(function (data, status, headers, config) {
-                    vm.data = data;
-                    loadVideo(vm.data._links.data.href);
-                })
-                .error(function (data, status, headers, config) {
-                    alert("failed to load data : " + status);
-                });
+            vm.data =   {
+                          "_links" : {
+                            "self" : {
+                              "href" : "http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/562e3056e4b081572780d0d9"
+                            },
+                            "data" : {
+                              "href" : "http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/562e3056e4b081572780d0d9/data"
+                            }
+                          },
+                          "data_dimensions" : {
+                            "x" : 621,
+                            "y" : 810,
+                            "z" : 37
+                          },
+                          "forecast_reference_time" : "2015-10-26T09:00:00.000Z",
+                          "geographic_region" : [ {
+                            "lat" : 48.7,
+                            "lng" : -10.2
+                          }, {
+                            "lat" : 59.2,
+                            "lng" : -10.2
+                          }, {
+                            "lat" : 59.2,
+                            "lng" : 2.4
+                          }, {
+                            "lat" : 48.7,
+                            "lng" : 2.4
+                          } ],
+                          "model" : "UKV",
+                          "phenomenon" : "cloud_volume_fraction_in_atmosphere_layer",
+                          "processing_profile" : "UKV2EGRR",
+                          "resolution" : {
+                            "x" : 2048,
+                            "y" : 4096
+                          }
+                        };
+            loadVideo(url);
         };
 
         var loadVideo = function (url) {
