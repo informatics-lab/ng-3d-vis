@@ -34,14 +34,23 @@ vec3 toLocal(vec3 p) {
 
 vec3 getDatumColor(float datum) {
     vec3 color = vec3(1, 1, 1);
-    if (datum == 9999.9999){ // for debugging
-        color = vec3(1, 0, 0);
-    }
+    // if (datum == 9999.9999){ // for debugging
+    //     color = vec3(1, 0, 0);
+    // }
+    color = vec3(datum/2.0, datum/2.0, 1.0-datum);
     return color;
 }
 
 float getDatumAlpha(float datum) {
-    return datum * alphaCorrection;
+    if (datum > 0.9) {
+        return 0.0; 
+    }
+    else if (datum > 0.8) {
+        return 1.0;
+    }
+    else {
+        return 0.0;
+    }
 }
 
 float safeFloor(float val) {
@@ -230,6 +239,7 @@ vec4 getPathRGBA(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
         }
         else if (sign(ladder - vec4(0.05)) == vec4(1.0)){
             lightRayRGBA = vec4(0.7);
+
         }
         else if (sign(ladder.xyz - vec3(0.05)) == vec3(1.0)){
             lightRayRGBA = vec4(0.76);
@@ -244,7 +254,7 @@ vec4 getPathRGBA(vec3 startPos, vec3 endPos, float steps, sampler2D tex){
         #endif //end preproc
 
         apparentRGB = (1.0 - accumulatedAlpha) * dataRGBA.rgb * lightRayRGBA.rgb * dataRGBA.a * lightRayRGBA.a * 1.5;
-
+        //apparentRGB = vec3(1.0, 0.0, 0.0);
         //Perform the composition.
         accumulatedColor += apparentRGB;
         //Store the alpha accumulated so far.
