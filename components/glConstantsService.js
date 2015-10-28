@@ -10,7 +10,7 @@ angular.module('three')
         var FPS = 30;
 
         // the scaling factor for height
-        var HEIGHT_SCALE_FACTOR = 6;
+        var HEIGHT_SCALE_FACTOR = 4.5;
 
         //the factor at which data from the video will be down-sampled by
         var DATA_DOWNSAMPLING_FACTOR = 1;

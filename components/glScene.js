@@ -47,13 +47,14 @@ angular.module('three')
         }
     });
 
-function sceneController($scope, $rootScope, glSceneService, glCameraService, glRendererService, glConstantsService) {
+function sceneController($scope, $rootScope, glSceneService, glCameraService, glRendererService, glConstantsService, glVideoService) {
     var vm = this;
 
     vm.constants = glConstantsService;
     vm.sceneService = glSceneService;
     vm.cameraService = glCameraService;
     vm.rendererService = glRendererService;
+    vm.videoService = glVideoService;
 
     vm.clock = new THREE.Clock();
 
