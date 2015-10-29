@@ -9,7 +9,6 @@ angular.module('three')
             controllerAs: 'vm',
             link: function (scope, element, attrs, sceneCtrl) {
                 scope.$on('video data loaded', function() {
-                    console.log('res',scope.vm.videoService.data);
                     var orbitControls = new THREE.MyOrbitControls(sceneCtrl.cameraService.camera,
                                                     sceneCtrl.rendererService.renderer.domElement,
                                                     {x: scope.vm.videoService.data.data_dimensions.x,
