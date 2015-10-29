@@ -5,13 +5,16 @@ angular.module('three')
         return {
             restrict: 'A',
             require: '^glScene',
+            controller: comboController,
+            controllerAs: 'vm',
             link: function (scope, element, attrs, sceneCtrl) {
                 scope.$on('video data loaded', function() {
+                    console.log('res',scope.vm.videoService.data);
                     var orbitControls = new THREE.MyOrbitControls(sceneCtrl.cameraService.camera,
                                                     sceneCtrl.rendererService.renderer.domElement,
-                                                    {x: sceneCtrl.videoService.data.resolution.x,
-                                                     y: sceneCtrl.videoService.data.resolution.y,
-                                                     z: sceneCtrl.videoService.data.resolution.z*sceneCtrl.constants.HEIGHT_SCALE_FACTOR});
+                                                    {x: scope.vm.videoService.data.data_dimensions.x,
+                                                     y: scope.vm.videoService.data.data_dimensions.z*sceneCtrl.constants.HEIGHT_SCALE_FACTOR,
+                                                     z: scope.vm.videoService.data.data_dimensions.y});
                     orbitControls.zoomSpeed *= 0.5;
                     var controls = orbitControls;
                     var prev = null;
@@ -19,6 +22,12 @@ angular.module('three')
             }
         }
     });
+
+function comboController($scope, glVideoService) {
+    var vm = this;
+
+    vm.videoService = glVideoService;
+};
 
 THREE.MyOrbitControls = function ( object, domElement, boxDims ) {
 
