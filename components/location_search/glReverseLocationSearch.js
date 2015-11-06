@@ -41,8 +41,7 @@ function reverseLocSearchController($scope, $rootScope, $interval, glCoordServic
                 location: new google.maps.LatLng(loc.lat, loc.lon),
                 radius: '100'
               };
-            vm.place_search.nearbySearch(request, callback);
-            function callback(results, status){
+            vm.place_search.nearbySearch(request, function (results, status){
                 var filterfn = function(el){return el.types.indexOf("political") > -1};
                 var political_results = results.filter(filterfn);
                 try {
@@ -51,7 +50,7 @@ function reverseLocSearchController($scope, $rootScope, $interval, glCoordServic
                 catch (err) {
                     vm.loc_input.value = stringify(vm.latlon);
                 }
-            }
+              });
         }
         vm.position = new THREE.Vector3(glCameraService.camera.position.x,glCameraService.camera.position.y,glCameraService.camera.position.z);
     };

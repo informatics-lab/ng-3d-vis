@@ -8,7 +8,7 @@ angular.module('three')
             link: function (scope, element, attrs, sceneCtrl) {
 
                 var controls = new THREE.OrbitControls(sceneCtrl.cameraService.camera, sceneCtrl.rendererService.renderer.domElement);
-                controls.zoomSpeed *= 1.0;
+                controls.zoomSpeed *= 0.5;
 
             }
         }

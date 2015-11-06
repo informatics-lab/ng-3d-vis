@@ -2,7 +2,7 @@
 
 var cam;
 angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster', 'ngAnimate'])
-    .controller('AppCtrl', ['$scope', '$timeout', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', 'glSocketService', function ($scope, $timeout, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService, glSocketService) {
+    .controller('AppCtrl', ['$scope', '$timeout', '$http', 'glSceneService', 'glCameraService', 'glRendererService', 'glVideoService','glCoordService', 'glSocketService', function ($scope, $timeout, $http, glSceneService, glCameraService, glRendererService, glVideoService, glCoordService, glSocketService) {
 
         $scope.width = function () {
             return window.innerWidth;
@@ -16,7 +16,26 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             return sceneHeight;
         };
 
-        $scope.videoUrl = 'http://ec2-52-16-246-202.eu-west-1.compute.amazonaws.com:9000/molab-3dwx-ds/media/55896829e4b0b14cba17273c';
+        $scope.getVideoUrl = function() {
+            var home = "http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/videos/latest";
+            $http.get(home)
+                .success(function (data, status, headers, config) {
+                    var videos = data._embedded.latest_videos;
+                    for (var i=0; i<videos.length; i++) {
+                        if (videos[i].model === "UKV" && videos[i].phenomenon === "cloud_volume_fraction_in_atmosphere_layer") {
+                            $scope.videoUrl = videos[i]._links.self.href;
+                        }
+                    }
+                    //VIDEO DATA
+                    glVideoService.loadData($scope.videoUrl);
+                })
+                .error(function (data, status, headers, config) {
+                    alert("failed to load data : " + status);
+                });
+        }
+
+        $scope.getVideoUrl();
+        //$scope.videoUrl = 'http://data.3dvis.informaticslab.co.uk/molab-3dwx-ds/media/5617a071e4b0e3a528b9512b';
 
 
         $scope.toggleMacro = function () {
@@ -26,6 +45,8 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
         $scope.connect = function () {
             console.log("parent");
         };
+
+        $scope.loadModal = $('#load-modal');
 
 
         /******************************
@@ -48,9 +69,9 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
 
         glCameraService.cameraNormal = new THREE.Vector3(0,0,-1);
 
-        glCameraService.camera.position.x = 0;
-        glCameraService.camera.position.y = 791;
-        glCameraService.camera.position.z = 63;
+        glCameraService.camera.position.x = 2*0;
+        glCameraService.camera.position.y = 2*791;
+        glCameraService.camera.position.z = 2*63;
 
         glCameraService.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -87,8 +108,8 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
         $scope.launchMulti = function () {
             console.log("launching multi controls");
             glSocketService.connect();
+            $("#container").append($scope.loadModal[0]);
             $scope.$on('connection-code', function(event, message) {
-
                 $("#modal-content-1").fadeOut(500, function() {
                     $("#connection-code").text(message);
                     $("#modal-content-2").fadeIn(500, function(){
@@ -101,25 +122,23 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             console.log("remote client was connected");
             $scope.startUp();
             $scope.$on('tween complete', function() {
-
-            glSocketService.send({
-                'position' : {
-                    x : glCameraService.camera.position.x,
-                    y : glCameraService.camera.position.y,
-                    z : glCameraService.camera.position.z
-                },
-                'quaternion' : {
-                    _w : glCameraService.camera.quaternion._w,
-                    _x : glCameraService.camera.quaternion._x,
-                    _y : glCameraService.camera.quaternion._y,
-                    _z : glCameraService.camera.quaternion._z
-                }
-            });
+                glSocketService.send({
+                    'position' : {
+                        x : glCameraService.camera.position.x,
+                        y : glCameraService.camera.position.y,
+                        z : glCameraService.camera.position.z
+                    },
+                    'quaternion' : {
+                        _w : glCameraService.camera.quaternion._w,
+                        _x : glCameraService.camera.quaternion._x,
+                        _y : glCameraService.camera.quaternion._y,
+                        _z : glCameraService.camera.quaternion._z
+                    }
+                });
             });
         });
 
-        //VIDEO DATA
-        glVideoService.loadData($scope.videoUrl);
+        
 
         $scope.$on('video data loaded', function() {
             console.log("video ready");

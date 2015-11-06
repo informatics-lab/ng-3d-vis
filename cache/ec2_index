@@ -1,0 +1,36 @@
+{
+  "_links" : {
+    "self" : {
+      "href" : "http://ec2-52-16-246-202.eu-west-1.compute.amazonaws.com:9000/molab-3dwx-ds/media/55896829e4b0b14cba17273c"
+    },
+    "data" : {
+      "href" : "http://ec2-52-16-246-202.eu-west-1.compute.amazonaws.com:9000/molab-3dwx-ds/media/55896829e4b0b14cba17273c/data"
+    }
+  },
+  "data_dimensions" : {
+    "x" : 251,
+    "y" : 325,
+    "z" : 34
+  },
+  "forecast_reference_time" : "2015-04-01T09:00:00.000Z",
+  "geographic_region" : [ {
+    "lat" : 48.7673383459,
+    "lng" : -10.1066666667
+  }, {
+    "lat" : 59.2766315789,
+    "lng" : -10.1066666667
+  }, {
+    "lat" : 59.2766315789,
+    "lng" : 2.44095238095
+  }, {
+    "lat" : 48.7673383459,
+    "lng" : 2.44095238095
+  } ],
+  "model" : "uk_v",
+  "phenomenon" : "cloud_volume_fraction_in_atmosphere_layer",
+  "processing_profile" : "default",
+  "resolution" : {
+    "x" : 256,
+    "y" : 4096
+  }
+}

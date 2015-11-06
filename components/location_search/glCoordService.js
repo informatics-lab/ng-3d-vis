@@ -41,6 +41,7 @@ angular.module('three')
                         vm.minLon = bound.lng;
                     }
                 });
+                $rootScope.$broadcast('bounds loaded');
 
 
         });

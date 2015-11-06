@@ -21,7 +21,7 @@ angular.module('three')
 });
 
 
-function mapMarkerController($scope, glVideoService, glConstantsService, glCoordService) {
+function mapMarkerController($scope, glCoordService) {
   var vm = this;
   vm.coordService = glCoordService;
   vm.addMarker = function(attrs)
@@ -54,8 +54,11 @@ function mapMarkerController($scope, glVideoService, glConstantsService, glCoord
 
 
     var spriteMap = THREE.ImageUtils.loadTexture( canvas.toDataURL() );
-
-    var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, fog: true } );
+    spriteMap.minFilter = THREE.NearestFilter;
+    var spriteMaterial = new THREE.SpriteMaterial({ map: spriteMap, 
+                                                    fog: true,
+                                                    depthWrite: false, 
+                                                    depthTest: false } );
 
     var sprite = new THREE.Sprite( spriteMaterial );
     sprite.scale.set( canvas.width * 0.1, canvas.height * 0.1, 0 );

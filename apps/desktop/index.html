@@ -31,7 +31,26 @@
 -->
     <link rel="stylesheet" href="../../bower_components/AngularJS-Toaster/toaster.min.css" />
     <!-- endbuild -->
-
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/favicons/manifest.json">
+    <link rel="shortcut icon" href="/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <!--<body ng-app="desktopApp" style="background: linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%);">-->
 <body ng-app="desktopApp">
@@ -46,7 +65,7 @@
 <![endif]-->
 
 <!-- application content -->
-<div class="container-fluid" ng-controller="AppCtrl">
+<div id="container" class="container-fluid" ng-controller="AppCtrl">
 
     <!--Modal-->
     <div id="load-modal" class="modal show">
@@ -96,29 +115,24 @@
 
     <!--Cloud Box App -->
     <div id="navbar" class="row">
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-2 logo">
-                    <img src="../../images/mo-prototype-logo.svg" alt="Met Office Prototype" width="100"/>
-                </div>
-                <div class="col-md-10 text">
-                    <h2>Experience the weather:</h2>
-
-                    <p>Rotate, spin and zoom into the cube to start flying through the clouds and immersing yourself in
-                        the latest forecast.</p>
-                </div>
-            </div>
+        <div class="col-md-2 col-xs-6 logo">
+            <img src="../../images/mo-prototype-logo.svg" alt="Met Office Prototype" width="100"/>
         </div>
+        <div class="col-md-6 hidden-sm hidden-xs text">
+            <h2>Experience the weather:</h2>
 
-        <div class="col-md-4 device-info left-border">
+            <p>Rotate, spin and zoom into the cube to start flying through the clouds and immersing yourself in
+                the latest forecast.</p>
+        </div>
+        <div class="col-md-4 col-xs-6 device-info left-border">
             <h4>multiple-screen experience</h4>
-            <img src="../../images/multi-device.svg" style="max-width: 120px"/>
+            <img src="../../images/multi-device.svg" style="max-width: 120px" ng-click="launchMulti()"/>
         </div>
     </div>
 
     <div id="scene" class="row">
 
-        <gl-scene gl-orbit-controls width="width" height="sceneHeight">
+        <gl-scene gl-combo-controls width="width" height="sceneHeight">
             <gl-light name="light"></gl-light>
             <gl-location-search></gl-location-search>
             <!--<gl-reverse-location-search></gl-reverse-location-search>-->
@@ -159,8 +173,13 @@
 <script type="text/javascript" src="../../bower_components/threejs-controls/src/FirstPersonControls.js"></script>
 <script type="text/javascript"
         src="../../bower_components/informatics-badge-directive/src/informatics-badge.js"></script>
+<<<<<<< HEAD
 <script type="text/javascript" src="../../bower_components/tweenjs/build/tween.min.js"></script>
 
+=======
+<script type="text/javascript" src="../../bower_components/tweenjs/src/Tween.js"></script>
+<script type="text/javascript" src="../../bower_components/socket.io-client/socket.io.js"></script>
+>>>>>>> fab463af03e3a74d474b0532a20c6894867362de
 <script type="text/javascript" src="../../bower_components/threejs/examples/js/libs/stats.min.js"></script>
 
 <!--
@@ -184,6 +203,7 @@
 <script type="text/javascript" src="../../components/renderer/glRendererService.js"></script>
 <script type="text/javascript" src="../../components/glConstantsService.js"></script>
 <script type="text/javascript" src="../../components/controls/glOrbitControls.js"></script>
+<script type="text/javascript" src="../../components/controls/glComboControls.js"></script>
 <script type="text/javascript" src="../../components/controls/glFirstPersonControls.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/glBackground.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/glLight.js"></script>
@@ -200,7 +220,6 @@
 <script type="text/javascript" src="../../components/location_search/glLocationMessages.js"></script>
 <script type="text/javascript" src="../../components/camera/glMacro.js"></script>
 
-<script type="text/javascript" src="../../components/scene_objects/skybox/glShaderRequestService.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/skybox/glVolumeRenderedSky.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/map/glMap.js"></script>
 <script type="text/javascript" src="../../components/scene_objects/map/glMapMarker.js"></script>

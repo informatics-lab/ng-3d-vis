@@ -24,6 +24,7 @@ function postBackgroundLink(scope, element, attrs, parentCtrl) {
         context.fillStyle = rgba;
         context.fillRect( 0, 0, canvas.width, canvas.height );
         var texture = new THREE.Texture( canvas );
+        texture.minFilter = THREE.NearestFilter;
         texture.needsUpdate = true;
         return texture;
     }
@@ -31,9 +32,9 @@ function postBackgroundLink(scope, element, attrs, parentCtrl) {
     function draw(){
         var dims = scope.vm.videoService.data.data_dimensions;
         dims.y += 2;
-        var boxDims = new THREE.Vector3(dims.x + 5,
-            (dims.z * scope.vm.constants.HEIGHT_SCALE_FACTOR) + 5,
-                            dims.y + 5);
+        var boxDims = new THREE.Vector3(dims.x + 0,
+            (dims.z * scope.vm.constants.HEIGHT_SCALE_FACTOR) + 0,
+                            dims.y + 0);
 
         var boxGeom = new THREE.BoxGeometry(boxDims.x, boxDims.y, boxDims.z);
 
@@ -43,7 +44,9 @@ function postBackgroundLink(scope, element, attrs, parentCtrl) {
             map: fill,
             shading: THREE.FlatShading,
             vertexColors: THREE.VertexColors,
-            side: THREE.BackSide
+            side: THREE.BackSide,
+            depthWrite: false, 
+            depthTest: false
         });
         var box = new THREE.Mesh(boxGeom, boxMaterial);
 

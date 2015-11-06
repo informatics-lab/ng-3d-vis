@@ -48,7 +48,7 @@ angular.module('three')
                     var boxOutlineMesh = new THREE.Mesh(boxGeometry);
                     var boxOutLine = new THREE.BoxHelper(boxOutlineMesh);
                     boxOutLine.material.color.set("#000033");
-                    parentCtrl.sceneService.addSomething(scope.name + '_box', boxOutLine);
+                    parentCtrl.sceneService.addSomething2(scope.name + '_box', boxOutLine);
 
                     /*** first pass ***/
                     var materialbackFace = new THREE.ShaderMaterial({
@@ -108,18 +108,9 @@ angular.module('three')
 
                     var meshRayMarch = new THREE.Mesh(boxGeometry, materialRayMarch);
 
-                    parentCtrl.sceneService.addSomething(scope.name, meshRayMarch);
+                    parentCtrl.sceneService.addSomething2(scope.name, meshRayMarch);
 
                 }
-
-                function conditionalBroadcast() {
-                    if (scope.vm.gotShaders && scope.vm.gotVideo) {
-                        scope.$broadcast('skyboxReady');
-                        scope.vm.gotShaders = false;
-                        scope.vm.gotVideo = false;
-                    }
-                }
-
 
                 scope.$on('render', function () {
                     //scope.vm.dataTexture.needsUpdate = true;
