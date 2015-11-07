@@ -1,0 +1,9 @@
+{
+  "name": "threejs-controls",
+  "version": "0.0.67",
+  "homepage": "http://threejs.org/",
+  "description": "mrdoob/three.js / examples / js / controls",
+  "main": "",
+  "license": "MIT",
+  "ignore": []
+}

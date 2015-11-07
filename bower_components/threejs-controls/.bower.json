@@ -1,0 +1,17 @@
+{
+  "name": "threejs-controls",
+  "homepage": "http://threejs.org/",
+  "description": "mrdoob/three.js / examples / js / controls",
+  "main": "",
+  "license": "MIT",
+  "ignore": [],
+  "_release": "93bb07de0c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "93bb07de0c7b793e8983eed7405330c86c3bcd50"
+  },
+  "_source": "git://github.com/lememora/threejs-controls.git",
+  "_target": "*",
+  "_originalSource": "git://github.com/lememora/threejs-controls.git"
+}
