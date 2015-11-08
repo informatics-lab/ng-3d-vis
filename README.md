@@ -1,5 +1,7 @@
 # ng-3d-vis
 
+Clone this repo using git and check out the mozfest branch. To see it running, use python -m SimpleHTTPServer and go to http://localhost:8000.
+
 ## Back face texture
 
 ### Instructions
