@@ -20,9 +20,6 @@ Change the file being used for the fragment shader to:
 ```
 Save the file and refresh your browser (make sure Developer Tools are open).
 
-### What you should see
-
-
 ### What's happening
 Normally, the shader code is run in two stages. In the first stage, a gradient is drawn to show the position of the back face of the box. This is not rendered on-screen, but passed to the next stage where the volume rendering is done. In the code change above, we have asked for the first stage to be rendered on-screen instead of the second stage.
 
@@ -65,8 +62,6 @@ where x, y and z are any numbers you like between 0 and 1. Make sure they are de
 ```
 Save the file and refresh your browser (make sure Developer Tools are open).
 
-### What you should see
-Something like:
 
 ### What's happening
 Instead of running a full optical model to simulate light passing through the cloud (which takes a long time), this code "paints on" shadows and highlights by seperating the cloud into just a few bands. In the code change above, we have hacked this shortcut by making the lighting on each band a different colour.
@@ -94,8 +89,6 @@ Change it to:
 ```
 Save the file and refresh your browser (make sure Developer Tools are open).
 
-### What you should see
-Something like:
 
 ### What's happening
 Notice that we used the variable 'notacolor' without defining its value. Because of this, we end up with a colour value based solely on what happened to be in memory when we declared the variable, so it's essentially random.
@@ -165,8 +158,6 @@ Change the bounds in the condition, e.g.
         }
     }
 ```
-### What you should see
-Something like:
 
 ### What's happening
 Instead of showing all the data, we have hidden everything that doesn't fall within our chosen bounds. To make it easier to see, we have switched to a binary display of cloud/no cloud instead of varying the opacity with cloud fraction.
