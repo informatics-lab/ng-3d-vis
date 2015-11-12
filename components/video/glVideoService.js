@@ -31,7 +31,7 @@ angular.module('desktopApp')
                             "y" : 810,
                             "z" : 37
                           },
-                          "forecast_reference_time" : "2015-10-26T09:00:00.000Z",
+                          "forecast_reference_time" : "2015-11-12T00:00:00.000Z",
                           "geographic_region" : [ {
                             "lat" : 48.7,
                             "lng" : -10.2

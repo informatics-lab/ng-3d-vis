@@ -17,7 +17,7 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'ngAnimate
         };
 
         $scope.getVideoUrl = function() {
-            $scope.videoUrl = "../../data/video";
+            $scope.videoUrl = "../../data/new_vid";
             glVideoService.loadData($scope.videoUrl);
         }
 
