@@ -23,6 +23,10 @@ angular.module('desktopApp', ["informatics-badge-directive", "three", 'toaster',
             $http.get(home)
                 .success(function (data, status, headers, config) {
                     var videos = data._embedded.latest_videos;
+                    // if there's only one video, make it a list
+                    if (! videos.length) {
+                        videos = [videos];
+                    }
                     for (var i=0; i<videos.length; i++) {
                         if (videos[i].model === "UKV" && videos[i].phenomenon === "cloud_volume_fraction_in_atmosphere_layer") {
                             $scope.videoUrl = videos[i]._links.self.href;
